@@ -423,7 +423,7 @@ footer span { font-family: var(--mono); }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 .fade-in { opacity: 1; transform: translateY(0); transition: opacity 0.8s ease, transform 0.8s ease; }
-.js-ready .fade-in { opacity: 0; transform: translateY(24px); }
+.js-ready /* fade-in base handled above */
 .fade-in.visible { opacity: 1 !important; transform: translateY(0) !important; }
 
 /* RESPONSIVE */
@@ -502,10 +502,258 @@ footer span { font-family: var(--mono); }
     .hero-photo-wrap { display: none; }
   }
 
+
+/* ══════════════════════════════════════
+   PROFESSIONAL ANIMATIONS
+══════════════════════════════════════ */
+
+/* Cursor glow that follows mouse */
+.cursor-glow {
+  position: fixed; width: 320px; height: 320px;
+  border-radius: 50%; pointer-events: none; z-index: 1;
+  background: radial-gradient(circle, rgba(124,92,252,0.07) 0%, transparent 70%);
+  transform: translate(-50%,-50%);
+  transition: transform 0.08s linear;
+}
+
+/* Staggered fade-up for children */
+.js-ready .stagger > * {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+.stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+.stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+.stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+.stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+.stagger.visible > * { opacity: 1; transform: translateY(0); }
+
+/* Reveal line animation */
+.reveal-line {
+  overflow: hidden; display: block;
+}
+.js-ready .reveal-line span {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-line.visible span { transform: translateY(0); }
+
+/* Slide-in from left */
+.js-ready .slide-left {
+  opacity: 0; transform: translateX(-30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.slide-left.visible { opacity: 1; transform: translateX(0); }
+
+/* Slide-in from right */
+.js-ready .slide-right {
+  opacity: 0; transform: translateX(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.slide-right.visible { opacity: 1; transform: translateX(0); }
+
+/* Scale in */
+.js-ready .scale-in {
+  opacity: 0; transform: scale(0.92);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.scale-in.visible { opacity: 1; transform: scale(1); }
+
+/* Number counter shimmer */
+.stat-num {
+  position: relative;
+  overflow: hidden;
+}
+.stat-num::after {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: shimmer 3s ease infinite;
+}
+
+/* Typing cursor blink on hero tag */
+.hero-badge::after {
+  content: '|';
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  color: var(--cyan);
+}
+
+/* Nav link underline slide */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--cyan);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* Card tilt effect - via JS */
+.project-card, .skill-group, .stat-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Glowing border on card hover */
+.project-card:hover {
+  box-shadow: 0 0 0 0.5px var(--border2), 0 8px 40px rgba(124,92,252,0.12);
+}
+
+.skill-group:hover {
+  box-shadow: 0 0 0 0.5px var(--border2), 0 4px 24px rgba(34,211,238,0.08);
+}
+
+/* Timeline dot pulse */
+.timeline-dot::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: var(--dot-color, var(--violet));
+  opacity: 0;
+  animation: dotPulse 2.5s ease infinite;
+}
+
+/* Contact link arrow nudge */
+.contact-link::after {
+  content: '→';
+  position: absolute; right: 1.3rem;
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+  color: var(--violet2);
+  font-size: 0.9rem;
+}
+.contact-link:hover::after {
+  opacity: 1; transform: translateX(0);
+}
+
+/* Floating particles in hero */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatParticle linear infinite;
+}
+
+/* Progress bar on scroll */
+.scroll-progress {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--violet), var(--cyan), var(--amber));
+  z-index: 300;
+  transition: width 0.1s linear;
+}
+
+/* Section number badge */
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.15em;
+  margin-right: 0.5rem;
+}
+
+/* Glow text on hover in hero */
+.hero-name .last:hover {
+  filter: drop-shadow(0 0 20px rgba(34,211,238,0.4));
+  transition: filter 0.3s ease;
+}
+
+/* Button ripple */
+.btn { position: relative; overflow: hidden; }
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255,255,255,0.15);
+  animation: rippleAnim 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0%   { left: -100%; }
+  50%  { left: 150%; }
+  100% { left: 150%; }
+}
+
+@keyframes dotPulse {
+  0%   { transform: scale(1); opacity: 0.4; }
+  70%  { transform: scale(2.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+@keyframes floatParticle {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100vh) translateX(40px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes rippleAnim {
+  to { transform: scale(4); opacity: 0; }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Animated gradient on hero name */
+.hero-name .last {
+  background-size: 200% 200% !important;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* Smooth section entrance with clip-path */
+.js-ready .clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.clip-reveal.visible { clip-path: inset(0 0 0% 0); }
+
+/* Hero photo float */
+.hero-photo-wrap {
+  animation: heroPhotoFloat 6s ease-in-out infinite !important;
+}
+
+@keyframes heroPhotoFloat {
+  0%, 100% { transform: translateY(-50%); }
+  50%       { transform: translateY(calc(-50% - 12px)); }
+}
+
+/* Skill bar fill animation */
+.skill-bar {
+  height: 2px; border-radius: 2px;
+  background: var(--border);
+  margin-top: 0.5rem; overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%; border-radius: 2px;
+  width: 0%;
+  transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.visible .skill-bar-fill { width: var(--skill-pct, 80%); }
+
+/* nav scroll shrink */
+nav.scrolled {
+  padding: 0.6rem 4rem;
+  background: rgba(2,4,8,0.95);
+}
+
 </style>
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
 <div class="mesh-bg"></div>
 
 <nav>
@@ -522,6 +770,14 @@ footer span { font-family: var(--mono); }
 <!-- HERO -->
 <div class="hero">
   <div class="hero-grid"></div>
+  
+  <div class="particle" style="left:15%;width:3px;height:3px;background:rgba(124,92,252,0.6);animation-duration:12s;animation-delay:0s;"></div>
+  <div class="particle" style="left:30%;width:2px;height:2px;background:rgba(34,211,238,0.5);animation-duration:15s;animation-delay:2s;"></div>
+  <div class="particle" style="left:55%;width:2px;height:2px;background:rgba(251,191,36,0.5);animation-duration:10s;animation-delay:4s;"></div>
+  <div class="particle" style="left:70%;width:3px;height:3px;background:rgba(124,92,252,0.4);animation-duration:18s;animation-delay:1s;"></div>
+  <div class="particle" style="left:85%;width:2px;height:2px;background:rgba(34,211,238,0.6);animation-duration:13s;animation-delay:3s;"></div>
+  <div class="particle" style="left:10%;width:2px;height:2px;background:rgba(251,113,133,0.5);animation-duration:16s;animation-delay:5s;"></div>
+
   <div class="hero-glow1"></div>
   <div class="hero-glow2"></div>
 
@@ -558,7 +814,7 @@ footer span { font-family: var(--mono); }
 <!-- ABOUT -->
 <section id="about">
   <div class="fade-in">
-    <div class="section-sub">About me</div>
+    <div class="section-sub clip-reveal fade-in">About me</div>
     <h2 class="big-title"><span class="fill">About</span><br><span class="outline">Me.</span></h2>
     <div class="about-grid">
       <div class="about-text">
@@ -566,8 +822,8 @@ footer span { font-family: var(--mono); }
         <p>From designing 4-layer PCBs for race-winning electric vehicles to building attitude estimation algorithms for a real ISRO satellite mission, I work where hardware precision meets algorithmic complexity.</p>
         <p>Currently pursuing a minor in IoT while contributing to the PDEU–ISRO Bharat-G satellite mission and leading motor controller development for Team Kaizen's Shell Eco-Marathon BEV — ranked <strong>1st in India</strong> and <strong>5th in Asia</strong>.</p>
       </div>
-      <div class="about-stats">
-        <div class="stat-card"><div class="stat-top"></div><div class="stat-num">227</div><div class="stat-label">km/kWh BEV efficiency achieved</div></div>
+      <div class="about-stats stagger fade-in">
+        <div class="stat-card"><div class="stat-top"></div><div class="stat-num" data-count="227" data-suffix="">227</div><div class="stat-label">km/kWh BEV efficiency achieved</div></div>
         <div class="stat-card c"><div class="stat-top"></div><div class="stat-num">1st</div><div class="stat-label">India ranking, Shell Eco-Marathon</div></div>
         <div class="stat-card a"><div class="stat-top"></div><div class="stat-num">5th</div><div class="stat-label">Asia ranking, Shell Eco-Marathon</div></div>
         <div class="stat-card r"><div class="stat-top"></div><div class="stat-num">4L</div><div class="stat-label">DTC motor controller PCB stack</div></div>
@@ -581,9 +837,9 @@ footer span { font-family: var(--mono); }
 <!-- PROJECTS -->
 <section id="projects">
   <div class="fade-in">
-    <div class="section-sub">What I've built</div>
+    <div class="section-sub clip-reveal fade-in">What I've built</div>
     <h2 class="big-title"><span class="fill">Projects</span><br><span class="grad">&amp; Work.</span></h2>
-    <div class="projects-grid">
+    <div class="projects-grid stagger fade-in">
 
       <div class="project-card featured fade-in">
         <div>
@@ -655,9 +911,9 @@ footer span { font-family: var(--mono); }
 <!-- SKILLS -->
 <section id="skills">
   <div class="fade-in">
-    <div class="section-sub">What I know</div>
+    <div class="section-sub clip-reveal fade-in">What I know</div>
     <h2 class="big-title"><span class="fill">Skills</span><br><span class="teal">&amp; Tools.</span></h2>
-    <div class="skills-grid">
+    <div class="skills-grid stagger fade-in">
 
       <div class="skill-group" style="--skill-color:var(--amber);--skill-bg:rgba(251,191,36,0.08);--skill-border:rgba(251,191,36,0.22);--skill-dot:var(--amber);">
         <div class="skill-group-header"><div class="skill-icon">🔧</div><div class="skill-group-title">Hardware &amp; PCB</div></div>
@@ -698,39 +954,39 @@ footer span { font-family: var(--mono); }
 <!-- JOURNEY -->
 <section id="journey">
   <div class="fade-in">
-    <div class="section-sub">My path</div>
+    <div class="section-sub clip-reveal fade-in">My path</div>
     <h2 class="big-title"><span class="fill">Journey</span><br><span class="gold">&amp; Milestones.</span></h2>
     <div class="timeline">
 
-      <div class="timeline-item">
+      <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:var(--violet2);"></div>
         <div class="timeline-date" style="--dot-color:var(--violet2);">January 2026</div>
         <div class="timeline-title">Shell Eco-Marathon — Lusail International Circuit</div>
         <div class="timeline-sub">Team Kaizen achieved 1st in India and 5th in Asia at the Shell Eco-Marathon, competing at Lusail International Circuit, Doha with 227 km/kWh energy efficiency.</div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:var(--cyan);"></div>
         <div class="timeline-date" style="--dot-color:var(--cyan);">2025 – Present</div>
         <div class="timeline-title">PDEU–ISRO Bharat-G Satellite Mission (ADCS Team)</div>
         <div class="timeline-sub">Core contributor to the Attitude Determination and Control System for the ISRO-collaborated Bharat-G satellite, developing Kalman Filter and TRIAD estimation algorithms.</div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:#c084fc;"></div>
         <div class="timeline-date" style="--dot-color:#c084fc;">May 2025</div>
         <div class="timeline-title">RTL-to-GDSII ASIC Design Workshop — 10 Days</div>
         <div class="timeline-sub">Intensive industry-grade workshop using Synopsys EDA tools. Completed full ASIC design flow for an 8-bit ripple carry adder with hands-on RISC-V architecture exposure.</div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:var(--amber);"></div>
         <div class="timeline-date" style="--dot-color:var(--amber);">February 2025</div>
         <div class="timeline-title">Shell Eco-Marathon — First Competition Run, Doha</div>
         <div class="timeline-sub">First international competition for Team Kaizen, ranked 1st in India with the DTC motor controller PCB delivering reliable performance under race conditions.</div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:var(--rose);"></div>
         <div class="timeline-date" style="--dot-color:var(--rose);">Early 2024</div>
         <div class="timeline-title">Joined Team Kaizen — Motor Controller Lead</div>
@@ -746,12 +1002,12 @@ footer span { font-family: var(--mono); }
 <!-- CONTACT -->
 <section id="contact">
   <div class="fade-in">
-    <div class="section-sub">Get in touch</div>
+    <div class="section-sub clip-reveal fade-in">Get in touch</div>
     <h2 class="big-title"><span class="fill">Contact</span><br><span class="grad">Me.</span></h2>
     <div class="contact-wrapper">
       <div class="contact-info">
         <p>I'm open to collaborations, research opportunities, and conversations about motor control, satellite systems, embedded design, or anything at the edges of engineering. Based in Gandhinagar, Gujarat, India.</p>
-        <div class="contact-links">
+        <div class="contact-links stagger fade-in">
           <a href="/cdn-cgi/l/email-protection#fd9c9c84888e9590929994cfcdcdc8bd9a909c9491d39e9290" class="contact-link">
             <div class="contact-icon">✉</div>
             <div><div style="color:var(--text);font-size:0.88rem;font-weight:500;">Email</div><div style="font-size:0.76rem;margin-top:2px;color:var(--text3);"><span class="__cf_email__" data-cfemail="5332322a26203b3e3c373a6163636613343e323a3f7d303c3e">[email&#160;protected]</span></div></div>
