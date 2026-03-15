@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aayush Modi — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #181b22;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0;
+    --muted: #7a7f8e;
+    --accent: #4fc3a1;
+    --accent2: #7b68ee;
+    --accent3: #f0a04b;
+    --gold: #c9a84c;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,12,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(79,195,161,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 70%, rgba(123,104,238,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 760px;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    border: 0.5px solid rgba(79,195,161,0.3);
+    padding: 0.3rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-pills {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .pill {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    border: 0.5px solid var(--border2);
+    color: var(--muted);
+    background: var(--surface);
+  }
+
+  .pill.teal { border-color: rgba(79,195,161,0.35); color: var(--accent); background: rgba(79,195,161,0.06); }
+  .pill.purple { border-color: rgba(123,104,238,0.35); color: var(--accent2); background: rgba(123,104,238,0.06); }
+  .pill.amber { border-color: rgba(240,160,75,0.35); color: var(--accent3); background: rgba(240,160,75,0.06); }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.8rem;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0c10;
+    border: none;
+  }
+
+  .btn-primary:hover { background: #5dd4b2; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 0.5px solid var(--border2);
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: pulse 2s infinite;
+  }
+
+  .scroll-line {
+    width: 0.5px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 3.5rem;
+  }
+
+  .section-divider {
+    width: 100%;
+    height: 0.5px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-size: 0.97rem;
+    line-height: 1.85;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    padding: 1.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .stat-card.purple::before { background: var(--accent2); }
+  .stat-card.amber::before { background: var(--accent3); }
+  .stat-card.gold::before { background: var(--gold); }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+
+  .project-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+  }
+
+  .project-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover::after { opacity: 1; }
+  .project-card.purple-accent::after { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .project-card.amber-accent::after { background: linear-gradient(90deg, var(--accent3), transparent); }
+  .project-card.gold-accent::after { background: linear-gradient(90deg, var(--gold), transparent); }
+
+  .project-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .project-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .project-tag.purple { color: var(--accent2); }
+  .project-tag.amber { color: var(--accent3); }
+  .project-tag.gold { color: var(--gold); }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-chips {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 0.5px solid var(--border);
+    font-family: var(--mono);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    font-weight: 400;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .badge-gold {
+    background: rgba(201,168,76,0.1);
+    color: var(--gold);
+    border: 0.5px solid rgba(201,168,76,0.3);
+  }
+
+  .badge-teal {
+    background: rgba(79,195,161,0.1);
+    color: var(--accent);
+    border: 0.5px solid rgba(79,195,161,0.3);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 1.8rem;
+  }
+
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-group-title.purple { color: var(--accent2); }
+  .skill-group-title.amber { color: var(--accent3); }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .skill-list li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .skill-group:nth-child(2) .skill-list li::before { background: var(--accent2); }
+  .skill-group:nth-child(3) .skill-list li::before { background: var(--accent3); }
+  .skill-group:nth-child(4) .skill-list li::before { background: var(--gold); }
+  .skill-group:nth-child(5) .skill-list li::before { background: #e06b8a; }
+  .skill-group:nth-child(6) .skill-list li::before { background: #56a8e3; }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 6px;
+    width: 0.5px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 0.5px var(--accent);
+  }
+
+  .timeline-item:nth-child(2)::before { background: var(--accent2); box-shadow: 0 0 0 0.5px var(--accent2); }
+  .timeline-item:nth-child(3)::before { background: var(--accent3); box-shadow: 0 0 0 0.5px var(--accent3); }
+  .timeline-item:nth-child(4)::before { background: var(--gold); box-shadow: 0 0 0 0.5px var(--gold); }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    padding: 0.9rem 1.2rem;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(79,195,161,0.04);
+  }
+
+  .contact-link-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  footer span { font-family: var(--mono); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.9; }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Aayush Modi</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Engineering Portfolio</div>
+    <h1 class="hero-name">Aayush<br><em>Modi</em></h1>
+    <p class="hero-desc">Motor Controller Engineer & Embedded Systems Designer — crafting precision hardware at the intersection of power electronics, satellite systems, and IoT.</p>
+    <div class="hero-pills">
+      <span class="pill teal">Motor Controller Design</span>
+      <span class="pill purple">ADCS / Satellite Systems</span>
+      <span class="pill amber">ASIC & VLSI</span>
+      <span class="pill">Embedded Systems</span>
+      <span class="pill">IoT</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="fade-in">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Engineering at the<br>edge of what's possible</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Motor Controller Engineer and embedded systems designer based in Gandhinagar, Gujarat, with deep experience spanning power electronics, semiconductor device design, satellite attitude control, and IoT development.</p>
+        <p>From designing 4-layer PCBs for race-winning electric vehicles to building attitude estimation algorithms for a real ISRO satellite mission, I work where hardware precision meets algorithmic complexity.</p>
+        <p>Currently pursuing a minor in IoT while contributing to the PDEU–ISRO Bharat-G satellite mission and leading motor controller development for Team Kaizen's Shell Eco-Marathon BEV — ranked <strong style="color:var(--text);font-weight:500">1st in India</strong> and <strong style="color:var(--text);font-weight:500">5th in Asia</strong>.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">227</div>
+          <div class="stat-label">km/kWh BEV efficiency achieved</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-num">1st</div>
+          <div class="stat-label">India ranking, Shell Eco-Marathon</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-num">5th</div>
+          <div class="stat-label">Asia ranking, Shell Eco-Marathon</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Layer DTC motor controller PCB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="fade-in">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">Built to perform,<br>designed to last</h2>
+
+    <div class="projects-grid">
+
+      <!-- Featured: Kaizen BEV -->
+      <div class="project-card featured gold-accent fade-in">
+        <div>
+          <span class="project-tag gold">Shell Eco-Marathon · 2024–Present</span>
+          <h3 class="project-title">Team Kaizen — Hyper-Efficient Battery Electric Vehicle</h3>
+          <p class="project-desc">Led motor controller development for a competition BEV targeting maximum energy efficiency. Competed at Lusail International Circuit, Doha, achieving India's best performance (1st place) and 5th in Asia with a stunning 227 km/kWh efficiency — two years running.</p>
+          <div style="margin-bottom:1.2rem;">
+            <span class="badge badge-gold">🏆 1st in India (2025 & 2026)</span>
+            <span class="badge badge-teal">5th in Asia</span>
+          </div>
+          <div class="project-chips">
+            <span class="chip">Direct Torque Control</span>
+            <span class="chip">4-Layer PCB</span>
+            <span class="chip">Power Electronics</span>
+            <span class="chip">Thermal Design</span>
+          </div>
+        </div>
+        <div>
+          <div style="background:var(--surface2);border-radius:8px;padding:1.8rem;border:0.5px solid var(--border);">
+            <div style="font-family:var(--mono);font-size:0.7rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.1em;">TECHNICAL HIGHLIGHTS</div>
+            <div style="display:flex;flex-direction:column;gap:0.9rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;">
+                <span style="color:var(--muted)">PCB layers</span>
+                <span style="color:var(--text);font-family:var(--mono)">4-layer stack</span>
+              </div>
+              <div style="height:0.5px;background:var(--border)"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;">
+                <span style="color:var(--muted)">Control strategy</span>
+                <span style="color:var(--text);font-family:var(--mono)">DTC</span>
+              </div>
+              <div style="height:0.5px;background:var(--border)"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;">
+                <span style="color:var(--muted)">Efficiency achieved</span>
+                <span style="color:var(--gold);font-family:var(--mono);font-weight:500">227 km/kWh</span>
+              </div>
+              <div style="height:0.5px;background:var(--border)"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;">
+                <span style="color:var(--muted)">Venue</span>
+                <span style="color:var(--text);font-family:var(--mono)">Lusail, Doha</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bharat-G Satellite -->
+      <div class="project-card purple-accent fade-in">
+        <span class="project-tag purple">PDEU – ISRO · Satellite Mission</span>
+        <h3 class="project-title">Bharat-G Satellite — ADCS Development</h3>
+        <p class="project-desc">Core member of the Attitude Determination and Control System team for the PDEU–ISRO Bharat-G satellite mission. Developing attitude estimation algorithms including Kalman Filter and TRIAD method for precise satellite orientation.</p>
+        <div class="project-chips">
+          <span class="chip">Kalman Filter</span>
+          <span class="chip">TRIAD Algorithm</span>
+          <span class="chip">ADCS</span>
+          <span class="chip">MATLAB / Python</span>
+        </div>
+      </div>
+
+      <!-- CubeSat -->
+      <div class="project-card fade-in">
+        <span class="project-tag">CubeSat · Payload Design</span>
+        <h3 class="project-title">CubeSat Night-Time Light Imaging Payload</h3>
+        <p class="project-desc">Designed a low-earth orbit CubeSat payload optimised for capturing night-time light emissions — enabling urban growth monitoring, disaster response mapping, and energy usage analytics from space.</p>
+        <div class="project-chips">
+          <span class="chip">Payload Design</span>
+          <span class="chip">Imaging Systems</span>
+          <span class="chip">Low Earth Orbit</span>
+        </div>
+      </div>
+
+      <!-- DTC PCB -->
+      <div class="project-card amber-accent fade-in">
+        <span class="project-tag amber">Hardware Design · PCB</span>
+        <h3 class="project-title">DTC Motor Controller PCB</h3>
+        <p class="project-desc">Designed and implemented a 4-layer Direct Torque Control-based motor controller PCB for the Kaizen BEV. Key focus areas: thermal stability under high-current conditions, EMI mitigation, and reliable motor drive performance.</p>
+        <div class="project-chips">
+          <span class="chip">Altium / KiCad</span>
+          <span class="chip">Gate Drivers</span>
+          <span class="chip">Thermal Management</span>
+          <span class="chip">MOSFET Switching</span>
+        </div>
+      </div>
+
+      <!-- Smart Helmet -->
+      <div class="project-card fade-in">
+        <span class="project-tag">IoT · Safety Systems</span>
+        <h3 class="project-title">Smart Safety Helmet for Mine Workers</h3>
+        <p class="project-desc">An IoT-enabled helmet that monitors critical environmental and biometric parameters in real time — detecting hazardous gas levels, temperature, and worker vitals to enhance underground mine safety.</p>
+        <div class="project-chips">
+          <span class="chip">ESP32</span>
+          <span class="chip">Gas Sensors</span>
+          <span class="chip">MQTT</span>
+          <span class="chip">Real-Time Monitoring</span>
+        </div>
+      </div>
+
+      <!-- Reflexive Game -->
+      <div class="project-card fade-in">
+        <span class="project-tag">IoT · Interactive Systems</span>
+        <h3 class="project-title">Reflexive Interactive Sensor-Based Game</h3>
+        <p class="project-desc">A sensor-driven interactive game designed to improve reflexes and physical responsiveness. Uses proximity and motion sensing with real-time feedback loops — bridging hardware interaction and accessibility.</p>
+        <div class="project-chips">
+          <span class="chip">Arduino / ESP32</span>
+          <span class="chip">Proximity Sensing</span>
+          <span class="chip">Real-Time Feedback</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="fade-in">
+    <div class="section-label">Skills & Tools</div>
+    <h2 class="section-title">Technical depth,<br>across the stack</h2>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Hardware & PCB Design</div>
+        <ul class="skill-list">
+          <li>4-layer PCB design & layout</li>
+          <li>Direct Torque Control (DTC)</li>
+          <li>Motor drive circuits</li>
+          <li>Thermal & power analysis</li>
+          <li>EMI mitigation strategies</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title purple">Semiconductor & EDA</div>
+        <ul class="skill-list">
+          <li>Synopsys Sentaurus TCAD</li>
+          <li>PrimeTime (STA)</li>
+          <li>Verdi (Debug)</li>
+          <li>IC Compiler II (P&R)</li>
+          <li>RTL to GDSII flow</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title amber">Satellite & ADCS</div>
+        <ul class="skill-list">
+          <li>Attitude determination</li>
+          <li>Kalman Filter estimation</li>
+          <li>TRIAD method</li>
+          <li>Control system design</li>
+          <li>Orbit mechanics basics</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title" style="color:var(--gold)">Embedded Systems</div>
+        <ul class="skill-list">
+          <li>Arduino / ESP32</li>
+          <li>RISC-V architecture</li>
+          <li>Firmware development</li>
+          <li>Real-time systems</li>
+          <li>Sensor interfacing</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title" style="color:#e06b8a">IoT & Communications</div>
+        <ul class="skill-list">
+          <li>MQTT / REST protocols</li>
+          <li>Wireless sensor networks</li>
+          <li>Analog modulation (AM/FM)</li>
+          <li>CPS architecture</li>
+          <li>Edge computing basics</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title" style="color:#56a8e3">Software & Simulation</div>
+        <ul class="skill-list">
+          <li>MATLAB / Python</li>
+          <li>Machine learning (ML)</li>
+          <li>Verilog / HDL design</li>
+          <li>8-bit ASIC design</li>
+          <li>Signal processing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="fade-in">
+    <div class="section-label">Journey</div>
+    <h2 class="section-title">Milestones &<br>experiences</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">January 2026</div>
+        <div class="timeline-title">Shell Eco-Marathon — Lusail International Circuit</div>
+        <div class="timeline-sub">Team Kaizen achieved 1st in India and 5th in Asia at the annual Shell Eco-Marathon, competing at Lusail International Circuit in Doha with 227 km/kWh energy efficiency.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2025 – Present</div>
+        <div class="timeline-title">PDEU–ISRO Bharat-G Satellite Mission (ADCS Team)</div>
+        <div class="timeline-sub">Core contributor to the Attitude Determination and Control System for a real ISRO-collaborated satellite mission, developing Kalman Filter and TRIAD estimation algorithms.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">May 2025</div>
+        <div class="timeline-title">RTL-to-GDSII ASIC Design Workshop — 10 Days</div>
+        <div class="timeline-sub">Intensive industry-grade workshop using Synopsys EDA tools. Completed a full ASIC design flow for an 8-bit ripple carry adder and gained hands-on RISC-V architecture exposure.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">February 2025</div>
+        <div class="timeline-title">Shell Eco-Marathon — First Competition Run, Doha</div>
+        <div class="timeline-sub">First international competition for Team Kaizen; ranked 1st in India with the DTC motor controller PCB delivering reliable performance under race conditions.</div>
+      </div>
+      <div class="timeline-item" style="padding-bottom:0">
+        <div class="timeline-date">Early 2024</div>
+        <div class="timeline-title">Joined Team Kaizen — Motor Controller Lead</div>
+        <div class="timeline-sub">Joined Team Kaizen to develop a hyper-efficient battery electric vehicle for Shell Eco-Marathon. Designed the 4-layer DTC motor controller PCB from scratch, focusing on thermal stability and power efficiency.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="fade-in">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Let's build<br>something remarkable</h2>
+
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <p>I'm open to collaborations, research opportunities, and conversations about motor control, satellite systems, embedded design, or anything at the edges of engineering. Based in Gandhinagar, Gujarat, India.</p>
+        <div class="contact-links">
+          <a href="mailto:aayush@example.com" class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            <div>
+              <div style="color:var(--text);font-weight:400;font-size:0.88rem;">Email</div>
+              <div style="font-size:0.78rem;margin-top:2px;">aayush@example.com</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com" class="contact-link">
+            <div class="contact-link-icon" style="font-family:var(--mono);font-size:0.75rem;font-weight:500;color:var(--accent)">in</div>
+            <div>
+              <div style="color:var(--text);font-weight:400;font-size:0.88rem;">LinkedIn</div>
+              <div style="font-size:0.78rem;margin-top:2px;">linkedin.com/in/aayushmodi</div>
+            </div>
+          </a>
+          <a href="https://github.com" class="contact-link">
+            <div class="contact-link-icon" style="font-family:var(--mono);font-size:0.8rem;color:var(--muted)">&#123;&#125;</div>
+            <div>
+              <div style="color:var(--text);font-weight:400;font-size:0.88rem;">GitHub</div>
+              <div style="font-size:0.78rem;margin-top:2px;">github.com/aayushmodi</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:8px;padding:2rem;">
+        <div style="font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.12em;margin-bottom:1.5rem;">QUICK PROFILE</div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.88rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);">
+            <span style="color:var(--muted)">Location</span>
+            <span style="color:var(--text)">Gandhinagar, Gujarat, IN</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.88rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);">
+            <span style="color:var(--muted)">Specialisation</span>
+            <span style="color:var(--text)">Motor Control · VLSI · IoT</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.88rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);">
+            <span style="color:var(--muted)">Current Mission</span>
+            <span style="color:var(--accent);font-size:0.82rem;">PDEU–ISRO Bharat-G</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.88rem;">
+            <span style="color:var(--muted)">Team</span>
+            <span style="color:var(--gold);font-size:0.82rem;">Team Kaizen 🏆</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Aayush Modi — All rights reserved</span>
+  <span style="color:var(--border2)">Gandhinagar, Gujarat, India</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
