@@ -146,6 +146,7 @@ nav {
 .pill.c { border-color: rgba(34,211,238,0.4);  color: var(--cyan);    background: rgba(34,211,238,0.07); }
 .pill.a { border-color: rgba(251,191,36,0.4);  color: var(--amber);   background: rgba(251,191,36,0.07); }
 .pill.r { border-color: rgba(251,113,133,0.4); color: var(--rose);    background: rgba(251,113,133,0.07); }
+.pill.g { border-color: rgba(52,211,153,0.4);  color: var(--green);   background: rgba(52,211,153,0.07); }
 
 .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
@@ -943,6 +944,96 @@ nav.scrolled {
   font-weight: 400;
 }
 
+
+
+
+
+/* ── SPEC MODAL ── */
+.spec-pill { cursor: pointer; transition: all 0.22s; user-select: none; position: relative; z-index: 2; }
+.spec-pill:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+
+.spec-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(2,4,8,0.82);
+  backdrop-filter: blur(10px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.spec-overlay.open { opacity: 1; pointer-events: all; }
+
+.spec-box {
+  background: #0a0f1e;
+  border: 1px solid rgba(120,160,255,0.2);
+  border-radius: 18px;
+  padding: 2.2rem;
+  width: min(520px, 92vw);
+  position: relative;
+  transform: translateY(24px) scale(0.96);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
+}
+.spec-overlay.open .spec-box { transform: translateY(0) scale(1); }
+
+.spec-box-top {
+  height: 3px; border-radius: 3px; margin-bottom: 1.8rem;
+  background: linear-gradient(90deg, #7c5cfc, #22d3ee, #fbbf24);
+}
+
+.spec-close-btn {
+  position: absolute; top: 1.1rem; right: 1.1rem;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: #141c32; border: 1px solid rgba(120,160,255,0.15);
+  color: #4a5270; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; line-height: 1;
+}
+.spec-close-btn:hover { color: #eef0f8; border-color: rgba(120,160,255,0.3); }
+
+.spec-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+
+.spec-ico {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: #141c32; border: 1px solid rgba(120,160,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+
+.spec-ttl { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: #eef0f8; }
+.spec-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: #4a5270; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 3px; }
+
+.spec-body {
+  font-size: 0.88rem; color: #8892b5; line-height: 1.85;
+  padding: 1rem 1rem 1rem 1.1rem;
+  border-left: 2px solid #7c5cfc;
+  background: rgba(124,92,252,0.04);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 1.4rem;
+}
+
+.spec-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+
+.spec-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  padding: 0.25rem 0.65rem; border-radius: 4px;
+  background: #141c32; border: 1px solid rgba(120,160,255,0.15);
+  color: #4a5270; letter-spacing: 0.04em;
+  transition: all 0.2s;
+}
+.spec-chip:hover { color: #8892b5; border-color: rgba(120,160,255,0.28); }
+
+.spec-hls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+
+.spec-hl-item {
+  background: #0f1628; border: 1px solid rgba(120,160,255,0.1);
+  border-radius: 10px; padding: 0.9rem 1rem;
+  transition: border-color 0.2s;
+}
+.spec-hl-item:hover { border-color: rgba(120,160,255,0.22); }
+
+.spec-hl-v { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem; }
+.spec-hl-l { font-size: 0.71rem; color: #4a5270; line-height: 1.35; }
+
 </style>
 </head>
 <body>
@@ -991,11 +1082,11 @@ nav.scrolled {
     </h1>
     <p class="hero-desc">Motor Controller Engineer &amp; Embedded Systems Designer — crafting precision hardware at the intersection of power electronics, satellite systems, and IoT.</p>
     <div class="hero-pills">
-      <span class="pill v">Motor Controller Design</span>
-      <span class="pill c">ADCS / Satellite Systems</span>
-      <span class="pill a">ASIC &amp; VLSI</span>
-      <span class="pill r">Embedded Systems</span>
-      <span class="pill">IoT</span>
+      <span class="pill v spec-pill" data-spec="motor">Motor Controller Design</span>
+      <span class="pill c spec-pill" data-spec="adcs">ADCS / Satellite Systems</span>
+      <span class="pill a spec-pill" data-spec="asic">ASIC &amp; VLSI</span>
+      <span class="pill r spec-pill" data-spec="embedded">Embedded Systems</span>
+      <span class="pill g spec-pill" data-spec="iot">IoT</span>
     </div>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary">View Projects</a>
@@ -1319,7 +1410,134 @@ nav.scrolled {
   <span>Gandhinagar, Gujarat, India</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+    document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      modal.classList.remove('open');
+      document.querySelectorAll('.spec-pill').forEach(p => p.classList.remove('active'));
+    }
+  });
+
+</script>
+
+
+
+<!-- SPEC MODAL OVERLAY -->
+<div class="spec-overlay" id="specOverlay">
+  <div class="spec-box" id="specBox">
+    <div class="spec-box-top" id="specBoxTop"></div>
+    <button class="spec-close-btn" id="specCloseBtn">&#10005;</button>
+    <div class="spec-head">
+      <div class="spec-ico" id="specIco"></div>
+      <div>
+        <div class="spec-ttl" id="specTtl"></div>
+        <div class="spec-sub" id="specSub"></div>
+      </div>
+    </div>
+    <div class="spec-body" id="specBody"></div>
+    <div class="spec-chips" id="specChips"></div>
+    <div class="spec-hls" id="specHls"></div>
+  </div>
+</div>
+
+<script>
+
+  /* ── SPEC PILLS ── */
+  var specInfo = {
+    motor: {
+      icon: '⚙️',
+      title: 'Motor Controller Design',
+      sub: 'Power Electronics · Embedded Control',
+      color: '#9b7ffe',
+      grad: 'linear-gradient(90deg,#7c5cfc,#22d3ee)',
+      body: 'Specialised in designing high-efficiency motor controllers using Direct Torque Control (DTC). Designed a production-ready 4-layer PCB for Team Kaizen's Shell Eco-Marathon BEV, achieving 227 km/kWh — ranked 1st in India and 5th in Asia.',
+      chips: ['Direct Torque Control','FOC','Gate Drivers','MOSFET Switching','Thermal Design','EMI Mitigation','4-Layer PCB','Power Stages'],
+      hls: [['227','km/kWh efficiency'],['4-Layer','PCB stack'],['1st','India ranking'],['DTC','Control algorithm']]
+    },
+    adcs: {
+      icon: '🛰️',
+      title: 'ADCS / Satellite Systems',
+      sub: 'Attitude Determination & Control',
+      color: '#22d3ee',
+      grad: 'linear-gradient(90deg,#22d3ee,#34d399)',
+      body: 'Core member of the PDEU–ISRO Bharat-G satellite mission ADCS team. Developing attitude estimation and control algorithms for precise satellite orientation in LEO, including Kalman Filter fusion and TRIAD algorithm implementation.',
+      chips: ['Kalman Filter','TRIAD Method','Attitude Estimation','Control Loops','MATLAB','Python','LEO Dynamics','Sensor Fusion'],
+      hls: [['ISRO','Mission collaboration'],['TRIAD','Estimation algorithm'],['Bharat-G','Satellite mission'],['LEO','Orbit regime']]
+    },
+    asic: {
+      icon: '⚡',
+      title: 'ASIC & VLSI',
+      sub: 'RTL to GDSII · Synopsys EDA',
+      color: '#c084fc',
+      grad: 'linear-gradient(90deg,#c084fc,#7c5cfc)',
+      body: 'Completed a full RTL-to-GDSII ASIC design flow using Synopsys tools. Experienced in semiconductor device simulation with Sentaurus TCAD, static timing analysis with PrimeTime, design debugging with Verdi, and physical design with IC Compiler II.',
+      chips: ['RTL Design','Synopsys Sentaurus','PrimeTime STA','IC Compiler II','Verdi Debug','Verilog/HDL','RISC-V','GDSII Flow'],
+      hls: [['8-bit','Ripple carry adder'],['STA','Timing analysis'],['P&R','Place & route'],['10-Day','ASIC workshop']]
+    },
+    embedded: {
+      icon: '💾',
+      title: 'Embedded Systems',
+      sub: 'Firmware · Real-Time · Hardware',
+      color: '#fb7185',
+      grad: 'linear-gradient(90deg,#fb7185,#fbbf24)',
+      body: 'Hands-on firmware development for real-time control applications. From DTC motor control firmware to IoT sensor nodes, with proficiency in Arduino, ESP32, and RISC-V architectures — focused on low-latency, power-efficient implementations.',
+      chips: ['Arduino','ESP32','RISC-V','Real-Time OS','Sensor Fusion','SPI/I2C/UART','Interrupt Handling','Firmware OTA'],
+      hls: [['ESP32','Primary MCU'],['RISC-V','Architecture'],['Real-Time','Control systems'],['IoT','Minor specialisation']]
+    },
+    iot: {
+      icon: '📡',
+      title: 'Internet of Things',
+      sub: 'Connected Systems · Edge Computing',
+      color: '#34d399',
+      grad: 'linear-gradient(90deg,#34d399,#22d3ee)',
+      body: 'Pursuing a minor specialisation in IoT. Developed a Smart Safety Helmet for mine workers monitoring hazardous gases and biometrics in real time, and a Reflexive Sensor-Based Game using proximity sensing — bridging hardware intelligence with connected systems.',
+      chips: ['MQTT','REST APIs','Edge Computing','Wireless Sensors','CPS','Gas Sensors','Node-RED','Cloud Integration'],
+      hls: [['2+','Active IoT projects'],['MQTT','IoT protocol'],['Real-Time','Sensor streaming'],['Safety','Mine worker helmet']]
+    }
+  };
+
+  function openSpec(key) {
+    var d = specInfo[key];
+    if (!d) return;
+    document.getElementById('specIco').textContent = d.icon;
+    document.getElementById('specTtl').textContent = d.title;
+    document.getElementById('specSub').textContent = d.sub;
+    document.getElementById('specBody').textContent = d.body;
+    document.getElementById('specBody').style.borderColor = d.color;
+    document.getElementById('specBody').style.background = 'rgba(0,0,0,0.15)';
+    document.getElementById('specBoxTop').style.background = d.grad;
+
+    var chips = document.getElementById('specChips');
+    chips.innerHTML = d.chips.map(function(c){ return '<span class="spec-chip">'+c+'</span>'; }).join('');
+
+    var hls = document.getElementById('specHls');
+    hls.innerHTML = d.hls.map(function(h){
+      return '<div class="spec-hl-item"><div class="spec-hl-v" style="color:'+d.color+'">'+h[0]+'</div><div class="spec-hl-l">'+h[1]+'</div></div>';
+    }).join('');
+
+    document.getElementById('specOverlay').classList.add('open');
+  }
+
+  function closeSpec() {
+    document.getElementById('specOverlay').classList.remove('open');
+  }
+
+  document.querySelectorAll('.spec-pill').forEach(function(pill) {
+    pill.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openSpec(this.getAttribute('data-spec'));
+    });
+  });
+
+  document.getElementById('specCloseBtn').addEventListener('click', closeSpec);
+  document.getElementById('specOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeSpec();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeSpec();
+  });
+
+
   document.body.classList.add('js-ready');
 
   const observer = new IntersectionObserver((entries) => {
