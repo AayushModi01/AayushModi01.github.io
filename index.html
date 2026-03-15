@@ -226,13 +226,21 @@ section { padding: 8rem 4rem; max-width: 1180px; margin: 0 auto; position: relat
 .stat-card.r .stat-top { background: linear-gradient(90deg, var(--rose), transparent); }
 
 .stat-num {
-  font-family: var(--sans); font-size: 2.6rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--violet2), var(--cyan));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-family: var(--sans);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  position: relative;
+  display: inline-block;
 }
-.stat-card.c .stat-num { background: linear-gradient(135deg, var(--cyan), var(--green));  -webkit-background-clip: text; background-clip: text; }
-.stat-card.a .stat-num { background: linear-gradient(135deg, var(--amber), var(--rose));  -webkit-background-clip: text; background-clip: text; }
-.stat-card.r .stat-num { background: linear-gradient(135deg, var(--rose), var(--amber));  -webkit-background-clip: text; background-clip: text; }
+.stat-card .stat-num { color: var(--violet2); }
+.stat-card.c .stat-num { color: var(--cyan); }
+.stat-card.a .stat-num { color: var(--amber); }
+.stat-card.r .stat-num { color: var(--rose); }
 
 .stat-label { font-size: 0.75rem; color: var(--text3); line-height: 1.4; }
 
@@ -562,17 +570,7 @@ footer span { font-family: var(--mono); }
 .scale-in.visible { opacity: 1; transform: scale(1); }
 
 /* Number counter shimmer */
-.stat-num {
-  position: relative;
-  overflow: hidden;
-}
-.stat-num::after {
-  content: '';
-  position: absolute; top: 0; left: -100%;
-  width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-  animation: shimmer 3s ease infinite;
-}
+.stat-num { position: relative; overflow: hidden; }
 
 /* Typing cursor blink on hero tag */
 .hero-badge::after {
@@ -748,6 +746,203 @@ nav.scrolled {
   background: rgba(2,4,8,0.95);
 }
 
+
+/* ── ACADEMICS ── */
+.acad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+
+.acad-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.acad-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border2);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.acad-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.acad-card:hover::before { opacity: 1; }
+
+.acad-card.acad-featured {
+  border-color: rgba(251,191,36,0.2);
+  background: linear-gradient(160deg, var(--surface) 60%, rgba(251,191,36,0.04));
+}
+
+.acad-card.acad-featured::before {
+  background: linear-gradient(90deg, var(--amber), var(--rose), transparent);
+  opacity: 0.7;
+}
+
+.acad-card.acad-featured:hover::before { opacity: 1; }
+
+.acad-card-inner {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.acad-icon-wrap {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ic) 12%, transparent);
+  border: 0.5px solid color-mix(in srgb, var(--ic) 30%, transparent);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ic);
+  margin-bottom: 0.5rem;
+}
+
+.acad-label {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.acad-sublabel {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.acad-score {
+  font-family: var(--sans);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--sc1) 30%, var(--sc2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0.5rem 0 0.3rem;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--sc1) 35%, transparent));
+}
+
+.acad-unit {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.acad-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.4rem 0;
+}
+
+.acad-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--surface3);
+  overflow: hidden;
+}
+
+.acad-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--bc1), var(--bc2));
+  transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.visible .acad-bar-fill,
+.acad-grid.visible .acad-bar-fill {
+  width: var(--pct);
+}
+
+.acad-pct-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.acad-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bt);
+  background: var(--bc);
+  border: 0.5px solid color-mix(in srgb, var(--bt) 30%, transparent);
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  margin-top: 0.4rem;
+  width: fit-content;
+}
+
+.acad-star {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--amber);
+  letter-spacing: 0.1em;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+  .acad-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ── ENHANCED NUMBER GLOW ── */
+.stat-card .stat-num {
+  text-shadow: 0 0 24px color-mix(in srgb, currentColor 40%, transparent);
+  transition: text-shadow 0.3s;
+}
+.stat-card:hover .stat-num {
+  text-shadow: 0 0 36px color-mix(in srgb, currentColor 65%, transparent);
+}
+
+/* Refined stat card layout */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-num-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.stat-num-suffix {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
 </style>
 </head>
 <body>
@@ -760,6 +955,7 @@ nav.scrolled {
   <div class="nav-logo">Aayush<span class="dot">.</span>Modi</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#academics">Academics</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#journey">Journey</a></li>
@@ -828,6 +1024,79 @@ nav.scrolled {
         <div class="stat-card a"><div class="stat-top"></div><div class="stat-num">5th</div><div class="stat-label">Asia ranking, Shell Eco-Marathon</div></div>
         <div class="stat-card r"><div class="stat-top"></div><div class="stat-num">4L</div><div class="stat-label">DTC motor controller PCB stack</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="section-divider"></div>
+
+<!-- ACADEMICS -->
+<section id="academics">
+  <div class="fade-in">
+    <div class="section-sub">Academic Credentials</div>
+    <h2 class="big-title"><span class="fill">Built on a</span><br><span class="grad">Strong Foundation.</span></h2>
+
+    <div class="acad-grid stagger fade-in">
+
+      <!-- 10th -->
+      <div class="acad-card fade-in">
+        <div class="acad-card-inner">
+          <div class="acad-icon-wrap" style="--ic:var(--violet2);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="acad-label">Secondary Education</div>
+          <div class="acad-sublabel">10th Grade · ICSE</div>
+          <div class="acad-score" style="--sc1:var(--violet2);--sc2:var(--cyan);">83.5<span class="acad-unit">%</span></div>
+          <div class="acad-bar-wrap">
+            <div class="acad-bar">
+              <div class="acad-bar-fill" style="--pct:83.5%;--bc1:var(--violet);--bc2:var(--cyan);"></div>
+            </div>
+            <span class="acad-pct-label">83.5 / 100</span>
+          </div>
+          <div class="acad-badge" style="--bc:rgba(124,92,252,0.12);--bt:var(--violet2);">ICSE · S.G.V.P International School, Ahmedabad</div>
+        </div>
+      </div>
+
+      <!-- 12th -->
+      <div class="acad-card fade-in">
+        <div class="acad-card-inner">
+          <div class="acad-icon-wrap" style="--ic:var(--cyan);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="acad-label">Higher Secondary</div>
+          <div class="acad-sublabel">12th Grade · CBSE</div>
+          <div class="acad-score" style="--sc1:var(--cyan);--sc2:var(--green);">85<span class="acad-unit">%</span></div>
+          <div class="acad-bar-wrap">
+            <div class="acad-bar">
+              <div class="acad-bar-fill" style="--pct:85%;--bc1:var(--cyan);--bc2:var(--green);"></div>
+            </div>
+            <span class="acad-pct-label">85 / 100</span>
+          </div>
+          <div class="acad-badge" style="--bc:rgba(34,211,238,0.12);--bt:var(--cyan);">CBSE · St. Ann's School, Ahmedabad</div>
+        </div>
+      </div>
+
+      <!-- B.Tech -->
+      <div class="acad-card acad-featured fade-in">
+        <div class="acad-card-inner">
+          <div class="acad-icon-wrap" style="--ic:var(--amber);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          </div>
+          <div class="acad-label">B.Tech — ECE</div>
+          <div class="acad-sublabel">6th Semester · PDEU</div>
+          <div class="acad-score" style="--sc1:var(--amber);--sc2:var(--rose);">9.81<span class="acad-unit"> CG</span></div>
+          <div class="acad-bar-wrap">
+            <div class="acad-bar">
+              <div class="acad-bar-fill" style="--pct:98.1%;--bc1:var(--amber);--bc2:var(--rose);"></div>
+            </div>
+            <span class="acad-pct-label">9.81 / 10.0</span>
+          </div>
+          <div class="acad-badge" style="--bc:rgba(251,191,36,0.12);--bt:var(--amber);">Pandit Deendayal Energy University</div>
+          <div class="acad-star">★ Outstanding</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
