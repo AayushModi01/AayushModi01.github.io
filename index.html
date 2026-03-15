@@ -197,8 +197,9 @@ section { padding: 8rem 4rem; max-width: 1180px; margin: 0 auto; position: relat
 /* BIG TITLES */
 .big-title {
   font-family: var(--sans); font-weight: 700;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 3rem;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 3rem;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.3rem;
 }
 
 .big-title .fill { color: var(--text); }
@@ -1034,6 +1035,1014 @@ nav.scrolled {
 .spec-hl-v { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem; }
 .spec-hl-l { font-size: 0.71rem; color: #4a5270; line-height: 1.35; }
 
+
+/* ═══════════════════════════════════════
+   ENHANCED FORMATTING — NO COLOR CHANGES
+═══════════════════════════════════════ */
+
+/* ── Global typography refinements ── */
+body { font-size: 16px; }
+
+h1, h2, h3, h4 { font-optical-sizing: auto; }
+
+/* ── Nav refinements ── */
+nav {
+  padding: 0.9rem 5rem !important;
+  transition: padding 0.3s ease, background 0.3s ease;
+}
+nav.scrolled { padding: 0.65rem 5rem !important; }
+
+.nav-logo { font-size: 1.05rem; letter-spacing: 0.06em; }
+
+.nav-links { gap: 3rem; }
+.nav-links a { font-size: 0.7rem; letter-spacing: 0.18em; }
+
+/* ── Section spacing ── */
+section { padding: 7rem 5rem; max-width: 1200px; }
+
+.section-sub {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.6rem;
+  gap: 0.8rem;
+}
+.section-sub::before { width: 28px; }
+
+.big-title {
+  font-size: clamp(1.5rem, 2.2vw, 2rem) !important;
+  margin-bottom: 3rem !important;
+  line-height: 1.2 !important;
+  display: flex !important;
+  align-items: baseline !important;
+  flex-wrap: wrap !important;
+  gap: 0.3rem !important;
+}
+
+/* ── Hero refinements ── */
+.hero { padding: 0 5rem; }
+.hero-content { max-width: 700px; }
+.hero-badge { font-size: 0.67rem; letter-spacing: 0.22em; padding: 0.4rem 1.1rem; margin-bottom: 2rem; }
+
+.hero-name { margin-bottom: 1.5rem; }
+.hero-name .first { font-size: clamp(2.2rem, 4.5vw, 3.8rem); letter-spacing: -0.025em; }
+.hero-name .last  { font-size: clamp(2.2rem, 4.5vw, 3.8rem); letter-spacing: -0.025em; }
+
+.hero-desc { font-size: 0.97rem; max-width: 500px; line-height: 1.9; margin-bottom: 2.2rem; color: #8892b5; }
+
+.hero-pills { gap: 0.45rem; margin-bottom: 2.8rem; }
+.pill { font-size: 0.68rem; padding: 0.32rem 0.9rem; border-radius: 5px; letter-spacing: 0.06em; }
+
+.btn { padding: 0.78rem 2rem; font-size: 0.78rem; letter-spacing: 0.1em; border-radius: 6px; }
+
+/* ── About section ── */
+.about-grid { gap: 6rem; }
+.about-text p { font-size: 0.95rem; line-height: 1.95; margin-bottom: 1.1rem; }
+
+.about-stats { gap: 1rem; }
+.stat-card { padding: 1.5rem; border-radius: 12px; }
+.stat-top { height: 1.5px; margin-bottom: 1.4rem; }
+.stat-num { font-size: 2.3rem !important; letter-spacing: -0.03em; }
+.stat-label { font-size: 0.72rem; line-height: 1.45; letter-spacing: 0.03em; }
+
+/* ── Academic section ── */
+.acad-grid { gap: 1.2rem; }
+.acad-card { border-radius: 14px; }
+.acad-card-inner { padding: 1.8rem; gap: 0.5rem; }
+.acad-label { font-size: 0.97rem; }
+.acad-sublabel { font-size: 0.62rem; letter-spacing: 0.14em; }
+.acad-score { font-size: 2.8rem !important; margin: 0.4rem 0 0.25rem; }
+.acad-unit { font-size: 1.1rem !important; }
+.acad-bar { height: 3px; border-radius: 3px; }
+.acad-bar-fill { border-radius: 3px; }
+.acad-pct-label { font-size: 0.62rem; }
+.acad-badge { font-size: 0.6rem; padding: 0.28rem 0.65rem; border-radius: 4px; margin-top: 0.5rem; }
+.acad-star { font-size: 0.62rem; letter-spacing: 0.12em; }
+
+/* ── Projects ── */
+.projects-grid { gap: 1.2rem; }
+.project-card { padding: 2rem; border-radius: 12px; }
+.project-card.featured { gap: 3rem; }
+.project-tag { font-size: 0.62rem; letter-spacing: 0.14em; padding: 0.22rem 0.65rem; margin-bottom: 0.75rem; }
+.project-title { font-size: 1.08rem; margin-bottom: 0.75rem; line-height: 1.35; }
+.project-desc { font-size: 0.86rem; line-height: 1.82; margin-bottom: 1.4rem; }
+.chip { font-size: 0.64rem; padding: 0.2rem 0.6rem; letter-spacing: 0.04em; }
+.badge { font-size: 0.72rem; padding: 0.32rem 0.85rem; }
+
+.tech-panel { padding: 1.6rem; border-radius: 10px; }
+.tech-panel-label { font-size: 0.6rem; letter-spacing: 0.2em; margin-bottom: 1rem; }
+.tech-row { font-size: 0.82rem; padding: 0.6rem 0; }
+.tech-row span:last-child { font-size: 0.74rem; }
+
+/* ── Skills ── */
+.skills-grid { gap: 1.1rem; }
+.skill-group { padding: 1.7rem; border-radius: 12px; }
+.skill-group-header { margin-bottom: 1.3rem; gap: 0.65rem; }
+.skill-icon { width: 28px; height: 28px; border-radius: 7px; font-size: 0.75rem; }
+.skill-group-title { font-size: 0.65rem; letter-spacing: 0.12em; }
+.skill-list { gap: 0.55rem; }
+.skill-list li { font-size: 0.84rem; gap: 0.6rem; }
+
+/* ── Timeline ── */
+.timeline { padding-left: 2.5rem; }
+.timeline-item { padding-bottom: 2.8rem; padding-left: 2rem; }
+.timeline-dot { width: 10px; height: 10px; left: -2.5rem; top: 5px; }
+.timeline-date { font-size: 0.65rem; letter-spacing: 0.14em; margin-bottom: 0.35rem; }
+.timeline-title { font-size: 0.97rem; font-weight: 700; margin-bottom: 0.4rem; }
+.timeline-sub { font-size: 0.84rem; line-height: 1.78; }
+
+/* ── Contact ── */
+.contact-wrapper { gap: 4rem; }
+.contact-info p { font-size: 0.93rem; line-height: 1.88; margin-bottom: 2rem; }
+.contact-link { padding: 0.95rem 1.3rem; border-radius: 10px; font-size: 0.86rem; }
+.contact-icon { width: 36px; height: 36px; border-radius: 9px; font-size: 0.84rem; }
+
+.profile-card { border-radius: 14px; }
+.profile-header { padding: 1.8rem; }
+.profile-avatar { width: 52px; height: 52px; border-radius: 13px; font-size: 1.2rem; margin-bottom: 0.9rem; }
+.profile-name { font-size: 1.05rem; }
+.profile-role { font-size: 0.76rem; }
+.profile-rows { padding: 1.4rem; }
+.profile-row { font-size: 0.82rem; padding: 0.75rem 0; }
+.profile-row .value { font-size: 0.79rem; }
+
+/* ── Footer ── */
+footer {
+  padding: 1.8rem 5rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── Section divider ── */
+.section-divider {
+  height: 0.5px;
+  margin: 0 5rem;
+}
+
+/* ── Scroll bar styling ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border2); }
+
+/* ── Text selection ── */
+::selection { background: rgba(124,92,252,0.25); color: var(--text); }
+
+/* ── Responsive refinements ── */
+@media (max-width: 1100px) {
+  section { padding: 6rem 3rem; }
+  nav { padding: 0.9rem 3rem !important; }
+  nav.scrolled { padding: 0.65rem 3rem !important; }
+  .hero { padding: 0 3rem; }
+  footer { padding: 1.8rem 3rem; }
+  .section-divider { margin: 0 3rem; }
+}
+
+@media (max-width: 768px) {
+  section { padding: 4.5rem 1.8rem; }
+  nav { padding: 0.9rem 1.8rem !important; }
+  nav.scrolled { padding: 0.65rem 1.8rem !important; }
+  .hero { padding: 0 1.8rem; }
+  footer { padding: 1.5rem 1.8rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+  .section-divider { margin: 0; }
+  .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; gap: 1.5rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+  .acad-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ── ABOUT REDESIGN ── */
+.about-new-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-left, .about-right { display: flex; flex-direction: column; gap: 2rem; }
+
+.about-intro p {
+  font-size: 0.95rem;
+  color: var(--text2);
+  line-height: 1.95;
+  margin-bottom: 1rem;
+}
+
+.about-intro p:last-child { margin-bottom: 0; }
+
+.about-highlight {
+  color: var(--text);
+  font-weight: 500;
+  border-bottom: 1px solid rgba(155,127,254,0.4);
+  padding-bottom: 1px;
+}
+
+.about-info-rows {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.about-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.3rem;
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.2s;
+}
+
+.about-info-row:last-child { border-bottom: none; }
+.about-info-row:hover { background: var(--surface2); }
+
+.about-info-key {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.about-info-val {
+  font-size: 0.84rem;
+  color: var(--text2);
+  text-align: right;
+}
+
+.about-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--green) !important;
+  font-size: 0.84rem;
+}
+
+.about-status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: blink 2s ease infinite;
+  flex-shrink: 0;
+}
+
+.about-stats-new {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.stat-card { padding: 1.5rem !important; display: flex; flex-direction: column; gap: 0.15rem; }
+
+.stat-icon {
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+  display: block;
+  filter: grayscale(0.2);
+}
+
+.stat-unit {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: -0.1rem;
+}
+
+@media (max-width: 900px) {
+  .about-new-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+
+/* ── ABOUT INTRO ENHANCEMENTS ── */
+.about-greeting {
+  font-family: var(--sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1.4rem;
+  letter-spacing: -0.01em;
+}
+
+.about-intro p {
+  font-size: 0.94rem !important;
+  color: var(--text2) !important;
+  line-height: 1.92 !important;
+  margin-bottom: 1rem !important;
+}
+
+.about-intro p:last-of-type { margin-bottom: 0 !important; }
+
+.about-highlight {
+  color: var(--text) !important;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(155,127,254,0.45);
+  padding-bottom: 1px;
+  transition: border-color 0.2s;
+}
+
+.about-highlight:hover { border-color: var(--violet2); }
+
+.about-intro strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.about-quote {
+  margin-top: 1.6rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--surface2);
+  border-left: 2px solid var(--violet2);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--text2);
+  line-height: 1.7;
+  position: relative;
+}
+
+.about-quote-mark {
+  font-family: var(--serif, Georgia, serif);
+  font-size: 2rem;
+  color: var(--violet2);
+  opacity: 0.5;
+  line-height: 0;
+  vertical-align: -0.5rem;
+  margin-right: 0.3rem;
+}
+
+
+/* ── ABOUT FULL REDESIGN ── */
+.about-new-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4.5rem;
+  align-items: start;
+}
+
+.about-left, .about-right {
+  display: flex; flex-direction: column; gap: 1.8rem;
+}
+
+/* Greeting row */
+.about-greeting-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+}
+
+.about-avatar-sm {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: 1rem; font-weight: 800;
+  color: #fff; flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(124,92,252,0.3);
+}
+
+.about-greeting-name {
+  font-family: var(--sans); font-size: 1rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.2rem;
+}
+
+.about-greeting-role {
+  font-size: 0.78rem; color: var(--text3); line-height: 1.4;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em;
+}
+
+/* Bio text */
+.about-intro p {
+  font-size: 0.92rem !important;
+  color: var(--text2) !important;
+  line-height: 1.9 !important;
+  margin-bottom: 0.9rem !important;
+}
+.about-intro p:last-child { margin-bottom: 0 !important; }
+
+.about-highlight {
+  color: var(--text) !important;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(155,127,254,0.4);
+  padding-bottom: 1px;
+}
+
+.about-intro strong { color: var(--text); font-weight: 600; }
+
+/* Quote */
+.about-quote {
+  padding: 1rem 1.2rem;
+  background: rgba(124,92,252,0.05);
+  border-left: 2px solid var(--violet2);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 0.87rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.about-quote-mark {
+  font-size: 1.6rem; color: var(--violet2); opacity: 0.5;
+  line-height: 0; vertical-align: -0.4rem; margin-right: 0.2rem;
+  font-family: Georgia, serif;
+}
+
+/* Info rows */
+.about-info-rows {
+  display: flex; flex-direction: column;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+
+.about-info-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.75rem 1.2rem;
+  border-bottom: 0.5px solid var(--border);
+  transition: background 0.2s;
+}
+.about-info-row:last-child { border-bottom: none; }
+.about-info-row:hover { background: var(--surface2); }
+
+.about-info-key {
+  font-family: var(--mono); font-size: 0.63rem;
+  color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase;
+  flex-shrink: 0; display: flex; align-items: center; gap: 0.4rem;
+}
+
+.about-info-val {
+  font-size: 0.82rem; color: var(--text2); text-align: right;
+}
+
+.about-status {
+  display: flex; align-items: center; gap: 0.45rem;
+  color: var(--green) !important;
+}
+
+.about-status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 7px var(--green);
+  animation: blink 2s ease infinite; flex-shrink: 0;
+}
+
+/* Stat cards */
+.about-stats-new {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+
+.stat-card {
+  padding: 1.4rem !important; display: flex !important;
+  flex-direction: column !important; gap: 0.12rem !important;
+  border-radius: 12px !important;
+}
+
+.stat-icon { font-size: 1.2rem; margin-bottom: 0.5rem; display: block; }
+.stat-unit {
+  font-family: var(--mono); font-size: 0.6rem; color: var(--text3);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-top: -0.05rem;
+}
+
+/* Core competencies */
+.about-competencies {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px; padding: 1.4rem;
+}
+
+.about-comp-title {
+  font-family: var(--mono); font-size: 0.62rem;
+  color: var(--text3); letter-spacing: 0.16em; text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.about-comp-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem;
+}
+
+.about-comp-item {
+  display: flex; align-items: center; gap: 0.55rem;
+  font-size: 0.8rem; color: var(--text2);
+  padding: 0.5rem 0.7rem;
+  background: var(--surface2);
+  border: 0.5px solid var(--border);
+  border-radius: 7px;
+  transition: all 0.2s;
+}
+
+.about-comp-item:hover {
+  border-color: var(--border2);
+  color: var(--text);
+  background: var(--surface3);
+}
+
+.about-comp-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--cc, var(--violet2)); flex-shrink: 0;
+  box-shadow: 0 0 5px var(--cc, var(--violet2));
+}
+
+@media (max-width: 900px) {
+  .about-new-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-comp-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ── RESUME BUTTON ── */
+.btn-resume {
+  background: transparent;
+  color: var(--text2);
+  border: 0.5px solid var(--border2);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-resume:hover {
+  border-color: var(--green);
+  color: var(--green);
+  transform: translateY(-2px);
+}
+.btn-resume svg { stroke: currentColor; }
+
+
+/* ── ABOUT FORMAL REDESIGN ── */
+.about-new-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-left, .about-right {
+  display: flex; flex-direction: column; gap: 1.4rem;
+}
+
+/* Bio blocks */
+.about-bio-block {
+  padding: 1.2rem 1.4rem;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.25s;
+}
+.about-bio-block:hover { border-color: var(--border2); }
+
+.about-bio-tag {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet2);
+  margin-bottom: 0.55rem;
+}
+
+.about-bio-block p {
+  font-size: 0.88rem;
+  color: var(--text2);
+  line-height: 1.85;
+  margin: 0;
+}
+
+.about-bio-block p strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Quote */
+.about-quote {
+  padding: 1rem 1.2rem;
+  background: rgba(124,92,252,0.04);
+  border-left: 2px solid var(--violet2);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.about-quote-mark {
+  font-size: 1.5rem; color: var(--violet2); opacity: 0.45;
+  line-height: 0; vertical-align: -0.4rem; margin-right: 0.2rem;
+  font-family: Georgia, serif;
+}
+
+/* Stats */
+.about-stats-new {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+
+.stat-card {
+  padding: 1.3rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.1rem !important;
+  border-radius: 10px !important;
+}
+
+.stat-icon { font-size: 1.1rem; margin-bottom: 0.5rem; display: block; }
+
+.stat-num {
+  font-size: 2rem !important;
+  letter-spacing: -0.03em;
+}
+
+.stat-unit {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text3);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+.stat-label {
+  font-size: 0.7rem !important;
+  color: var(--text3);
+  line-height: 1.35;
+  margin-top: 0.15rem;
+}
+
+/* Competencies */
+.about-competencies {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 1.3rem;
+}
+
+.about-comp-title {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.about-comp-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+}
+
+.about-comp-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.78rem; color: var(--text2);
+  padding: 0.45rem 0.65rem;
+  background: var(--surface2);
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  transition: all 0.18s;
+  line-height: 1.3;
+}
+
+.about-comp-item:hover {
+  border-color: var(--border2);
+  color: var(--text);
+  background: var(--surface3);
+}
+
+.about-comp-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--cc, var(--violet2));
+  box-shadow: 0 0 5px var(--cc, var(--violet2));
+  flex-shrink: 0;
+}
+
+/* Remove old highlight underline style */
+.about-highlight {
+  color: var(--text) !important;
+  font-weight: 500;
+  border-bottom: none !important;
+}
+
+@media (max-width: 900px) {
+  .about-new-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-comp-grid { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* ════════════════════════════════════════
+   ANIMATION CSS
+════════════════════════════════════════ */
+
+/* Base states — hidden until js-ready */
+.js-ready .fade-in:not(.visible)       { opacity: 0; transform: translateY(22px); }
+.js-ready .slide-left:not(.visible)    { opacity: 0; transform: translateX(-28px); }
+.js-ready .slide-right:not(.visible)   { opacity: 0; transform: translateX(28px); }
+.js-ready .scale-in:not(.visible)      { opacity: 0; transform: scale(0.93); }
+.js-ready .clip-reveal:not(.visible)   { clip-path: inset(0 0 100% 0); }
+.js-ready .stagger > *                 { opacity: 0; transform: translateY(16px); }
+
+/* Transitions */
+.fade-in    { transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+.slide-left { transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+.slide-right{ transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+.scale-in   { transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+.clip-reveal{ transition: clip-path 0.75s cubic-bezier(0.16,1,0.3,1); }
+.stagger > * { transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+
+/* Visible states */
+.fade-in.visible,
+.slide-left.visible,
+.slide-right.visible,
+.scale-in.visible    { opacity: 1 !important; transform: none !important; }
+.clip-reveal.visible { clip-path: inset(0 0 0% 0) !important; }
+.stagger.visible > * { opacity: 1 !important; transform: none !important; }
+
+/* Stagger child delays */
+.stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+.stagger.visible > *:nth-child(2) { transition-delay: 0.07s; }
+.stagger.visible > *:nth-child(3) { transition-delay: 0.14s; }
+.stagger.visible > *:nth-child(4) { transition-delay: 0.21s; }
+.stagger.visible > *:nth-child(5) { transition-delay: 0.28s; }
+.stagger.visible > *:nth-child(6) { transition-delay: 0.35s; }
+
+/* Hero entrance */
+.hero-content { animation: heroEntrance 0.9s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes heroEntrance {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero name gradient shift */
+.hero-name .last {
+  background-size: 200% 200% !important;
+  animation: gradShift 5s ease infinite;
+}
+@keyframes gradShift {
+  0%,100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Hero photo bob */
+.hero-photo-wrap {
+  animation: photoBob 6s ease-in-out infinite !important;
+}
+@keyframes photoBob {
+  0%,100% { transform: translateY(-50%); }
+  50%     { transform: translateY(calc(-50% - 10px)); }
+}
+
+/* Scroll progress */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--violet), var(--cyan), var(--amber));
+  z-index: 1000; transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(34,211,238,0.4);
+}
+
+/* Cursor glow */
+.cursor-glow {
+  position: fixed; top: 0; left: 0;
+  width: 320px; height: 320px;
+  border-radius: 50%; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle, rgba(124,92,252,0.07) 0%, transparent 70%);
+  transition: none;
+  will-change: transform;
+}
+
+/* Nav link underline */
+.nav-links a { position: relative; }
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--cyan);
+  transition: width 0.28s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* Nav scrolled */
+nav.scrolled {
+  padding: 0.55rem 5rem !important;
+  background: rgba(2,4,8,0.97) !important;
+}
+
+/* Card hover glow */
+.project-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 0 0.5px var(--border2); }
+.skill-group:hover  { box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 0 0 0.5px var(--border2); }
+.stat-card:hover    { box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 0 0 0.5px var(--border2); }
+
+/* Timeline dot pulse */
+.timeline-dot { position: relative; }
+.timeline-dot::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  background: var(--dot-color, var(--violet));
+  animation: dotPulse 2.8s ease-out infinite; opacity: 0;
+}
+@keyframes dotPulse {
+  0%  { transform: scale(1); opacity: 0.5; }
+  70% { transform: scale(2.6); opacity: 0; }
+  100%{ transform: scale(1);  opacity: 0; }
+}
+
+/* Button ripple */
+.btn { position: relative; overflow: hidden; }
+@keyframes rippleAnim {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* Contact link slide */
+.contact-link::after {
+  content: '→'; position: absolute; right: 1.2rem;
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity 0.2s, transform 0.2s;
+  color: var(--violet2); font-size: 0.9rem;
+}
+.contact-link:hover::after { opacity: 1; transform: translateX(0); }
+
+/* Section eyebrow line grow */
+.section-sub::before {
+  transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.section-sub.visible::before { width: 28px; }
+
+/* Floating particles */
+.particle {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.5; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Hero badge blink cursor */
+.hero-badge::after {
+  content: '|'; margin-left: 2px; color: var(--cyan);
+  animation: blink 1s step-end infinite;
+}
+
+/* Blink */
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border2); }
+
+/* Selection */
+::selection { background: rgba(124,92,252,0.28); color: var(--text); }
+
+
+/* ════════════════════════════════════════
+   PREMIUM SCROLL EFFECTS
+════════════════════════════════════════ */
+
+/* Parallax hero background */
+.hero-grid { will-change: transform; }
+.mesh-bg   { will-change: transform; }
+
+/* Section title char split */
+.split-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotateX(-40deg);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.split-char.visible {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+}
+
+/* Horizontal scroll marquee strip between sections */
+.marquee-strip {
+  overflow: hidden;
+  width: 100%;
+  padding: 0.9rem 0;
+  background: var(--surface);
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+.marquee-inner {
+  display: flex;
+  gap: 0;
+  animation: marqueeScroll 22s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text3);
+  white-space: nowrap;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.marquee-item::after {
+  content: '·';
+  color: var(--violet2);
+  font-size: 1.2rem;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Sticky section label */
+.sticky-label {
+  position: sticky;
+  top: 5.5rem;
+  align-self: start;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  user-select: none;
+  z-index: 10;
+}
+
+/* Reveal underline on section titles */
+.big-title .fill,
+.big-title .grad,
+.big-title .teal,
+.big-title .gold {
+  position: relative;
+}
+.big-title .grad::after,
+.big-title .teal::after,
+.big-title .gold::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  height: 2px; width: 0%;
+  background: currentColor;
+  opacity: 0.4;
+  transition: width 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s;
+  border-radius: 2px;
+}
+section.in-view .big-title .grad::after,
+section.in-view .big-title .teal::after,
+section.in-view .big-title .gold::after {
+  width: 100%;
+}
+
+/* Scroll-triggered number odometer flash */
+.stat-num.counting {
+  animation: numFlash 0.08s step-end infinite;
+}
+@keyframes numFlash {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Project card entrance */
+.project-card {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              opacity 0.6s ease !important;
+}
+
+/* Scroll reveal for about bio blocks */
+.about-bio-block {
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.25s;
+}
+
+/* Glowing section dividers on scroll */
+.section-divider {
+  transition: opacity 0.5s ease;
+  opacity: 0.4;
+}
+.section-divider.glow {
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(120,160,255,0.15);
+}
+
+/* Scroll-sync orb movement in hero */
+.hero-orb-scroll {
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+/* Image zoom on scroll */
+.hero-photo {
+  transition: transform 0.3s ease;
+}
+
+/* Fade-out on scroll past hero */
+.hero-content {
+  will-change: opacity, transform;
+}
+
 </style>
 </head>
 <body>
@@ -1051,6 +2060,7 @@ nav.scrolled {
     <li><a href="#skills">Skills</a></li>
     <li><a href="#journey">Journey</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="https://drive.google.com/file/d/YOUR_RESUME_ID/view" target="_blank" style="color:var(--green);">Resume ↗</a></li>
   </ul>
 </nav>
 
@@ -1091,6 +2101,10 @@ nav.scrolled {
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary">View Projects</a>
       <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      <a href="https://drive.google.com/file/d/YOUR_RESUME_ID/view" target="_blank" class="btn btn-resume">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Resume
+      </a>
     </div>
   </div>
   <div class="hero-scroll"><div class="scroll-line"></div>scroll</div>
@@ -1102,18 +2116,104 @@ nav.scrolled {
 <section id="about">
   <div class="fade-in">
     <div class="section-sub clip-reveal fade-in">About me</div>
-    <h2 class="big-title"><span class="fill">About</span><br><span class="outline">Me.</span></h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>I'm a Motor Controller Engineer and embedded systems designer based in Gandhinagar, Gujarat, with deep experience spanning power electronics, semiconductor device design, satellite attitude control, and IoT development.</p>
-        <p>From designing 4-layer PCBs for race-winning electric vehicles to building attitude estimation algorithms for a real ISRO satellite mission, I work where hardware precision meets algorithmic complexity.</p>
-        <p>Currently pursuing a minor in IoT while contributing to the PDEU–ISRO Bharat-G satellite mission and leading motor controller development for Team Kaizen's Shell Eco-Marathon BEV — ranked <strong>1st in India</strong> and <strong>5th in Asia</strong>.</p>
+    <h2 class="big-title"><span class="fill">About </span><span class="grad">Me.</span></h2>
+
+    <div class="about-new-grid">
+
+      <!-- ── LEFT: Bio ── -->
+      <div class="about-left slide-left fade-in">
+
+        <div class="about-bio-block">
+          <div class="about-bio-tag">Profile</div>
+          <p>Pre-final year <strong>B.Tech Electronics &amp; Communication Engineering</strong> student at Pandit Deendayal Energy University, Gandhinagar — CGPA <strong>9.81/10</strong>, minor in <strong>Internet of Things</strong>. Focused on IoT, Power Electronics, and VLSI.</p>
+        </div>
+
+        <div class="about-bio-block">
+          <div class="about-bio-tag">Engineering Focus</div>
+          <p>Hands-on experience executing complete <strong>ASIC design flows</strong> from RTL through GDSII. Work spans power electronics, embedded control systems, and semiconductor device design — building hardware that performs at the edge of what is possible.</p>
+        </div>
+
+        <div class="about-bio-block">
+          <div class="about-bio-tag">Team Kaizen</div>
+          <p>As <strong>Electronics &amp; Electrical Head</strong>, designed a 4-layer DTC-based motor controller PCB and implemented DTC, FOC, and PID on <strong>STM32F4</strong> — achieving <strong>227 km/kWh</strong>, ranking <strong>1st in India</strong> and <strong>5th in Asia</strong> at Shell Eco-Marathon 2025.</p>
+        </div>
+
+        <div class="about-bio-block">
+          <div class="about-bio-tag">ISRO Mission</div>
+          <p>As <strong>ADCS Member</strong> on PDEU–ISRO Bharat-G satellite mission, working with SAC (ISRO) on <strong>TRIAD, EKF, B-Dot, and PID</strong> algorithms, sensor fusion, and integration with magnetorquers and reaction wheels.</p>
+        </div>
+
+        <div class="about-quote">
+          <span class="about-quote-mark">"</span>
+          I build systems where every milliwatt and every millisecond matters.
+        </div>
+
       </div>
-      <div class="about-stats stagger fade-in">
-        <div class="stat-card"><div class="stat-top"></div><div class="stat-num" data-count="227" data-suffix="">227</div><div class="stat-label">km/kWh BEV efficiency achieved</div></div>
-        <div class="stat-card c"><div class="stat-top"></div><div class="stat-num">1st</div><div class="stat-label">India ranking, Shell Eco-Marathon</div></div>
-        <div class="stat-card a"><div class="stat-top"></div><div class="stat-num">5th</div><div class="stat-label">Asia ranking, Shell Eco-Marathon</div></div>
-        <div class="stat-card r"><div class="stat-top"></div><div class="stat-num">4L</div><div class="stat-label">DTC motor controller PCB stack</div></div>
+
+      <!-- ── RIGHT: Stats + Competencies ── -->
+      <div class="about-right slide-right fade-in">
+
+        <div class="about-stats-new stagger fade-in">
+          <div class="stat-card">
+            <div class="stat-top"></div>
+            <div class="stat-icon">⚡</div>
+            <div class="stat-num" data-count="227" data-suffix="">227</div>
+            <div class="stat-unit">km/kWh</div>
+            <div class="stat-label">BEV efficiency achieved</div>
+          </div>
+          <div class="stat-card c">
+            <div class="stat-top"></div>
+            <div class="stat-icon">🏆</div>
+            <div class="stat-num">1st</div>
+            <div class="stat-unit">India</div>
+            <div class="stat-label">Shell Eco-Marathon ranking</div>
+          </div>
+          <div class="stat-card a">
+            <div class="stat-top"></div>
+            <div class="stat-icon">🌏</div>
+            <div class="stat-num">5th</div>
+            <div class="stat-unit">Asia</div>
+            <div class="stat-label">Shell Eco-Marathon ranking</div>
+          </div>
+          <div class="stat-card r">
+            <div class="stat-top"></div>
+            <div class="stat-icon">🔧</div>
+            <div class="stat-num">4L</div>
+            <div class="stat-unit">PCB</div>
+            <div class="stat-label">DTC motor controller stack</div>
+          </div>
+        </div>
+
+        <div class="about-competencies fade-in">
+          <div class="about-comp-title">Core Competencies</div>
+          <div class="about-comp-grid">
+            <div class="about-comp-item" style="--cc:var(--amber);">
+              <span class="about-comp-dot"></span>DTC / FOC / PID Control
+            </div>
+            <div class="about-comp-item" style="--cc:var(--cyan);">
+              <span class="about-comp-dot"></span>TRIAD / EKF / B-Dot
+            </div>
+            <div class="about-comp-item" style="--cc:#c084fc;">
+              <span class="about-comp-dot"></span>RTL to GDSII Flow
+            </div>
+            <div class="about-comp-item" style="--cc:var(--violet2);">
+              <span class="about-comp-dot"></span>4-Layer PCB Design
+            </div>
+            <div class="about-comp-item" style="--cc:var(--rose);">
+              <span class="about-comp-dot"></span>STM32 / ESP32 Firmware
+            </div>
+            <div class="about-comp-item" style="--cc:var(--green);">
+              <span class="about-comp-dot"></span>IoT &amp; LLM Integration
+            </div>
+            <div class="about-comp-item" style="--cc:var(--amber);">
+              <span class="about-comp-dot"></span>Synopsys / Cadence EDA
+            </div>
+            <div class="about-comp-item" style="--cc:var(--cyan);">
+              <span class="about-comp-dot"></span>Sensor Fusion &amp; ADCS
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1126,7 +2226,7 @@ nav.scrolled {
 <section id="academics">
   <div class="fade-in">
     <div class="section-sub">Academic Credentials</div>
-    <h2 class="big-title"><span class="fill">Built on a</span><br><span class="grad">Strong Foundation.</span></h2>
+    <h2 class="big-title"><span class="fill">Academic </span><span class="grad">Credentials.</span></h2>
 
     <div class="acad-grid stagger fade-in">
 
@@ -1198,7 +2298,7 @@ nav.scrolled {
 <section id="projects">
   <div class="fade-in">
     <div class="section-sub clip-reveal fade-in">What I've built</div>
-    <h2 class="big-title"><span class="fill">Projects</span><br><span class="grad">&amp; Work.</span></h2>
+    <h2 class="big-title"><span class="fill">Projects </span><span class="grad">&amp; Work.</span></h2>
     <div class="projects-grid stagger fade-in">
 
       <div class="project-card featured fade-in">
@@ -1244,15 +2344,15 @@ nav.scrolled {
       <div class="project-card fade-in">
         <span class="project-tag amber">Hardware Design · PCB</span>
         <h3 class="project-title">DTC Motor Controller PCB</h3>
-        <p class="project-desc">4-layer Direct Torque Control motor controller PCB for the Kaizen BEV — thermal stability, EMI mitigation, and reliable motor drive performance under high-current conditions.</p>
+        <p class="project-desc">Designed a compact 4-layer three-phase motor controller PCB with high thermal efficiency and optimised high-voltage routing. Implemented DTC, FOC, and PID closed-loop motor control algorithms on STM32F4 to enhance BLDC motor efficiency for the competition BEV.</p>
         <div class="project-chips"><span class="chip">Altium / KiCad</span><span class="chip">Gate Drivers</span><span class="chip">Thermal Management</span><span class="chip">MOSFET Switching</span></div>
       </div>
 
       <div class="project-card fade-in">
         <span class="project-tag rose">IoT · Safety Systems</span>
         <h3 class="project-title">Smart Safety Helmet for Mine Workers</h3>
-        <p class="project-desc">IoT-enabled helmet monitoring critical environmental and biometric parameters in real time — detecting hazardous gases, temperature, and worker vitals underground.</p>
-        <div class="project-chips"><span class="chip">ESP32</span><span class="chip">Gas Sensors</span><span class="chip">MQTT</span><span class="chip">Real-Time Monitoring</span></div>
+        <p class="project-desc">Designed for mine workers to enhance safety through real-time monitoring. Integrated sensors: DHT22 (temperature/humidity), MQ135 (gas), MPU6050 (motion), and IR sensor. Used ESP-Now protocol for multi-node communication and uploaded data to the MQTTx platform.</p>
+        <div class="project-chips"><span class="chip">ESP32</span><span class="chip">DHT22 / MQ135</span><span class="chip">MPU6050</span><span class="chip">ESP-Now</span><span class="chip">MQTTx</span></div>
       </div>
 
       <div class="project-card fade-in">
@@ -1260,6 +2360,20 @@ nav.scrolled {
         <h3 class="project-title">Reflexive Interactive Sensor-Based Game</h3>
         <p class="project-desc">Sensor-driven interactive game improving reflexes and responsiveness. Uses proximity and motion sensing with real-time feedback loops bridging hardware and accessibility.</p>
         <div class="project-chips"><span class="chip">Arduino / ESP32</span><span class="chip">Proximity Sensing</span><span class="chip">Real-Time Feedback</span></div>
+      </div>
+
+      <div class="project-card fade-in">
+        <span class="project-tag amber">IoT · Power Systems</span>
+        <h3 class="project-title">Multi-Source Power Management System</h3>
+        <p class="project-desc">Designed an integrated power architecture supporting Li-ion battery, solar, and USB inputs with regulated 12V, 5V, and 3.3V outputs. Implemented battery charging, boost conversion, load switching, and voltage monitoring for efficient and reliable IoT operation.</p>
+        <div class="project-chips"><span class="chip">Li-ion / Solar / USB</span><span class="chip">Boost Converter</span><span class="chip">Load Switching</span><span class="chip">Voltage Monitoring</span><span class="chip">IoT Power</span></div>
+      </div>
+
+      <div class="project-card fade-in">
+        <span class="project-tag" style="color:#67e8f9;background:rgba(103,232,249,0.08);border-color:rgba(103,232,249,0.25);">AI · IoT · MCP</span>
+        <h3 class="project-title">LLM-Integrated IoT Control via Model Context Protocol</h3>
+        <p class="project-desc">Integrated Large Language Models with IoT systems using Model Context Protocol (MCP) for intelligent control and automation. Enabled natural language–based device monitoring and command execution across connected IoT nodes.</p>
+        <div class="project-chips"><span class="chip">LLM / MCP</span><span class="chip">Natural Language Control</span><span class="chip">IoT Automation</span><span class="chip">ESP32</span><span class="chip">Python</span></div>
       </div>
 
     </div>
@@ -1272,7 +2386,7 @@ nav.scrolled {
 <section id="skills">
   <div class="fade-in">
     <div class="section-sub clip-reveal fade-in">What I know</div>
-    <h2 class="big-title"><span class="fill">Skills</span><br><span class="teal">&amp; Tools.</span></h2>
+    <h2 class="big-title"><span class="fill">Skills </span><span class="teal">&amp; Tools.</span></h2>
     <div class="skills-grid stagger fade-in">
 
       <div class="skill-group" style="--skill-color:var(--amber);--skill-bg:rgba(251,191,36,0.08);--skill-border:rgba(251,191,36,0.22);--skill-dot:var(--amber);">
@@ -1315,7 +2429,7 @@ nav.scrolled {
 <section id="journey">
   <div class="fade-in">
     <div class="section-sub clip-reveal fade-in">My path</div>
-    <h2 class="big-title"><span class="fill">Journey</span><br><span class="gold">&amp; Milestones.</span></h2>
+    <h2 class="big-title"><span class="fill">Journey </span><span class="gold">&amp; Milestones.</span></h2>
     <div class="timeline">
 
       <div class="timeline-item slide-left fade-in">
@@ -1329,14 +2443,14 @@ nav.scrolled {
         <div class="timeline-dot" style="--dot-color:var(--cyan);"></div>
         <div class="timeline-date" style="--dot-color:var(--cyan);">2025 – Present</div>
         <div class="timeline-title">PDEU–ISRO Bharat-G Satellite Mission (ADCS Team)</div>
-        <div class="timeline-sub">Core contributor to the Attitude Determination and Control System for the ISRO-collaborated Bharat-G satellite, developing Kalman Filter and TRIAD estimation algorithms.</div>
+        <div class="timeline-sub">Working with SAC (ISRO) on ADCS algorithms including TRIAD, Extended Kalman Filter (EKF), B-Dot, and PID. Performing sensor fusion for accurate attitude estimation and integrating control with passive and active actuators — magnetorquers and reaction wheels.</div>
       </div>
 
       <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:#c084fc;"></div>
         <div class="timeline-date" style="--dot-color:#c084fc;">May 2025</div>
         <div class="timeline-title">RTL-to-GDSII ASIC Design Workshop — 10 Days</div>
-        <div class="timeline-sub">Intensive industry-grade workshop using Synopsys EDA tools. Completed full ASIC design flow for an 8-bit ripple carry adder with hands-on RISC-V architecture exposure.</div>
+        <div class="timeline-sub">Completed full RTL-to-GDSII ASIC design flow for an 8-bit ripple carry adder — including floorplanning, power planning, placement, clock tree synthesis, and routing using Design Compiler, ICC2, PrimeTime, and Verdi.</div>
       </div>
 
       <div class="timeline-item slide-left fade-in">
@@ -1348,9 +2462,16 @@ nav.scrolled {
 
       <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:var(--rose);"></div>
-        <div class="timeline-date" style="--dot-color:var(--rose);">Early 2024</div>
-        <div class="timeline-title">Joined Team Kaizen — Motor Controller Lead</div>
-        <div class="timeline-sub">Joined Team Kaizen to develop a hyper-efficient BEV for Shell Eco-Marathon. Designed the 4-layer DTC motor controller PCB from scratch, focusing on thermal stability and power efficiency.</div>
+        <div class="timeline-date" style="--dot-color:var(--rose);">March 2024 – Present</div>
+        <div class="timeline-title">Electronics &amp; Electrical Head — Team Kaizen</div>
+        <div class="timeline-sub">Designed, simulated, and tested a closed-loop three-phase motor drive using DTC for a BLDC motor. Implemented DTC, FOC, and PID algorithms on STM32F4. Designed a compact 4-layer motor controller PCB with high thermal efficiency and optimised high-voltage routing.</div>
+      </div>
+
+      <div class="timeline-item slide-left fade-in">
+        <div class="timeline-dot" style="--dot-color:#56a8e3;"></div>
+        <div class="timeline-date" style="--dot-color:#56a8e3;">2023 – Present</div>
+        <div class="timeline-title">B.Tech ECE — Pandit Deendayal Energy University</div>
+        <div class="timeline-sub">Pursuing B.Tech in Electronics and Communication Engineering with a CGPA of 9.81/10. Minor specialisation in Internet of Things (IoT).</div>
       </div>
 
     </div>
@@ -1363,7 +2484,7 @@ nav.scrolled {
 <section id="contact">
   <div class="fade-in">
     <div class="section-sub clip-reveal fade-in">Get in touch</div>
-    <h2 class="big-title"><span class="fill">Contact</span><br><span class="grad">Me.</span></h2>
+    <h2 class="big-title"><span class="fill">Contact </span><span class="grad">Me.</span></h2>
     <div class="contact-wrapper">
       <div class="contact-info">
         <p>I'm open to collaborations, research opportunities, and conversations about motor control, satellite systems, embedded design, or anything at the edges of engineering. Based in Gandhinagar, Gujarat, India.</p>
@@ -1417,6 +2538,593 @@ nav.scrolled {
       document.querySelectorAll('.spec-pill').forEach(p => p.classList.remove('active'));
     }
   });
+
+
+
+/* ════════════════════════════════════════
+   PREMIUM SCROLL EFFECTS JS
+════════════════════════════════════════ */
+
+/* ── PARALLAX + HERO SCROLL EFFECTS ── */
+var heroContent = document.querySelector('.hero-content');
+var heroOrb1    = document.querySelector('.hero-glow1');
+var heroOrb2    = document.querySelector('.hero-glow2');
+var heroPhoto   = document.querySelector('.hero-photo-wrap');
+
+window.addEventListener('scroll', function() {
+  var sy = window.scrollY;
+
+  // Hero content fades and moves up slightly on scroll
+  if (heroContent) {
+    var opacity = Math.max(0, 1 - sy / 500);
+    var ty = sy * 0.18;
+    heroContent.style.opacity = opacity;
+    heroContent.style.transform = 'translateY(' + ty + 'px)';
+  }
+
+  // Orbs move at different parallax speeds
+  if (heroOrb1) heroOrb1.style.transform = 'translateY(' + (sy * 0.12) + 'px)';
+  if (heroOrb2) heroOrb2.style.transform = 'translateY(' + (-sy * 0.08) + 'px)';
+
+  // Photo parallax
+  if (heroPhoto) {
+    heroPhoto.style.transform = 'translateY(calc(-50% + ' + (sy * 0.06) + 'px))';
+  }
+
+  // Section divider glow on scroll near
+  document.querySelectorAll('.section-divider').forEach(function(div) {
+    var rect = div.getBoundingClientRect();
+    if (Math.abs(rect.top) < 200) {
+      div.classList.add('glow');
+    } else {
+      div.classList.remove('glow');
+    }
+  });
+
+  // Section in-view for title underline
+  document.querySelectorAll('section').forEach(function(sec) {
+    var rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
+      sec.classList.add('in-view');
+    }
+  });
+
+}, { passive: true });
+
+/* ── SPLIT TEXT on section titles ── */
+function splitTitle(el) {
+  var text = el.textContent;
+  el.innerHTML = '';
+  text.split('').forEach(function(char, i) {
+    var span = document.createElement('span');
+    span.className = 'split-char';
+    span.style.transitionDelay = (i * 0.035) + 's';
+    span.textContent = char === ' ' ? ' ' : char;
+    el.appendChild(span);
+  });
+}
+
+var titleIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.split-char').forEach(function(c) {
+        c.classList.add('visible');
+      });
+      titleIO.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.section-sub').forEach(function(el) {
+  splitTitle(el);
+  titleIO.observe(el.parentElement || el);
+});
+
+/* ── MARQUEE STRIP insertion ── */
+var marqueeItems = [
+  'Motor Controller Design', 'ADCS Algorithms', 'ASIC Design Flow',
+  'STM32F4 Firmware', 'Shell Eco-Marathon', 'PDEU–ISRO Bharat-G',
+  'IoT Systems', 'RTL to GDSII', 'Kalman Filter EKF', 'PCB Design',
+  'Synopsys EDA', 'ESP32 / ESP-Now', 'Power Electronics', 'Sensor Fusion'
+];
+
+function buildMarquee() {
+  var doubled = marqueeItems.concat(marqueeItems);
+  return doubled.map(function(item) {
+    return '<div class="marquee-item">' + item + '</div>';
+  }).join('');
+}
+
+var dividers = document.querySelectorAll('.section-divider');
+if (dividers.length > 1) {
+  var strip = document.createElement('div');
+  strip.className = 'marquee-strip';
+  strip.innerHTML = '<div class="marquee-inner">' + buildMarquee() + '</div>';
+  dividers[1].parentNode.insertBefore(strip, dividers[1].nextSibling);
+}
+
+/* ── COUNTER with flash effect ── */
+var statNums = document.querySelectorAll('[data-count]');
+var counterDone = {};
+var flashIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (!entry.isIntersecting || counterDone[entry.target.id]) return;
+    var el = entry.target;
+    var target = parseFloat(el.dataset.count);
+    var suffix = el.dataset.suffix || '';
+    if (isNaN(target)) return;
+    counterDone[el.id || Math.random()] = true;
+    el.classList.add('counting');
+    var start = performance.now();
+    var dur = 1800;
+    (function step(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+      else el.classList.remove('counting');
+    })(start);
+    flashIO.unobserve(el);
+  });
+}, { threshold: 0.7 });
+
+statNums.forEach(function(el, i) {
+  el.id = el.id || 'stat-' + i;
+  flashIO.observe(el);
+});
+
+/* ── SMOOTH SECTION TRANSITIONS ── */
+var sections = document.querySelectorAll('section');
+var sectionIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) entry.target.classList.add('in-view');
+  });
+}, { threshold: 0.15 });
+sections.forEach(function(s) { sectionIO.observe(s); });
+
+/* ── RESET HERO on scroll back to top ── */
+window.addEventListener('scroll', function() {
+  if (window.scrollY < 10 && heroContent) {
+    heroContent.style.opacity = '';
+    heroContent.style.transform = '';
+  }
+}, { passive: true });
+
+</script>
+
+
+
+<!-- SPEC MODAL OVERLAY -->
+<div class="spec-overlay" id="specOverlay">
+  <div class="spec-box" id="specBox">
+    <div class="spec-box-top" id="specBoxTop"></div>
+    <button class="spec-close-btn" id="specCloseBtn">&#10005;</button>
+    <div class="spec-head">
+      <div class="spec-ico" id="specIco"></div>
+      <div>
+        <div class="spec-ttl" id="specTtl"></div>
+        <div class="spec-sub" id="specSub"></div>
+      </div>
+    </div>
+    <div class="spec-body" id="specBody"></div>
+    <div class="spec-chips" id="specChips"></div>
+    <div class="spec-hls" id="specHls"></div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════
+   PROFESSIONAL ANIMATION SYSTEM
+════════════════════════════════════════ */
+
+document.body.classList.add('js-ready');
+
+/* ── 1. SCROLL PROGRESS BAR ── */
+const prog = document.getElementById('scrollProgress');
+function updateProgress() {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  if (prog) prog.style.width = Math.min(pct, 100) + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+/* ── 2. NAV SHRINK ── */
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav && nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── 3. SMOOTH CURSOR GLOW ── */
+const glow = document.getElementById('cursorGlow');
+if (glow) {
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let cx = mx, cy = my;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function animGlow() {
+    cx += (mx - cx) * 0.07;
+    cy += (my - cy) * 0.07;
+    glow.style.transform = 'translate(' + (cx - 160) + 'px,' + (cy - 160) + 'px)';
+    requestAnimationFrame(animGlow);
+  })();
+}
+
+/* ── 4. INTERSECTION OBSERVER — staggered entrance ── */
+const ioOptions = { threshold: 0.08, rootMargin: '0px 0px -40px 0px' };
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry, idx) => {
+    if (entry.isIntersecting) {
+      const delay = entry.target.dataset.delay || 0;
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, parseInt(delay));
+      io.unobserve(entry.target);
+    }
+  });
+}, ioOptions);
+
+// Assign stagger delays to grid children
+document.querySelectorAll('.projects-grid .project-card').forEach((el, i) => {
+  el.dataset.delay = i * 80;
+});
+document.querySelectorAll('.skills-grid .skill-group').forEach((el, i) => {
+  el.dataset.delay = i * 60;
+});
+document.querySelectorAll('.about-stats-new .stat-card').forEach((el, i) => {
+  el.dataset.delay = i * 100;
+});
+document.querySelectorAll('.about-bio-block').forEach((el, i) => {
+  el.dataset.delay = i * 90;
+});
+document.querySelectorAll('.timeline-item').forEach((el, i) => {
+  el.dataset.delay = i * 100;
+});
+document.querySelectorAll('.acad-card').forEach((el, i) => {
+  el.dataset.delay = i * 120;
+});
+
+document.querySelectorAll('.fade-in, .slide-left, .slide-right, .scale-in, .clip-reveal, .stagger').forEach(el => {
+  const rect = el.getBoundingClientRect();
+  if (rect.top < window.innerHeight) el.classList.add('visible');
+  else io.observe(el);
+});
+
+/* ── 5. COUNTER ANIMATION ── */
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+function animCount(el, target, suffix, duration) {
+  const start = performance.now();
+  (function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    el.textContent = Math.round(easeOut(p) * target) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  })(start);
+}
+
+const counterIO = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const val = parseFloat(el.dataset.count);
+    const suf = el.dataset.suffix || '';
+    if (!isNaN(val)) animCount(el, val, suf, 1600);
+    counterIO.unobserve(el);
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+
+/* ── 6. ACADEMIC BAR FILL ── */
+const barIO = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.acad-bar-fill').forEach(bar => {
+        bar.style.width = bar.style.getPropertyValue('--pct') || getComputedStyle(bar).getPropertyValue('--pct');
+      });
+      barIO.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.acad-card').forEach(card => barIO.observe(card));
+
+/* ── 7. CARD 3D TILT ── */
+function addTilt(selector, intensity) {
+  document.querySelectorAll(selector).forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width  - 0.5) * intensity;
+      const y = ((e.clientY - r.top)  / r.height - 0.5) * intensity;
+      card.style.transform = 'perspective(700px) rotateY(' + x + 'deg) rotateX(' + (-y) + 'deg) translateY(-4px) scale(1.01)';
+      card.style.transition = 'transform 0.05s linear';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+    });
+  });
+}
+addTilt('.project-card', 6);
+addTilt('.skill-group', 5);
+addTilt('.stat-card', 7);
+addTilt('.acad-card', 5);
+
+/* ── 8. BUTTON RIPPLE ── */
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    const r = btn.getBoundingClientRect();
+    const size = Math.max(r.width, r.height) * 2;
+    const span = document.createElement('span');
+    span.style.cssText = 'position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,0.18);transform:scale(0);animation:rippleAnim 0.55s ease-out forwards;width:' + size + 'px;height:' + size + 'px;left:' + (e.clientX - r.left - size/2) + 'px;top:' + (e.clientY - r.top - size/2) + 'px;';
+    btn.appendChild(span);
+    setTimeout(() => span.remove(), 600);
+  });
+});
+
+/* ── 9. ACTIVE NAV HIGHLIGHT ── */
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const navIO = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => {
+        const isActive = a.getAttribute('href') === '#' + entry.target.id;
+        a.style.color = isActive ? 'var(--cyan)' : '';
+        a.style.fontWeight = isActive ? '500' : '';
+      });
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('section[id]').forEach(s => navIO.observe(s));
+
+/* ── 10. SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+/* ── 11. HERO TYPEWRITER for subtitle ── */
+const desc = document.querySelector('.hero-desc');
+if (desc) {
+  const text = desc.textContent.trim();
+  desc.textContent = '';
+  desc.style.opacity = '1';
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.style.cssText = 'display:inline-block;width:2px;height:1em;background:var(--cyan);margin-left:2px;vertical-align:text-bottom;animation:blink 0.9s step-end infinite;border-radius:1px;';
+  desc.appendChild(cursor);
+  setTimeout(() => {
+    const type = setInterval(() => {
+      cursor.insertAdjacentText('beforebegin', text[i]);
+      i++;
+      if (i >= text.length) {
+        clearInterval(type);
+        setTimeout(() => cursor.style.display = 'none', 2000);
+      }
+    }, 22);
+  }, 1000);
+}
+
+/* ── 12. SPEC PILLS MODAL ── */
+var specInfo = {
+  motor: {
+    icon: '⚙️', title: 'Motor Controller Design', sub: 'Power Electronics · Embedded Control',
+    color: '#9b7ffe', grad: 'linear-gradient(90deg,#7c5cfc,#22d3ee)',
+    body: 'Specialised in designing high-efficiency motor controllers using DTC, FOC, and PID. Designed a 4-layer PCB for Team Kaizen's BEV achieving 227 km/kWh — 1st India, 5th Asia at Shell Eco-Marathon 2025. Implemented on STM32F4.',
+    chips: ['Direct Torque Control','FOC','PID','STM32F4','Gate Drivers','4-Layer PCB','Thermal Design','EMI Mitigation'],
+    hls: [['227','km/kWh efficiency'],['4-Layer','PCB stack'],['1st','India ranking'],['STM32F4','MCU platform']]
+  },
+  adcs: {
+    icon: '🛰️', title: 'ADCS / Satellite Systems', sub: 'Attitude Determination & Control',
+    color: '#22d3ee', grad: 'linear-gradient(90deg,#22d3ee,#34d399)',
+    body: 'ADCS Member on PDEU–ISRO Bharat-G mission, working with SAC (ISRO) on TRIAD, Extended Kalman Filter (EKF), B-Dot, and PID algorithms. Performing sensor fusion for accurate attitude estimation and integrating magnetorquers and reaction wheels.',
+    chips: ['TRIAD','Extended Kalman Filter','B-Dot','Sensor Fusion','Magnetorquers','Reaction Wheels','MATLAB','Python'],
+    hls: [['ISRO','SAC collaboration'],['EKF','Primary estimator'],['Bharat-G','Satellite mission'],['LEO','Orbit regime']]
+  },
+  asic: {
+    icon: '⚡', title: 'ASIC & VLSI', sub: 'RTL to GDSII · Synopsys EDA',
+    color: '#c084fc', grad: 'linear-gradient(90deg,#c084fc,#7c5cfc)',
+    body: 'Completed full RTL-to-GDSII ASIC flow — floorplanning, power planning, placement, clock tree synthesis, and routing for an 8-bit ripple carry adder. Tools: Design Compiler, ICC2, PrimeTime, and Verdi. Experience with Synopsys Sentaurus TCAD and Cadence.',
+    chips: ['Design Compiler','ICC2','PrimeTime STA','Verdi Debug','Synopsys Sentaurus','Cadence','Verilog/HDL','GDSII'],
+    hls: [['8-bit','Ripple carry adder'],['STA','Timing analysis'],['P&R','Place & route'],['RTL→GDS','Full flow']]
+  },
+  embedded: {
+    icon: '💾', title: 'Embedded Systems', sub: 'Firmware · Real-Time · MCU',
+    color: '#fb7185', grad: 'linear-gradient(90deg,#fb7185,#fbbf24)',
+    body: 'Firmware development on STM32F4, ESP32, and Arduino for real-time motor control, IoT sensor nodes, and communication protocols. Proficient in STM32CubeMX, STM32IDE, ESP-Now, and RISC-V architecture. Skilled in SPI, I2C, UART, and interrupt-driven design.',
+    chips: ['STM32F4','STM32CubeMX','ESP32','Arduino','ESP-Now','RISC-V','SPI/I2C/UART','Embedded C'],
+    hls: [['STM32F4','Motor control MCU'],['ESP32','IoT platform'],['ESP-Now','Mesh protocol'],['RISC-V','Architecture']]
+  },
+  iot: {
+    icon: '📡', title: 'Internet of Things', sub: 'Connected Systems · Edge · AI-IoT',
+    color: '#34d399', grad: 'linear-gradient(90deg,#34d399,#22d3ee)',
+    body: 'Minor specialisation in IoT. Projects include: Smart Safety Helmet for mine workers (DHT22, MQ135, MPU6050, ESP-Now, MQTTx), Multi-Source Power Management System, and LLM-Integrated IoT Control using Model Context Protocol for natural language device automation.',
+    chips: ['MQTT / ESP-Now','MQTTx Platform','LLM + MCP','Multi-source Power','DHT22 / MQ135','MPU6050','Node-RED','Cloud Integration'],
+    hls: [['3+','Active IoT projects'],['LLM+MCP','AI-IoT integration'],['ESP-Now','Mesh network'],['IoT Minor','PDEU specialisation']]
+  }
+};
+
+function openSpec(key) {
+  var d = specInfo[key]; if (!d) return;
+  document.getElementById('specIco').textContent = d.icon;
+  document.getElementById('specTtl').textContent = d.title;
+  document.getElementById('specSub').textContent = d.sub;
+  document.getElementById('specBody').textContent = d.body;
+  document.getElementById('specBody').style.borderColor = d.color;
+  document.getElementById('specBoxTop').style.background = d.grad;
+  var chips = document.getElementById('specChips');
+  chips.innerHTML = d.chips.map(function(c){ return '<span class="spec-chip">'+c+'</span>'; }).join('');
+  var hls = document.getElementById('specHls');
+  hls.innerHTML = d.hls.map(function(h){
+    return '<div class="spec-hl-item"><div class="spec-hl-v" style="color:'+d.color+'">'+h[0]+'</div><div class="spec-hl-l">'+h[1]+'</div></div>';
+  }).join('');
+  document.getElementById('specOverlay').classList.add('open');
+}
+function closeSpec() { document.getElementById('specOverlay').classList.remove('open'); }
+document.querySelectorAll('.spec-pill').forEach(function(pill) {
+  pill.addEventListener('click', function(e) { e.stopPropagation(); openSpec(this.dataset.spec); });
+});
+var overlay = document.getElementById('specOverlay');
+if (overlay) {
+  document.getElementById('specCloseBtn').addEventListener('click', closeSpec);
+  overlay.addEventListener('click', function(e) { if (e.target === this) closeSpec(); });
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSpec(); });
+
+/* ── 13. EMAIL ── */
+(function() {
+  var u = 'aayushmodi' + '2005', d = 'gmail' + '.' + 'com';
+  var el = document.getElementById('emailLink');
+  if (el) el.href = 'mailto:' + u + '@' + d;
+})();
+
+
+
+/* ════════════════════════════════════════
+   PREMIUM SCROLL EFFECTS JS
+════════════════════════════════════════ */
+
+/* ── PARALLAX + HERO SCROLL EFFECTS ── */
+var heroContent = document.querySelector('.hero-content');
+var heroOrb1    = document.querySelector('.hero-glow1');
+var heroOrb2    = document.querySelector('.hero-glow2');
+var heroPhoto   = document.querySelector('.hero-photo-wrap');
+
+window.addEventListener('scroll', function() {
+  var sy = window.scrollY;
+
+  // Hero content fades and moves up slightly on scroll
+  if (heroContent) {
+    var opacity = Math.max(0, 1 - sy / 500);
+    var ty = sy * 0.18;
+    heroContent.style.opacity = opacity;
+    heroContent.style.transform = 'translateY(' + ty + 'px)';
+  }
+
+  // Orbs move at different parallax speeds
+  if (heroOrb1) heroOrb1.style.transform = 'translateY(' + (sy * 0.12) + 'px)';
+  if (heroOrb2) heroOrb2.style.transform = 'translateY(' + (-sy * 0.08) + 'px)';
+
+  // Photo parallax
+  if (heroPhoto) {
+    heroPhoto.style.transform = 'translateY(calc(-50% + ' + (sy * 0.06) + 'px))';
+  }
+
+  // Section divider glow on scroll near
+  document.querySelectorAll('.section-divider').forEach(function(div) {
+    var rect = div.getBoundingClientRect();
+    if (Math.abs(rect.top) < 200) {
+      div.classList.add('glow');
+    } else {
+      div.classList.remove('glow');
+    }
+  });
+
+  // Section in-view for title underline
+  document.querySelectorAll('section').forEach(function(sec) {
+    var rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
+      sec.classList.add('in-view');
+    }
+  });
+
+}, { passive: true });
+
+/* ── SPLIT TEXT on section titles ── */
+function splitTitle(el) {
+  var text = el.textContent;
+  el.innerHTML = '';
+  text.split('').forEach(function(char, i) {
+    var span = document.createElement('span');
+    span.className = 'split-char';
+    span.style.transitionDelay = (i * 0.035) + 's';
+    span.textContent = char === ' ' ? ' ' : char;
+    el.appendChild(span);
+  });
+}
+
+var titleIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.split-char').forEach(function(c) {
+        c.classList.add('visible');
+      });
+      titleIO.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.section-sub').forEach(function(el) {
+  splitTitle(el);
+  titleIO.observe(el.parentElement || el);
+});
+
+/* ── MARQUEE STRIP insertion ── */
+var marqueeItems = [
+  'Motor Controller Design', 'ADCS Algorithms', 'ASIC Design Flow',
+  'STM32F4 Firmware', 'Shell Eco-Marathon', 'PDEU–ISRO Bharat-G',
+  'IoT Systems', 'RTL to GDSII', 'Kalman Filter EKF', 'PCB Design',
+  'Synopsys EDA', 'ESP32 / ESP-Now', 'Power Electronics', 'Sensor Fusion'
+];
+
+function buildMarquee() {
+  var doubled = marqueeItems.concat(marqueeItems);
+  return doubled.map(function(item) {
+    return '<div class="marquee-item">' + item + '</div>';
+  }).join('');
+}
+
+var dividers = document.querySelectorAll('.section-divider');
+if (dividers.length > 1) {
+  var strip = document.createElement('div');
+  strip.className = 'marquee-strip';
+  strip.innerHTML = '<div class="marquee-inner">' + buildMarquee() + '</div>';
+  dividers[1].parentNode.insertBefore(strip, dividers[1].nextSibling);
+}
+
+/* ── COUNTER with flash effect ── */
+var statNums = document.querySelectorAll('[data-count]');
+var counterDone = {};
+var flashIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (!entry.isIntersecting || counterDone[entry.target.id]) return;
+    var el = entry.target;
+    var target = parseFloat(el.dataset.count);
+    var suffix = el.dataset.suffix || '';
+    if (isNaN(target)) return;
+    counterDone[el.id || Math.random()] = true;
+    el.classList.add('counting');
+    var start = performance.now();
+    var dur = 1800;
+    (function step(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+      else el.classList.remove('counting');
+    })(start);
+    flashIO.unobserve(el);
+  });
+}, { threshold: 0.7 });
+
+statNums.forEach(function(el, i) {
+  el.id = el.id || 'stat-' + i;
+  flashIO.observe(el);
+});
+
+/* ── SMOOTH SECTION TRANSITIONS ── */
+var sections = document.querySelectorAll('section');
+var sectionIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) entry.target.classList.add('in-view');
+  });
+}, { threshold: 0.15 });
+sections.forEach(function(s) { sectionIO.observe(s); });
+
+/* ── RESET HERO on scroll back to top ── */
+window.addEventListener('scroll', function() {
+  if (window.scrollY < 10 && heroContent) {
+    heroContent.style.opacity = '';
+    heroContent.style.transform = '';
+  }
+}, { passive: true });
 
 </script>
 
