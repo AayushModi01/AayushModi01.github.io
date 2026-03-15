@@ -2043,6 +2043,571 @@ section.in-view .big-title .gold::after {
   will-change: opacity, transform;
 }
 
+
+/* ════════════════════════════════════════
+   DRAMATIC VISIBLE SCROLL EFFECTS
+════════════════════════════════════════ */
+
+/* ── REVEAL WIPE: content hides behind a colored curtain ── */
+.reveal-wipe {
+  position: relative;
+  overflow: hidden;
+}
+.reveal-wipe::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--violet) 0%, var(--cyan) 100%);
+  transform: translateX(-101%);
+  transition: transform 0s;
+  z-index: 2;
+  border-radius: inherit;
+}
+.reveal-wipe.wipe-active::after {
+  transform: translateX(0);
+  transition: transform 0.35s cubic-bezier(0.77,0,0.18,1);
+}
+.reveal-wipe.wipe-done::after {
+  transform: translateX(101%);
+  transition: transform 0.35s cubic-bezier(0.77,0,0.18,1) 0.35s;
+}
+
+/* ── MAGNETIC CARDS: scale + border light on scroll near ── */
+.project-card,
+.skill-group,
+.stat-card,
+.acad-card,
+.about-bio-block {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease,
+              opacity 0.5s ease !important;
+}
+
+/* ── SCROLL-HIGHLIGHT: glows when entering viewport ── */
+.scroll-spotlight {
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+.scroll-spotlight.lit {
+  box-shadow: 0 0 0 1px var(--border2), 0 0 40px rgba(124,92,252,0.15);
+  border-color: var(--border2) !important;
+}
+
+/* ── COUNTER SLOT MACHINE ── */
+.slot-digit {
+  display: inline-block;
+  animation: slotSpin 0.08s steps(1) infinite;
+}
+@keyframes slotSpin {
+  0%  { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── SECTION BACKGROUND SHIFT on scroll ── */
+section { transition: background 0.6s ease; }
+section.in-view { background: rgba(124,92,252,0.015); }
+
+/* ── TIMELINE SCROLL: line draws itself ── */
+.timeline::before {
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.timeline.timeline-drawn::before {
+  transform: scaleY(1);
+}
+
+/* ── SKILL GROUP SHIMMER on enter ── */
+.skill-group.lit-enter {
+  animation: skillEnter 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes skillEnter {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.96); }
+  60%  { transform: translateY(-3px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── STAT CARD POP on enter ── */
+.stat-card.stat-pop {
+  animation: statPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes statPop {
+  0%   { opacity: 0; transform: scale(0.85) translateY(15px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── FLOATING LABELS next to section ── */
+.scroll-side-label {
+  position: fixed;
+  left: 1.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.scroll-side-label.visible { opacity: 1; }
+.scroll-dot-nav {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text3); cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.scroll-dot-nav.active {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  transform: scale(1.5);
+}
+.scroll-dot-nav:hover { background: var(--text2); transform: scale(1.3); }
+.scroll-dot-nav[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute;
+  left: 16px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text2); background: var(--surface);
+  border: 0.5px solid var(--border2);
+  padding: 0.25rem 0.55rem; border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.scroll-dot-nav:hover[data-tip]::before { opacity: 1; }
+
+/* ── BIG NUMBER REVEAL ── */
+@keyframes numReveal {
+  0%   { opacity: 0; transform: translateY(12px) scale(0.9); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.stat-num.num-revealed {
+  animation: numReveal 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+/* ── HERO SCROLL INDICATOR PULSE ── */
+.hero-scroll {
+  animation: scrollBounce 2s ease-in-out infinite !important;
+}
+@keyframes scrollBounce {
+  0%,100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50%     { opacity: 0.9; transform: translateX(-50%) translateY(8px); }
+}
+
+
+/* ════════════════════════════════════════
+   PROJECT CARD & CHIP ENHANCED EFFECTS
+════════════════════════════════════════ */
+
+/* ── PROJECT CARD ── */
+.project-card {
+  position: relative;
+  overflow: hidden;
+  transform-origin: center bottom;
+}
+
+/* Animated corner accent */
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--violet2), var(--cyan), transparent);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: none;
+}
+.project-card:hover::before {
+  opacity: 1;
+  animation: shimmerLine 1.8s linear infinite;
+}
+@keyframes shimmerLine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Inner glow on hover */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(124,92,252,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.project-card:hover::after { opacity: 1; }
+
+/* Project title hover effect */
+.project-title {
+  position: relative;
+  display: inline-block;
+  transition: color 0.25s ease;
+}
+.project-card:hover .project-title { color: var(--text); }
+
+/* ── TECH CHIPS — enhanced ── */
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 5px;
+  background: var(--surface2);
+  color: var(--text3);
+  border: 0.5px solid var(--border);
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+  cursor: default;
+  transition: all 0.22s cubic-bezier(0.16,1,0.3,1);
+  overflow: hidden;
+}
+
+/* Dot indicator before each chip */
+.chip::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--chip-color, var(--text3));
+  flex-shrink: 0;
+  transition: all 0.22s ease;
+  box-shadow: 0 0 0 0 var(--chip-color, var(--text3));
+}
+
+/* Shimmer sweep on hover */
+.chip::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transition: left 0.4s ease;
+}
+.chip:hover::after { left: 100%; }
+
+/* Chip hover state */
+.chip:hover {
+  background: var(--surface3);
+  border-color: var(--border2);
+  color: var(--text2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.chip:hover::before {
+  background: var(--chip-color, var(--violet2));
+  box-shadow: 0 0 6px var(--chip-color, var(--violet2));
+}
+
+/* Color-coded chips by category */
+.project-card:nth-child(1) .chip { --chip-color: var(--amber); }
+.project-card:nth-child(2) .chip { --chip-color: #c084fc; }
+.project-card:nth-child(3) .chip { --chip-color: var(--cyan); }
+.project-card:nth-child(4) .chip { --chip-color: var(--amber); }
+.project-card:nth-child(5) .chip { --chip-color: var(--rose); }
+.project-card:nth-child(6) .chip { --chip-color: var(--green); }
+.project-card:nth-child(7) .chip { --chip-color: var(--amber); }
+.project-card:nth-child(8) .chip { --chip-color: #67e8f9; }
+
+/* Chips row stagger on card hover */
+.project-card:hover .project-chips .chip:nth-child(1) { transition-delay: 0s; }
+.project-card:hover .project-chips .chip:nth-child(2) { transition-delay: 0.03s; }
+.project-card:hover .project-chips .chip:nth-child(3) { transition-delay: 0.06s; }
+.project-card:hover .project-chips .chip:nth-child(4) { transition-delay: 0.09s; }
+.project-card:hover .project-chips .chip:nth-child(5) { transition-delay: 0.12s; }
+
+/* ── PROJECT TAG glow on hover ── */
+.project-tag {
+  transition: all 0.25s ease;
+}
+.project-card:hover .project-tag {
+  box-shadow: 0 0 12px rgba(124,92,252,0.2);
+  letter-spacing: 0.16em;
+}
+
+/* ── FEATURED CARD highlight ── */
+.project-card.featured {
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(251,191,36,0.04) 100%) !important;
+}
+.project-card.featured:hover {
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(251,191,36,0.07) 100%) !important;
+}
+
+/* ── PROJECT DESCRIPTION subtle reveal ── */
+.project-desc {
+  position: relative;
+}
+.project-desc::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1.5em;
+  background: linear-gradient(to bottom, transparent, var(--surface));
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+/* ── SKILL LIST ITEMS enhanced ── */
+.skill-list li {
+  padding: 0.3rem 0.4rem;
+  border-radius: 5px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+.skill-list li:hover {
+  background: var(--surface2);
+  color: var(--text);
+  transform: translateX(4px);
+}
+.skill-list li::before {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.skill-list li:hover::before {
+  box-shadow: 0 0 6px var(--skill-dot, var(--violet2));
+  transform: scale(1.4);
+}
+
+/* ── ABOUT BIO BLOCK tag ── */
+.about-bio-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s, letter-spacing 0.3s;
+}
+.about-bio-block:hover .about-bio-tag {
+  color: var(--violet2);
+  letter-spacing: 0.22em;
+}
+
+/* ── TIMELINE ITEM hover ── */
+.timeline-item {
+  padding: 0.8rem 0.8rem 2.8rem 2rem;
+  border-radius: 8px;
+  transition: background 0.25s ease;
+}
+.timeline-item:hover { background: rgba(124,92,252,0.03); }
+.timeline-item:hover .timeline-title { color: var(--text); }
+.timeline-title { transition: color 0.2s ease; }
+
+/* ── ACAD CARD chips ── */
+.acad-badge {
+  transition: all 0.25s ease;
+}
+.acad-card:hover .acad-badge {
+  letter-spacing: 0.1em;
+}
+
+/* ── CONTACT LINK icon color on hover ── */
+.contact-link:hover .contact-icon { color: var(--violet2) !important; }
+
+
+/* ════════════════════════════════════════
+   DRAMATIC CURSOR HOVER EFFECTS
+════════════════════════════════════════ */
+
+/* ── CUSTOM CURSOR ── */
+body { cursor: none; }
+
+#custom-cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+  mix-blend-mode: screen;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(34,211,238,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
+              height 0.35s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.25s ease,
+              opacity 0.25s ease;
+}
+
+/* Cursor expand on hoverable items */
+body.cursor-hover #custom-cursor {
+  width: 6px; height: 6px;
+  background: var(--violet2);
+}
+body.cursor-hover #cursor-ring {
+  width: 52px; height: 52px;
+  border-color: rgba(155,127,254,0.6);
+}
+body.cursor-chip #custom-cursor {
+  width: 40px; height: 40px;
+  background: rgba(34,211,238,0.15);
+  mix-blend-mode: normal;
+}
+body.cursor-chip #cursor-ring {
+  width: 60px; height: 60px;
+  border-color: rgba(34,211,238,0.8);
+}
+body.cursor-click #custom-cursor {
+  width: 20px; height: 20px;
+  background: rgba(255,255,255,0.3);
+}
+
+/* ── CHIP — SUPER ENHANCED ── */
+.chip {
+  cursor: none !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16,1,0.3,1) !important;
+  transform-origin: center;
+}
+
+/* 3D lift */
+.chip:hover {
+  transform: translateY(-4px) scale(1.08) !important;
+  background: var(--surface3) !important;
+  border-color: var(--chip-color, var(--cyan)) !important;
+  color: var(--text) !important;
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.4),
+    0 0 0 1px var(--chip-color, var(--cyan)),
+    0 0 16px rgba(34,211,238,0.2) !important;
+  z-index: 5;
+}
+
+/* Dot glow intensify */
+.chip:hover::before {
+  width: 6px !important; height: 6px !important;
+  background: var(--chip-color, var(--cyan)) !important;
+  box-shadow: 0 0 10px var(--chip-color, var(--cyan)),
+              0 0 20px var(--chip-color, var(--cyan)) !important;
+}
+
+/* Magnetic text shift */
+.chip span.chip-text {
+  display: inline-block;
+  transition: transform 0.2s ease, letter-spacing 0.2s ease;
+}
+.chip:hover span.chip-text {
+  letter-spacing: 0.07em;
+}
+
+/* ── SKILL LIST ITEMS — MAGNETIC ── */
+.skill-list li {
+  cursor: none !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-list li:hover {
+  background: linear-gradient(90deg, rgba(124,92,252,0.08), transparent) !important;
+  color: var(--text) !important;
+  transform: translateX(8px) !important;
+  border-left: 2px solid var(--skill-dot, var(--violet2));
+  padding-left: calc(0.6rem - 2px);
+}
+
+/* Skill item sweep */
+.skill-list li::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(124,92,252,0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+}
+.skill-list li:hover::after { transform: translateX(0); }
+
+/* ── TIMELINE ITEM ── */
+.timeline-item {
+  cursor: none !important;
+}
+.timeline-item:hover .timeline-date {
+  letter-spacing: 0.18em;
+  transition: letter-spacing 0.3s ease;
+}
+.timeline-item:hover .timeline-sub {
+  color: var(--text2) !important;
+}
+
+/* ── ABOUT BIO BLOCK ── */
+.about-bio-block {
+  cursor: none !important;
+}
+.about-bio-block:hover {
+  border-color: var(--violet2) !important;
+  background: var(--surface2) !important;
+  transform: translateX(4px);
+}
+
+/* ── COMPETENCY ITEM ── */
+.about-comp-item {
+  cursor: none !important;
+  transition: all 0.22s cubic-bezier(0.16,1,0.3,1);
+}
+.about-comp-item:hover {
+  transform: scale(1.04) translateY(-2px) !important;
+  border-color: var(--cc, var(--violet2)) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 8px var(--cc, var(--violet2));
+  color: var(--text) !important;
+}
+.about-comp-item:hover .about-comp-dot {
+  transform: scale(1.8);
+  box-shadow: 0 0 12px var(--cc, var(--violet2));
+}
+
+/* ── STAT CARD ── */
+.stat-card {
+  cursor: none !important;
+}
+.stat-card:hover {
+  transform: translateY(-6px) scale(1.03) !important;
+}
+
+/* ── PROJECT CARD TAG ── */
+.project-tag {
+  cursor: none !important;
+}
+
+/* ── NAV LINKS ── */
+.nav-links a { cursor: none !important; }
+
+/* ── BTN ── */
+.btn { cursor: none !important; }
+
+/* ── TOOLTIP ON CHIP HOVER ── */
+.chip[data-tip] {
+  position: relative;
+}
+.chip[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%; transform: translateX(-50%) translateY(4px);
+  font-size: 0.6rem;
+  background: var(--surface3);
+  color: var(--text2);
+  border: 0.5px solid var(--border2);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+  letter-spacing: 0.06em;
+  font-family: var(--mono);
+}
+
 </style>
 </head>
 <body>
@@ -2433,31 +2998,10 @@ section.in-view .big-title .gold::after {
     <div class="timeline">
 
       <div class="timeline-item slide-left fade-in">
-        <div class="timeline-dot" style="--dot-color:var(--violet2);"></div>
-        <div class="timeline-date" style="--dot-color:var(--violet2);">January 2026</div>
-        <div class="timeline-title">Shell Eco-Marathon — Lusail International Circuit</div>
-        <div class="timeline-sub">Team Kaizen achieved 1st in India and 5th in Asia at the Shell Eco-Marathon, competing at Lusail International Circuit, Doha with 227 km/kWh energy efficiency.</div>
-      </div>
-
-      <div class="timeline-item slide-left fade-in">
-        <div class="timeline-dot" style="--dot-color:var(--cyan);"></div>
-        <div class="timeline-date" style="--dot-color:var(--cyan);">2025 – Present</div>
-        <div class="timeline-title">PDEU–ISRO Bharat-G Satellite Mission (ADCS Team)</div>
-        <div class="timeline-sub">Working with SAC (ISRO) on ADCS algorithms including TRIAD, Extended Kalman Filter (EKF), B-Dot, and PID. Performing sensor fusion for accurate attitude estimation and integrating control with passive and active actuators — magnetorquers and reaction wheels.</div>
-      </div>
-
-      <div class="timeline-item slide-left fade-in">
-        <div class="timeline-dot" style="--dot-color:#c084fc;"></div>
-        <div class="timeline-date" style="--dot-color:#c084fc;">May 2025</div>
-        <div class="timeline-title">RTL-to-GDSII ASIC Design Workshop — 10 Days</div>
-        <div class="timeline-sub">Completed full RTL-to-GDSII ASIC design flow for an 8-bit ripple carry adder — including floorplanning, power planning, placement, clock tree synthesis, and routing using Design Compiler, ICC2, PrimeTime, and Verdi.</div>
-      </div>
-
-      <div class="timeline-item slide-left fade-in">
-        <div class="timeline-dot" style="--dot-color:var(--amber);"></div>
-        <div class="timeline-date" style="--dot-color:var(--amber);">February 2025</div>
-        <div class="timeline-title">Shell Eco-Marathon — First Competition Run, Doha</div>
-        <div class="timeline-sub">First international competition for Team Kaizen, ranked 1st in India with the DTC motor controller PCB delivering reliable performance under race conditions.</div>
+        <div class="timeline-dot" style="--dot-color:#56a8e3;"></div>
+        <div class="timeline-date" style="--dot-color:#56a8e3;">2023 – Present</div>
+        <div class="timeline-title">B.Tech ECE — Pandit Deendayal Energy University</div>
+        <div class="timeline-sub">Pursuing B.Tech in Electronics and Communication Engineering with a CGPA of 9.81/10. Minor specialisation in Internet of Things (IoT).</div>
       </div>
 
       <div class="timeline-item slide-left fade-in">
@@ -2468,10 +3012,31 @@ section.in-view .big-title .gold::after {
       </div>
 
       <div class="timeline-item slide-left fade-in">
-        <div class="timeline-dot" style="--dot-color:#56a8e3;"></div>
-        <div class="timeline-date" style="--dot-color:#56a8e3;">2023 – Present</div>
-        <div class="timeline-title">B.Tech ECE — Pandit Deendayal Energy University</div>
-        <div class="timeline-sub">Pursuing B.Tech in Electronics and Communication Engineering with a CGPA of 9.81/10. Minor specialisation in Internet of Things (IoT).</div>
+        <div class="timeline-dot" style="--dot-color:var(--amber);"></div>
+        <div class="timeline-date" style="--dot-color:var(--amber);">February 2025</div>
+        <div class="timeline-title">Shell Eco-Marathon — First Competition Run, Doha</div>
+        <div class="timeline-sub">First international competition for Team Kaizen, ranked 1st in India with the DTC motor controller PCB delivering reliable performance under race conditions.</div>
+      </div>
+
+      <div class="timeline-item slide-left fade-in">
+        <div class="timeline-dot" style="--dot-color:#c084fc;"></div>
+        <div class="timeline-date" style="--dot-color:#c084fc;">May 2025</div>
+        <div class="timeline-title">RTL-to-GDSII ASIC Design Workshop — 10 Days</div>
+        <div class="timeline-sub">Completed full RTL-to-GDSII ASIC design flow for an 8-bit ripple carry adder — including floorplanning, power planning, placement, clock tree synthesis, and routing using Design Compiler, ICC2, PrimeTime, and Verdi.</div>
+      </div>
+
+      <div class="timeline-item slide-left fade-in">
+        <div class="timeline-dot" style="--dot-color:var(--cyan);"></div>
+        <div class="timeline-date" style="--dot-color:var(--cyan);">2025 – Present</div>
+        <div class="timeline-title">PDEU–ISRO Bharat-G Satellite Mission (ADCS Team)</div>
+        <div class="timeline-sub">Working with SAC (ISRO) on ADCS algorithms including TRIAD, Extended Kalman Filter (EKF), B-Dot, and PID. Performing sensor fusion for accurate attitude estimation and integrating control with passive and active actuators — magnetorquers and reaction wheels.</div>
+      </div>
+
+      <div class="timeline-item slide-left fade-in">
+        <div class="timeline-dot" style="--dot-color:var(--violet2);"></div>
+        <div class="timeline-date" style="--dot-color:var(--violet2);">January 2026</div>
+        <div class="timeline-title">Shell Eco-Marathon — Lusail International Circuit</div>
+        <div class="timeline-sub">Team Kaizen achieved 1st in India and 5th in Asia at the Shell Eco-Marathon, competing at Lusail International Circuit, Doha with 227 km/kWh energy efficiency.</div>
       </div>
 
     </div>
@@ -2689,6 +3254,383 @@ window.addEventListener('scroll', function() {
     heroContent.style.transform = '';
   }
 }, { passive: true });
+
+
+/* ════════════════════════════════════════
+   DRAMATIC SCROLL EFFECTS JS
+════════════════════════════════════════ */
+
+/* ── SIDE DOT NAVIGATION ── */
+var sideNav = document.createElement('div');
+sideNav.className = 'scroll-side-label';
+var sectionDefs = [
+  { id:'hero',      tip:'Home'      },
+  { id:'about',     tip:'About'     },
+  { id:'academics', tip:'Academics' },
+  { id:'projects',  tip:'Projects'  },
+  { id:'skills',    tip:'Skills'    },
+  { id:'journey',   tip:'Journey'   },
+  { id:'contact',   tip:'Contact'   }
+];
+sectionDefs.forEach(function(def) {
+  var dot = document.createElement('div');
+  dot.className = 'scroll-dot-nav';
+  dot.dataset.tip = def.tip;
+  dot.dataset.target = def.id;
+  dot.addEventListener('click', function() {
+    var t = document.getElementById(def.id);
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+  sideNav.appendChild(dot);
+});
+document.body.appendChild(sideNav);
+
+// Show side nav after scrolling past hero
+window.addEventListener('scroll', function() {
+  var past = window.scrollY > window.innerHeight * 0.6;
+  sideNav.classList.toggle('visible', past);
+  // Highlight active dot
+  var current = '';
+  sectionDefs.forEach(function(def) {
+    var el = document.getElementById(def.id);
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    if (r.top <= window.innerHeight * 0.5 && r.bottom > 0) current = def.id;
+  });
+  sideNav.querySelectorAll('.scroll-dot-nav').forEach(function(dot) {
+    dot.classList.toggle('active', dot.dataset.target === current);
+  });
+}, { passive: true });
+
+/* ── TIMELINE DRAW on scroll ── */
+var timeline = document.querySelector('.timeline');
+if (timeline) {
+  var tlIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('timeline-drawn');
+        tlIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  tlIO.observe(timeline);
+}
+
+/* ── SKILL GROUP STAGGER ENTRANCE ── */
+var skillsSection = document.querySelector('#skills');
+if (skillsSection) {
+  var skillIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var groups = e.target.querySelectorAll('.skill-group');
+        groups.forEach(function(g, i) {
+          setTimeout(function() {
+            g.classList.add('lit-enter');
+            g.style.opacity = '1';
+          }, i * 100);
+        });
+        skillIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  skillIO.observe(skillsSection);
+}
+
+/* ── STAT CARD POP IN ── */
+var statSection = document.querySelector('#about');
+if (statSection) {
+  var statIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var cards = e.target.querySelectorAll('.stat-card');
+        cards.forEach(function(c, i) {
+          c.style.opacity = '0';
+          setTimeout(function() {
+            c.style.opacity = '';
+            c.classList.add('stat-pop');
+            setTimeout(function() {
+              c.classList.add('num-revealed');
+            }, 200);
+          }, i * 130);
+        });
+        statIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  statIO.observe(statSection);
+}
+
+/* ── SCROLL-SPOTLIGHT on cards ── */
+document.querySelectorAll('.project-card, .acad-card, .about-bio-block').forEach(function(el) {
+  el.classList.add('scroll-spotlight');
+});
+
+var spotIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('lit');
+      setTimeout(function() {
+        e.target.classList.remove('lit');
+      }, 1200);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.scroll-spotlight').forEach(function(el) {
+  spotIO.observe(el);
+});
+
+/* ── REVEAL WIPE on section titles ── */
+document.querySelectorAll('.big-title').forEach(function(title) {
+  var wipeIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal-wipe');
+        requestAnimationFrame(function() {
+          e.target.classList.add('wipe-active');
+          setTimeout(function() {
+            e.target.classList.add('wipe-done');
+          }, 350);
+        });
+        wipeIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  wipeIO.observe(title);
+});
+
+/* ── HORIZONTAL SCROLL TILT on cards ── */
+var allCards = document.querySelectorAll('.project-card, .skill-group');
+window.addEventListener('scroll', function() {
+  var centerY = window.innerHeight / 2;
+  allCards.forEach(function(card) {
+    var r = card.getBoundingClientRect();
+    var cardCenter = r.top + r.height / 2;
+    var dist = (cardCenter - centerY) / window.innerHeight;
+    var rot = dist * 1.5;
+    if (!card.matches(':hover')) {
+      card.style.transform = 'perspective(1000px) rotateX(' + rot + 'deg)';
+    }
+  });
+}, { passive: true });
+
+/* ── HERO PARALLAX (enhanced) ── */
+window.addEventListener('scroll', function() {
+  var sy = window.scrollY;
+  var vh = window.innerHeight;
+
+  // Hero content: fade + rise
+  var hc = document.querySelector('.hero-content');
+  if (hc && sy < vh) {
+    hc.style.opacity  = Math.max(0, 1 - sy / (vh * 0.75));
+    hc.style.transform = 'translateY(' + (sy * 0.22) + 'px)';
+  }
+
+  // Orbs: deep parallax
+  var o1 = document.querySelector('.hero-glow1');
+  var o2 = document.querySelector('.hero-glow2');
+  if (o1) o1.style.transform = 'translateY(' + (sy * 0.18) + 'px) scale(' + (1 + sy * 0.0002) + ')';
+  if (o2) o2.style.transform = 'translateY(' + (-sy * 0.12) + 'px)';
+
+  // Photo
+  var hp = document.querySelector('.hero-photo-wrap');
+  if (hp && sy < vh) {
+    hp.style.transform = 'translateY(calc(-50% + ' + (sy * 0.08) + 'px))';
+    hp.style.opacity   = Math.max(0, 1 - sy / (vh * 0.9));
+  }
+
+  // Reset at top
+  if (sy < 5) {
+    if (hc) { hc.style.opacity = ''; hc.style.transform = ''; }
+    if (hp) { hp.style.transform = ''; hp.style.opacity = ''; }
+  }
+
+  // Grid parallax
+  var hg = document.querySelector('.hero-grid');
+  if (hg) hg.style.transform = 'translateY(' + (sy * 0.05) + 'px)';
+
+}, { passive: true });
+
+/* ── FLOATING SECTION NUMBERS ── */
+var secNums = ['01', '02', '03', '04', '05', '06', '07'];
+document.querySelectorAll('section[id]').forEach(function(sec, i) {
+  var num = document.createElement('div');
+  num.style.cssText = 'position:absolute;top:2rem;right:0;font-family:var(--mono);font-size:5rem;font-weight:800;color:rgba(120,160,255,0.04);line-height:1;pointer-events:none;user-select:none;z-index:0;letter-spacing:-0.05em;';
+  num.textContent = secNums[i] || '';
+  sec.style.position = 'relative';
+  sec.appendChild(num);
+});
+
+
+/* ── MOUSE-FOLLOW INNER GLOW on project cards ── */
+document.querySelectorAll('.project-card').forEach(function(card) {
+  card.addEventListener('mousemove', function(e) {
+    var r = card.getBoundingClientRect();
+    var x = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
+    var y = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
+    card.style.setProperty('--mx', x + '%');
+    card.style.setProperty('--my', y + '%');
+  });
+});
+
+/* ── CHIP CLICK RIPPLE ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  chip.addEventListener('click', function(e) {
+    var ripple = document.createElement('span');
+    var r = chip.getBoundingClientRect();
+    var size = Math.max(r.width, r.height);
+    ripple.style.cssText = [
+      'position:absolute',
+      'width:' + size + 'px',
+      'height:' + size + 'px',
+      'border-radius:50%',
+      'background:rgba(255,255,255,0.12)',
+      'transform:scale(0)',
+      'animation:rippleAnim 0.45s ease-out forwards',
+      'left:' + (e.clientX - r.left - size/2) + 'px',
+      'top:' + (e.clientY - r.top - size/2) + 'px',
+      'pointer-events:none'
+    ].join(';');
+    chip.appendChild(ripple);
+    setTimeout(function() { ripple.remove(); }, 500);
+  });
+});
+
+
+/* ════════════════════════════════════════
+   CUSTOM CURSOR + HOVER EFFECTS
+════════════════════════════════════════ */
+
+/* ── CREATE CURSOR ELEMENTS ── */
+var cur = document.createElement('div');
+cur.id = 'custom-cursor';
+var ring = document.createElement('div');
+ring.id = 'cursor-ring';
+document.body.appendChild(cur);
+document.body.appendChild(ring);
+
+var curX = window.innerWidth/2, curY = window.innerHeight/2;
+var ringX = curX, ringY = curY;
+
+document.addEventListener('mousemove', function(e) {
+  curX = e.clientX; curY = e.clientY;
+  cur.style.left = curX + 'px';
+  cur.style.top  = curY + 'px';
+});
+
+/* Ring follows with lag */
+(function animRing() {
+  ringX += (curX - ringX) * 0.12;
+  ringY += (curY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top  = ringY + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+/* Cursor states */
+var hoverables = 'a, button, .btn, .nav-links a, .spec-pill, .stat-card, .project-card, .skill-group, .acad-card, .about-bio-block, .about-comp-item, .timeline-item, .contact-link, .profile-card';
+document.querySelectorAll(hoverables).forEach(function(el) {
+  el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
+  el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
+});
+
+document.querySelectorAll('.chip, .skill-list li').forEach(function(el) {
+  el.addEventListener('mouseenter', function() {
+    document.body.classList.add('cursor-chip');
+    document.body.classList.remove('cursor-hover');
+  });
+  el.addEventListener('mouseleave', function() {
+    document.body.classList.remove('cursor-chip');
+  });
+});
+
+document.addEventListener('mousedown', function() { document.body.classList.add('cursor-click'); });
+document.addEventListener('mouseup',   function() { document.body.classList.remove('cursor-click'); });
+
+/* Hide cursor when leaving window */
+document.addEventListener('mouseleave', function() {
+  cur.style.opacity = '0'; ring.style.opacity = '0';
+});
+document.addEventListener('mouseenter', function() {
+  cur.style.opacity = '1'; ring.style.opacity = '1';
+});
+
+/* ── WRAP CHIP TEXT in span for letter-spacing effect ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  /* preserve the ::before dot by only wrapping text nodes */
+  chip.childNodes.forEach(function(node) {
+    if (node.nodeType === 3 && node.textContent.trim()) {
+      var span = document.createElement('span');
+      span.className = 'chip-text';
+      span.textContent = node.textContent;
+      chip.replaceChild(span, node);
+    }
+  });
+});
+
+/* ── MAGNETIC PULL on chips ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  chip.addEventListener('mousemove', function(e) {
+    var r = chip.getBoundingClientRect();
+    var cx = r.left + r.width  / 2;
+    var cy = r.top  + r.height / 2;
+    var dx = (e.clientX - cx) * 0.18;
+    var dy = (e.clientY - cy) * 0.18;
+    chip.style.transform = 'translate(' + dx + 'px,' + dy + 'px) translateY(-4px) scale(1.08)';
+  });
+  chip.addEventListener('mouseleave', function() {
+    chip.style.transform = '';
+  });
+});
+
+/* ── MAGNETIC PULL on skill items ── */
+document.querySelectorAll('.skill-list li').forEach(function(li) {
+  li.addEventListener('mousemove', function(e) {
+    var r = li.getBoundingClientRect();
+    var dy = (e.clientY - (r.top + r.height / 2)) * 0.1;
+    li.style.transform = 'translateX(8px) translateY(' + dy + 'px)';
+  });
+  li.addEventListener('mouseleave', function() {
+    li.style.transform = '';
+    li.style.borderLeft = '';
+    li.style.paddingLeft = '';
+  });
+});
+
+/* ── PARTICLE BURST on chip click ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  chip.addEventListener('click', function(e) {
+    for (var i = 0; i < 8; i++) {
+      var p = document.createElement('div');
+      var angle = (i / 8) * 360;
+      var dist  = 30 + Math.random() * 20;
+      var size  = 3 + Math.random() * 3;
+      var color = ['var(--violet2)','var(--cyan)','var(--amber)','var(--rose)','var(--green)'][Math.floor(Math.random()*5)];
+      p.style.cssText = [
+        'position:fixed',
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'border-radius:50%',
+        'background:' + color,
+        'pointer-events:none',
+        'z-index:99999',
+        'left:' + e.clientX + 'px',
+        'top:' + e.clientY + 'px',
+        'transform:translate(-50%,-50%)',
+        'transition:all 0.5s cubic-bezier(0.16,1,0.3,1)',
+        'opacity:1'
+      ].join(';');
+      document.body.appendChild(p);
+      requestAnimationFrame(function(px, ang, d) {
+        return function() {
+          px.style.transform = 'translate(calc(-50% + ' + (Math.cos(ang*Math.PI/180)*d) + 'px), calc(-50% + ' + (Math.sin(ang*Math.PI/180)*d) + 'px))';
+          px.style.opacity = '0';
+          setTimeout(function() { px.remove(); }, 550);
+        };
+      }(p, angle, dist));
+    }
+  });
+});
 
 </script>
 
@@ -3125,6 +4067,383 @@ window.addEventListener('scroll', function() {
     heroContent.style.transform = '';
   }
 }, { passive: true });
+
+
+/* ════════════════════════════════════════
+   DRAMATIC SCROLL EFFECTS JS
+════════════════════════════════════════ */
+
+/* ── SIDE DOT NAVIGATION ── */
+var sideNav = document.createElement('div');
+sideNav.className = 'scroll-side-label';
+var sectionDefs = [
+  { id:'hero',      tip:'Home'      },
+  { id:'about',     tip:'About'     },
+  { id:'academics', tip:'Academics' },
+  { id:'projects',  tip:'Projects'  },
+  { id:'skills',    tip:'Skills'    },
+  { id:'journey',   tip:'Journey'   },
+  { id:'contact',   tip:'Contact'   }
+];
+sectionDefs.forEach(function(def) {
+  var dot = document.createElement('div');
+  dot.className = 'scroll-dot-nav';
+  dot.dataset.tip = def.tip;
+  dot.dataset.target = def.id;
+  dot.addEventListener('click', function() {
+    var t = document.getElementById(def.id);
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+  sideNav.appendChild(dot);
+});
+document.body.appendChild(sideNav);
+
+// Show side nav after scrolling past hero
+window.addEventListener('scroll', function() {
+  var past = window.scrollY > window.innerHeight * 0.6;
+  sideNav.classList.toggle('visible', past);
+  // Highlight active dot
+  var current = '';
+  sectionDefs.forEach(function(def) {
+    var el = document.getElementById(def.id);
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    if (r.top <= window.innerHeight * 0.5 && r.bottom > 0) current = def.id;
+  });
+  sideNav.querySelectorAll('.scroll-dot-nav').forEach(function(dot) {
+    dot.classList.toggle('active', dot.dataset.target === current);
+  });
+}, { passive: true });
+
+/* ── TIMELINE DRAW on scroll ── */
+var timeline = document.querySelector('.timeline');
+if (timeline) {
+  var tlIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('timeline-drawn');
+        tlIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  tlIO.observe(timeline);
+}
+
+/* ── SKILL GROUP STAGGER ENTRANCE ── */
+var skillsSection = document.querySelector('#skills');
+if (skillsSection) {
+  var skillIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var groups = e.target.querySelectorAll('.skill-group');
+        groups.forEach(function(g, i) {
+          setTimeout(function() {
+            g.classList.add('lit-enter');
+            g.style.opacity = '1';
+          }, i * 100);
+        });
+        skillIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  skillIO.observe(skillsSection);
+}
+
+/* ── STAT CARD POP IN ── */
+var statSection = document.querySelector('#about');
+if (statSection) {
+  var statIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var cards = e.target.querySelectorAll('.stat-card');
+        cards.forEach(function(c, i) {
+          c.style.opacity = '0';
+          setTimeout(function() {
+            c.style.opacity = '';
+            c.classList.add('stat-pop');
+            setTimeout(function() {
+              c.classList.add('num-revealed');
+            }, 200);
+          }, i * 130);
+        });
+        statIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  statIO.observe(statSection);
+}
+
+/* ── SCROLL-SPOTLIGHT on cards ── */
+document.querySelectorAll('.project-card, .acad-card, .about-bio-block').forEach(function(el) {
+  el.classList.add('scroll-spotlight');
+});
+
+var spotIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('lit');
+      setTimeout(function() {
+        e.target.classList.remove('lit');
+      }, 1200);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.scroll-spotlight').forEach(function(el) {
+  spotIO.observe(el);
+});
+
+/* ── REVEAL WIPE on section titles ── */
+document.querySelectorAll('.big-title').forEach(function(title) {
+  var wipeIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal-wipe');
+        requestAnimationFrame(function() {
+          e.target.classList.add('wipe-active');
+          setTimeout(function() {
+            e.target.classList.add('wipe-done');
+          }, 350);
+        });
+        wipeIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  wipeIO.observe(title);
+});
+
+/* ── HORIZONTAL SCROLL TILT on cards ── */
+var allCards = document.querySelectorAll('.project-card, .skill-group');
+window.addEventListener('scroll', function() {
+  var centerY = window.innerHeight / 2;
+  allCards.forEach(function(card) {
+    var r = card.getBoundingClientRect();
+    var cardCenter = r.top + r.height / 2;
+    var dist = (cardCenter - centerY) / window.innerHeight;
+    var rot = dist * 1.5;
+    if (!card.matches(':hover')) {
+      card.style.transform = 'perspective(1000px) rotateX(' + rot + 'deg)';
+    }
+  });
+}, { passive: true });
+
+/* ── HERO PARALLAX (enhanced) ── */
+window.addEventListener('scroll', function() {
+  var sy = window.scrollY;
+  var vh = window.innerHeight;
+
+  // Hero content: fade + rise
+  var hc = document.querySelector('.hero-content');
+  if (hc && sy < vh) {
+    hc.style.opacity  = Math.max(0, 1 - sy / (vh * 0.75));
+    hc.style.transform = 'translateY(' + (sy * 0.22) + 'px)';
+  }
+
+  // Orbs: deep parallax
+  var o1 = document.querySelector('.hero-glow1');
+  var o2 = document.querySelector('.hero-glow2');
+  if (o1) o1.style.transform = 'translateY(' + (sy * 0.18) + 'px) scale(' + (1 + sy * 0.0002) + ')';
+  if (o2) o2.style.transform = 'translateY(' + (-sy * 0.12) + 'px)';
+
+  // Photo
+  var hp = document.querySelector('.hero-photo-wrap');
+  if (hp && sy < vh) {
+    hp.style.transform = 'translateY(calc(-50% + ' + (sy * 0.08) + 'px))';
+    hp.style.opacity   = Math.max(0, 1 - sy / (vh * 0.9));
+  }
+
+  // Reset at top
+  if (sy < 5) {
+    if (hc) { hc.style.opacity = ''; hc.style.transform = ''; }
+    if (hp) { hp.style.transform = ''; hp.style.opacity = ''; }
+  }
+
+  // Grid parallax
+  var hg = document.querySelector('.hero-grid');
+  if (hg) hg.style.transform = 'translateY(' + (sy * 0.05) + 'px)';
+
+}, { passive: true });
+
+/* ── FLOATING SECTION NUMBERS ── */
+var secNums = ['01', '02', '03', '04', '05', '06', '07'];
+document.querySelectorAll('section[id]').forEach(function(sec, i) {
+  var num = document.createElement('div');
+  num.style.cssText = 'position:absolute;top:2rem;right:0;font-family:var(--mono);font-size:5rem;font-weight:800;color:rgba(120,160,255,0.04);line-height:1;pointer-events:none;user-select:none;z-index:0;letter-spacing:-0.05em;';
+  num.textContent = secNums[i] || '';
+  sec.style.position = 'relative';
+  sec.appendChild(num);
+});
+
+
+/* ── MOUSE-FOLLOW INNER GLOW on project cards ── */
+document.querySelectorAll('.project-card').forEach(function(card) {
+  card.addEventListener('mousemove', function(e) {
+    var r = card.getBoundingClientRect();
+    var x = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
+    var y = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
+    card.style.setProperty('--mx', x + '%');
+    card.style.setProperty('--my', y + '%');
+  });
+});
+
+/* ── CHIP CLICK RIPPLE ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  chip.addEventListener('click', function(e) {
+    var ripple = document.createElement('span');
+    var r = chip.getBoundingClientRect();
+    var size = Math.max(r.width, r.height);
+    ripple.style.cssText = [
+      'position:absolute',
+      'width:' + size + 'px',
+      'height:' + size + 'px',
+      'border-radius:50%',
+      'background:rgba(255,255,255,0.12)',
+      'transform:scale(0)',
+      'animation:rippleAnim 0.45s ease-out forwards',
+      'left:' + (e.clientX - r.left - size/2) + 'px',
+      'top:' + (e.clientY - r.top - size/2) + 'px',
+      'pointer-events:none'
+    ].join(';');
+    chip.appendChild(ripple);
+    setTimeout(function() { ripple.remove(); }, 500);
+  });
+});
+
+
+/* ════════════════════════════════════════
+   CUSTOM CURSOR + HOVER EFFECTS
+════════════════════════════════════════ */
+
+/* ── CREATE CURSOR ELEMENTS ── */
+var cur = document.createElement('div');
+cur.id = 'custom-cursor';
+var ring = document.createElement('div');
+ring.id = 'cursor-ring';
+document.body.appendChild(cur);
+document.body.appendChild(ring);
+
+var curX = window.innerWidth/2, curY = window.innerHeight/2;
+var ringX = curX, ringY = curY;
+
+document.addEventListener('mousemove', function(e) {
+  curX = e.clientX; curY = e.clientY;
+  cur.style.left = curX + 'px';
+  cur.style.top  = curY + 'px';
+});
+
+/* Ring follows with lag */
+(function animRing() {
+  ringX += (curX - ringX) * 0.12;
+  ringY += (curY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top  = ringY + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+/* Cursor states */
+var hoverables = 'a, button, .btn, .nav-links a, .spec-pill, .stat-card, .project-card, .skill-group, .acad-card, .about-bio-block, .about-comp-item, .timeline-item, .contact-link, .profile-card';
+document.querySelectorAll(hoverables).forEach(function(el) {
+  el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
+  el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
+});
+
+document.querySelectorAll('.chip, .skill-list li').forEach(function(el) {
+  el.addEventListener('mouseenter', function() {
+    document.body.classList.add('cursor-chip');
+    document.body.classList.remove('cursor-hover');
+  });
+  el.addEventListener('mouseleave', function() {
+    document.body.classList.remove('cursor-chip');
+  });
+});
+
+document.addEventListener('mousedown', function() { document.body.classList.add('cursor-click'); });
+document.addEventListener('mouseup',   function() { document.body.classList.remove('cursor-click'); });
+
+/* Hide cursor when leaving window */
+document.addEventListener('mouseleave', function() {
+  cur.style.opacity = '0'; ring.style.opacity = '0';
+});
+document.addEventListener('mouseenter', function() {
+  cur.style.opacity = '1'; ring.style.opacity = '1';
+});
+
+/* ── WRAP CHIP TEXT in span for letter-spacing effect ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  /* preserve the ::before dot by only wrapping text nodes */
+  chip.childNodes.forEach(function(node) {
+    if (node.nodeType === 3 && node.textContent.trim()) {
+      var span = document.createElement('span');
+      span.className = 'chip-text';
+      span.textContent = node.textContent;
+      chip.replaceChild(span, node);
+    }
+  });
+});
+
+/* ── MAGNETIC PULL on chips ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  chip.addEventListener('mousemove', function(e) {
+    var r = chip.getBoundingClientRect();
+    var cx = r.left + r.width  / 2;
+    var cy = r.top  + r.height / 2;
+    var dx = (e.clientX - cx) * 0.18;
+    var dy = (e.clientY - cy) * 0.18;
+    chip.style.transform = 'translate(' + dx + 'px,' + dy + 'px) translateY(-4px) scale(1.08)';
+  });
+  chip.addEventListener('mouseleave', function() {
+    chip.style.transform = '';
+  });
+});
+
+/* ── MAGNETIC PULL on skill items ── */
+document.querySelectorAll('.skill-list li').forEach(function(li) {
+  li.addEventListener('mousemove', function(e) {
+    var r = li.getBoundingClientRect();
+    var dy = (e.clientY - (r.top + r.height / 2)) * 0.1;
+    li.style.transform = 'translateX(8px) translateY(' + dy + 'px)';
+  });
+  li.addEventListener('mouseleave', function() {
+    li.style.transform = '';
+    li.style.borderLeft = '';
+    li.style.paddingLeft = '';
+  });
+});
+
+/* ── PARTICLE BURST on chip click ── */
+document.querySelectorAll('.chip').forEach(function(chip) {
+  chip.addEventListener('click', function(e) {
+    for (var i = 0; i < 8; i++) {
+      var p = document.createElement('div');
+      var angle = (i / 8) * 360;
+      var dist  = 30 + Math.random() * 20;
+      var size  = 3 + Math.random() * 3;
+      var color = ['var(--violet2)','var(--cyan)','var(--amber)','var(--rose)','var(--green)'][Math.floor(Math.random()*5)];
+      p.style.cssText = [
+        'position:fixed',
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'border-radius:50%',
+        'background:' + color,
+        'pointer-events:none',
+        'z-index:99999',
+        'left:' + e.clientX + 'px',
+        'top:' + e.clientY + 'px',
+        'transform:translate(-50%,-50%)',
+        'transition:all 0.5s cubic-bezier(0.16,1,0.3,1)',
+        'opacity:1'
+      ].join(';');
+      document.body.appendChild(p);
+      requestAnimationFrame(function(px, ang, d) {
+        return function() {
+          px.style.transform = 'translate(calc(-50% + ' + (Math.cos(ang*Math.PI/180)*d) + 'px), calc(-50% + ' + (Math.sin(ang*Math.PI/180)*d) + 'px))';
+          px.style.opacity = '0';
+          setTimeout(function() { px.remove(); }, 550);
+        };
+      }(p, angle, dist));
+    }
+  });
+});
 
 </script>
 
