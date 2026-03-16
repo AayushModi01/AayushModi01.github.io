@@ -1166,7 +1166,6 @@ nav.scrolled {
 <body>
 
 <div class="scroll-progress" id="scrollProgress"></div>
-<div class="cursor-glow" id="cursorGlow"></div>
 <div class="mesh-bg"></div>
 
 <nav>
@@ -1648,569 +1647,6 @@ nav.scrolled {
   <span>© 2026 <span class="footer-accent">Aayush Modi</span> · All rights reserved</span>
   <span>Gandhinagar, Gujarat, India</span>
 </footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
-    document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      modal.classList.remove('open');
-      document.querySelectorAll('.spec-pill').forEach(p => p.classList.remove('active'));
-    }
-  });
-
-
-
-/* ════════════════════════════════════════
-   PREMIUM SCROLL EFFECTS JS
-════════════════════════════════════════ */
-
-/* ── PARALLAX + HERO SCROLL EFFECTS ── */
-var heroContent = document.querySelector('.hero-content');
-var heroOrb1    = document.querySelector('.hero-glow1');
-var heroOrb2    = document.querySelector('.hero-glow2');
-var heroPhoto   = document.querySelector('.hero-photo-wrap');
-
-window.addEventListener('scroll', function() {
-  var sy = window.scrollY;
-
-  // Hero content fades and moves up slightly on scroll
-  if (heroContent) {
-    var opacity = Math.max(0, 1 - sy / 500);
-    var ty = sy * 0.18;
-    heroContent.style.opacity = opacity;
-    heroContent.style.transform = 'translateY(' + ty + 'px)';
-  }
-
-  // Orbs move at different parallax speeds
-  if (heroOrb1) heroOrb1.style.transform = 'translateY(' + (sy * 0.12) + 'px)';
-  if (heroOrb2) heroOrb2.style.transform = 'translateY(' + (-sy * 0.08) + 'px)';
-
-  // Photo parallax
-  if (heroPhoto) {
-    heroPhoto.style.transform = 'translateY(calc(-50% + ' + (sy * 0.06) + 'px))';
-  }
-
-  // Section divider glow on scroll near
-  document.querySelectorAll('.section-divider').forEach(function(div) {
-    var rect = div.getBoundingClientRect();
-    if (Math.abs(rect.top) < 200) {
-      div.classList.add('glow');
-    } else {
-      div.classList.remove('glow');
-    }
-  });
-
-  // Section in-view for title underline
-  document.querySelectorAll('section').forEach(function(sec) {
-    var rect = sec.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
-      sec.classList.add('in-view');
-    }
-  });
-
-}, { passive: true });
-
-/* ── SPLIT TEXT on section titles ── */
-function splitTitle(el) {
-  var text = el.textContent;
-  el.innerHTML = '';
-  text.split('').forEach(function(char, i) {
-    var span = document.createElement('span');
-    span.className = 'split-char';
-    span.style.transitionDelay = (i * 0.035) + 's';
-    span.textContent = char === ' ' ? ' ' : char;
-    el.appendChild(span);
-  });
-}
-
-var titleIO = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('.split-char').forEach(function(c) {
-        c.classList.add('visible');
-      });
-      titleIO.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.4 });
-
-document.querySelectorAll('.section-sub').forEach(function(el) {
-  splitTitle(el);
-  titleIO.observe(el.parentElement || el);
-});
-
-/* ── MARQUEE STRIP insertion ── */
-var marqueeItems = [
-  'Motor Controller Design', 'ADCS Algorithms', 'ASIC Design Flow',
-  'STM32F4 Firmware', 'Shell Eco-Marathon', 'PDEU–ISRO Bharat-G',
-  'IoT Systems', 'RTL to GDSII', 'Kalman Filter EKF', 'PCB Design',
-  'Synopsys EDA', 'ESP32 / ESP-Now', 'Power Electronics', 'Sensor Fusion'
-];
-
-function buildMarquee() {
-  var doubled = marqueeItems.concat(marqueeItems);
-  return doubled.map(function(item) {
-    return '<div class="marquee-item">' + item + '</div>';
-  }).join('');
-}
-
-var dividers = document.querySelectorAll('.section-divider');
-if (dividers.length > 1) {
-  var strip = document.createElement('div');
-  strip.className = 'marquee-strip';
-  strip.innerHTML = '<div class="marquee-inner">' + buildMarquee() + '</div>';
-  dividers[1].parentNode.insertBefore(strip, dividers[1].nextSibling);
-}
-
-/* ── COUNTER with flash effect ── */
-var statNums = document.querySelectorAll('[data-count]');
-var counterDone = {};
-var flashIO = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (!entry.isIntersecting || counterDone[entry.target.id]) return;
-    var el = entry.target;
-    var target = parseFloat(el.dataset.count);
-    var suffix = el.dataset.suffix || '';
-    if (isNaN(target)) return;
-    counterDone[el.id || Math.random()] = true;
-    el.classList.add('counting');
-    var start = performance.now();
-    var dur = 1800;
-    (function step(now) {
-      var p = Math.min((now - start) / dur, 1);
-      var ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(ease * target) + suffix;
-      if (p < 1) requestAnimationFrame(step);
-      else el.classList.remove('counting');
-    })(start);
-    flashIO.unobserve(el);
-  });
-}, { threshold: 0.7 });
-
-statNums.forEach(function(el, i) {
-  el.id = el.id || 'stat-' + i;
-  flashIO.observe(el);
-});
-
-/* ── SMOOTH SECTION TRANSITIONS ── */
-var sections = document.querySelectorAll('section');
-var sectionIO = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) entry.target.classList.add('in-view');
-  });
-}, { threshold: 0.15 });
-sections.forEach(function(s) { sectionIO.observe(s); });
-
-/* ── RESET HERO on scroll back to top ── */
-window.addEventListener('scroll', function() {
-  if (window.scrollY < 10 && heroContent) {
-    heroContent.style.opacity = '';
-    heroContent.style.transform = '';
-  }
-}, { passive: true });
-
-
-/* ════════════════════════════════════════
-   DRAMATIC SCROLL EFFECTS JS
-════════════════════════════════════════ */
-
-/* ── SIDE DOT NAVIGATION ── */
-var sideNav = document.createElement('div');
-sideNav.className = 'scroll-side-label';
-var sectionDefs = [
-  { id:'hero',      tip:'Home'      },
-  { id:'about',     tip:'About'     },
-  { id:'academics', tip:'Academics' },
-  { id:'projects',  tip:'Projects'  },
-  { id:'skills',    tip:'Skills'    },
-  { id:'journey',   tip:'Journey'   },
-  { id:'contact',   tip:'Contact'   }
-];
-sectionDefs.forEach(function(def) {
-  var dot = document.createElement('div');
-  dot.className = 'scroll-dot-nav';
-  dot.dataset.tip = def.tip;
-  dot.dataset.target = def.id;
-  dot.addEventListener('click', function() {
-    var t = document.getElementById(def.id);
-    if (t) t.scrollIntoView({ behavior: 'smooth' });
-  });
-  sideNav.appendChild(dot);
-});
-document.body.appendChild(sideNav);
-
-// Show side nav after scrolling past hero
-window.addEventListener('scroll', function() {
-  var past = window.scrollY > window.innerHeight * 0.6;
-  sideNav.classList.toggle('visible', past);
-  // Highlight active dot
-  var current = '';
-  sectionDefs.forEach(function(def) {
-    var el = document.getElementById(def.id);
-    if (!el) return;
-    var r = el.getBoundingClientRect();
-    if (r.top <= window.innerHeight * 0.5 && r.bottom > 0) current = def.id;
-  });
-  sideNav.querySelectorAll('.scroll-dot-nav').forEach(function(dot) {
-    dot.classList.toggle('active', dot.dataset.target === current);
-  });
-}, { passive: true });
-
-/* ── TIMELINE DRAW on scroll ── */
-var timeline = document.querySelector('.timeline');
-if (timeline) {
-  var tlIO = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('timeline-drawn');
-        tlIO.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  tlIO.observe(timeline);
-}
-
-/* ── SKILL GROUP STAGGER ENTRANCE ── */
-var skillsSection = document.querySelector('#skills');
-if (skillsSection) {
-  var skillIO = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        var groups = e.target.querySelectorAll('.skill-group');
-        groups.forEach(function(g, i) {
-          setTimeout(function() {
-            g.classList.add('lit-enter');
-            g.style.opacity = '1';
-          }, i * 100);
-        });
-        skillIO.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  skillIO.observe(skillsSection);
-}
-
-/* ── STAT CARD POP IN ── */
-var statSection = document.querySelector('#about');
-if (statSection) {
-  var statIO = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        var cards = e.target.querySelectorAll('.stat-card');
-        cards.forEach(function(c, i) {
-          c.style.opacity = '0';
-          setTimeout(function() {
-            c.style.opacity = '';
-            c.classList.add('stat-pop');
-            setTimeout(function() {
-              c.classList.add('num-revealed');
-            }, 200);
-          }, i * 130);
-        });
-        statIO.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  statIO.observe(statSection);
-}
-
-/* ── SCROLL-SPOTLIGHT on cards ── */
-document.querySelectorAll('.project-card, .acad-card, .about-bio-block').forEach(function(el) {
-  el.classList.add('scroll-spotlight');
-});
-
-var spotIO = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting) {
-      e.target.classList.add('lit');
-      setTimeout(function() {
-        e.target.classList.remove('lit');
-      }, 1200);
-    }
-  });
-}, { threshold: 0.4 });
-
-document.querySelectorAll('.scroll-spotlight').forEach(function(el) {
-  spotIO.observe(el);
-});
-
-/* ── REVEAL WIPE on section titles ── */
-document.querySelectorAll('.big-title').forEach(function(title) {
-  var wipeIO = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('reveal-wipe');
-        requestAnimationFrame(function() {
-          e.target.classList.add('wipe-active');
-          setTimeout(function() {
-            e.target.classList.add('wipe-done');
-          }, 350);
-        });
-        wipeIO.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.6 });
-  wipeIO.observe(title);
-});
-
-/* ── HORIZONTAL SCROLL TILT on cards ── */
-var allCards = document.querySelectorAll('.project-card, .skill-group');
-window.addEventListener('scroll', function() {
-  var centerY = window.innerHeight / 2;
-  allCards.forEach(function(card) {
-    var r = card.getBoundingClientRect();
-    var cardCenter = r.top + r.height / 2;
-    var dist = (cardCenter - centerY) / window.innerHeight;
-    var rot = dist * 1.5;
-    if (!card.matches(':hover')) {
-      card.style.transform = 'perspective(1000px) rotateX(' + rot + 'deg)';
-    }
-  });
-}, { passive: true });
-
-/* ── HERO PARALLAX (enhanced) ── */
-window.addEventListener('scroll', function() {
-  var sy = window.scrollY;
-  var vh = window.innerHeight;
-
-  // Hero content: fade + rise
-  var hc = document.querySelector('.hero-content');
-  if (hc && sy < vh) {
-    hc.style.opacity  = Math.max(0, 1 - sy / (vh * 0.75));
-    hc.style.transform = 'translateY(' + (sy * 0.22) + 'px)';
-  }
-
-  // Orbs: deep parallax
-  var o1 = document.querySelector('.hero-glow1');
-  var o2 = document.querySelector('.hero-glow2');
-  if (o1) o1.style.transform = 'translateY(' + (sy * 0.18) + 'px) scale(' + (1 + sy * 0.0002) + ')';
-  if (o2) o2.style.transform = 'translateY(' + (-sy * 0.12) + 'px)';
-
-  // Photo
-  var hp = document.querySelector('.hero-photo-wrap');
-  if (hp && sy < vh) {
-    hp.style.transform = 'translateY(calc(-50% + ' + (sy * 0.08) + 'px))';
-    hp.style.opacity   = Math.max(0, 1 - sy / (vh * 0.9));
-  }
-
-  // Reset at top
-  if (sy < 5) {
-    if (hc) { hc.style.opacity = ''; hc.style.transform = ''; }
-    if (hp) { hp.style.transform = ''; hp.style.opacity = ''; }
-  }
-
-  // Grid parallax
-  var hg = document.querySelector('.hero-grid');
-  if (hg) hg.style.transform = 'translateY(' + (sy * 0.05) + 'px)';
-
-}, { passive: true });
-
-/* ── FLOATING SECTION NUMBERS ── */
-var secNums = ['01', '02', '03', '04', '05', '06', '07'];
-document.querySelectorAll('section[id]').forEach(function(sec, i) {
-  var num = document.createElement('div');
-  num.style.cssText = 'position:absolute;top:2rem;right:0;font-family:var(--mono);font-size:5rem;font-weight:800;color:rgba(120,160,255,0.04);line-height:1;pointer-events:none;user-select:none;z-index:0;letter-spacing:-0.05em;';
-  num.textContent = secNums[i] || '';
-  sec.style.position = 'relative';
-  sec.appendChild(num);
-});
-
-
-/* ── MOUSE-FOLLOW INNER GLOW on project cards ── */
-document.querySelectorAll('.project-card').forEach(function(card) {
-  card.addEventListener('mousemove', function(e) {
-    var r = card.getBoundingClientRect();
-    var x = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
-    var y = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
-    card.style.setProperty('--mx', x + '%');
-    card.style.setProperty('--my', y + '%');
-  });
-});
-
-/* ── CHIP CLICK RIPPLE ── */
-document.querySelectorAll('.chip').forEach(function(chip) {
-  chip.addEventListener('click', function(e) {
-    var ripple = document.createElement('span');
-    var r = chip.getBoundingClientRect();
-    var size = Math.max(r.width, r.height);
-    ripple.style.cssText = [
-      'position:absolute',
-      'width:' + size + 'px',
-      'height:' + size + 'px',
-      'border-radius:50%',
-      'background:rgba(255,255,255,0.12)',
-      'transform:scale(0)',
-      'animation:rippleAnim 0.45s ease-out forwards',
-      'left:' + (e.clientX - r.left - size/2) + 'px',
-      'top:' + (e.clientY - r.top - size/2) + 'px',
-      'pointer-events:none'
-    ].join(';');
-    chip.appendChild(ripple);
-    setTimeout(function() { ripple.remove(); }, 500);
-  });
-});
-
-
-/* ════════════════════════════════════════
-   CUSTOM CURSOR + HOVER EFFECTS
-════════════════════════════════════════ */
-
-/* ── CREATE CURSOR ELEMENTS ── */
-var cur = document.createElement('div');
-cur.id = 'custom-cursor';
-var ring = document.createElement('div');
-ring.id = 'cursor-ring';
-document.body.appendChild(cur);
-document.body.appendChild(ring);
-
-var curX = window.innerWidth/2, curY = window.innerHeight/2;
-var ringX = curX, ringY = curY;
-
-document.addEventListener('mousemove', function(e) {
-  curX = e.clientX; curY = e.clientY;
-  cur.style.left = curX + 'px';
-  cur.style.top  = curY + 'px';
-});
-
-/* Ring follows with lag */
-(function animRing() {
-  ringX += (curX - ringX) * 0.12;
-  ringY += (curY - ringY) * 0.12;
-  ring.style.left = ringX + 'px';
-  ring.style.top  = ringY + 'px';
-  requestAnimationFrame(animRing);
-})();
-
-/* Cursor states */
-var hoverables = 'a, button, .btn, .nav-links a, .spec-pill, .stat-card, .project-card, .skill-group, .acad-card, .about-bio-block, .about-comp-item, .timeline-item, .contact-link, .profile-card';
-document.querySelectorAll(hoverables).forEach(function(el) {
-  el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
-  el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
-});
-
-document.querySelectorAll('.chip, .skill-list li').forEach(function(el) {
-  el.addEventListener('mouseenter', function() {
-    document.body.classList.add('cursor-chip');
-    document.body.classList.remove('cursor-hover');
-  });
-  el.addEventListener('mouseleave', function() {
-    document.body.classList.remove('cursor-chip');
-  });
-});
-
-document.addEventListener('mousedown', function() { document.body.classList.add('cursor-click'); });
-document.addEventListener('mouseup',   function() { document.body.classList.remove('cursor-click'); });
-
-/* Hide cursor when leaving window */
-document.addEventListener('mouseleave', function() {
-  cur.style.opacity = '0'; ring.style.opacity = '0';
-});
-document.addEventListener('mouseenter', function() {
-  cur.style.opacity = '1'; ring.style.opacity = '1';
-});
-
-/* ── WRAP CHIP TEXT in span for letter-spacing effect ── */
-document.querySelectorAll('.chip').forEach(function(chip) {
-  /* preserve the ::before dot by only wrapping text nodes */
-  chip.childNodes.forEach(function(node) {
-    if (node.nodeType === 3 && node.textContent.trim()) {
-      var span = document.createElement('span');
-      span.className = 'chip-text';
-      span.textContent = node.textContent;
-      chip.replaceChild(span, node);
-    }
-  });
-});
-
-/* ── MAGNETIC PULL on chips ── */
-document.querySelectorAll('.chip').forEach(function(chip) {
-  chip.addEventListener('mousemove', function(e) {
-    var r = chip.getBoundingClientRect();
-    var cx = r.left + r.width  / 2;
-    var cy = r.top  + r.height / 2;
-    var dx = (e.clientX - cx) * 0.18;
-    var dy = (e.clientY - cy) * 0.18;
-    chip.style.transform = 'translate(' + dx + 'px,' + dy + 'px) translateY(-4px) scale(1.08)';
-  });
-  chip.addEventListener('mouseleave', function() {
-    chip.style.transform = '';
-  });
-});
-
-/* ── MAGNETIC PULL on skill items ── */
-document.querySelectorAll('.skill-list li').forEach(function(li) {
-  li.addEventListener('mousemove', function(e) {
-    var r = li.getBoundingClientRect();
-    var dy = (e.clientY - (r.top + r.height / 2)) * 0.1;
-    li.style.transform = 'translateX(8px) translateY(' + dy + 'px)';
-  });
-  li.addEventListener('mouseleave', function() {
-    li.style.transform = '';
-    li.style.borderLeft = '';
-    li.style.paddingLeft = '';
-  });
-});
-
-/* ── PARTICLE BURST on chip click ── */
-document.querySelectorAll('.chip').forEach(function(chip) {
-  chip.addEventListener('click', function(e) {
-    for (var i = 0; i < 8; i++) {
-      var p = document.createElement('div');
-      var angle = (i / 8) * 360;
-      var dist  = 30 + Math.random() * 20;
-      var size  = 3 + Math.random() * 3;
-      var color = ['var(--violet2)','var(--cyan)','var(--amber)','var(--rose)','var(--green)'][Math.floor(Math.random()*5)];
-      p.style.cssText = [
-        'position:fixed',
-        'width:' + size + 'px',
-        'height:' + size + 'px',
-        'border-radius:50%',
-        'background:' + color,
-        'pointer-events:none',
-        'z-index:99999',
-        'left:' + e.clientX + 'px',
-        'top:' + e.clientY + 'px',
-        'transform:translate(-50%,-50%)',
-        'transition:all 0.5s cubic-bezier(0.16,1,0.3,1)',
-        'opacity:1'
-      ].join(';');
-      document.body.appendChild(p);
-      requestAnimationFrame(function(px, ang, d) {
-        return function() {
-          px.style.transform = 'translate(calc(-50% + ' + (Math.cos(ang*Math.PI/180)*d) + 'px), calc(-50% + ' + (Math.sin(ang*Math.PI/180)*d) + 'px))';
-          px.style.opacity = '0';
-          setTimeout(function() { px.remove(); }, 550);
-        };
-      }(p, angle, dist));
-    }
-  });
-});
-
-</script>
-
-
-
-<!-- SPEC MODAL OVERLAY -->
-<div class="spec-overlay" id="specOverlay">
-  <div class="spec-box" id="specBox">
-    <div class="spec-box-top" id="specBoxTop"></div>
-    <button class="spec-close-btn" id="specCloseBtn">&#10005;</button>
-    <div class="spec-head">
-      <div class="spec-ico" id="specIco"></div>
-      <div>
-        <div class="spec-ttl" id="specTtl"></div>
-        <div class="spec-sub" id="specSub"></div>
-      </div>
-    </div>
-    <div class="spec-body" id="specBody"></div>
-    <div class="spec-chips" id="specChips"></div>
-    <div class="spec-hls" id="specHls"></div>
-  </div>
-</div>
-
-
-
-
-
 <!-- SPEC MODAL OVERLAY -->
 <div class="spec-overlay" id="specOverlay">
   <div class="spec-box" id="specBox">
@@ -2230,174 +1666,87 @@ document.querySelectorAll('.chip').forEach(function(chip) {
 </div>
 
 <script>
-
-  /* ── SPEC PILLS ── */
-  var specInfo = {
-    motor: {
-      icon: '⚙️',
-      title: 'Motor Controller Design',
-      sub: 'Power Electronics · Embedded Control',
-      color: '#9b7ffe',
-      grad: 'linear-gradient(90deg,#7c5cfc,#22d3ee)',
-      body: 'Specialised in designing high-efficiency motor controllers using Direct Torque Control (DTC). Designed a production-ready 4-layer PCB for Team Kaizen's Shell Eco-Marathon BEV, achieving 227 km/kWh — ranked 1st in India and 5th in Asia.',
-      chips: ['Direct Torque Control','FOC','Gate Drivers','MOSFET Switching','Thermal Design','EMI Mitigation','4-Layer PCB','Power Stages'],
-      hls: [['227','km/kWh efficiency'],['4-Layer','PCB stack'],['1st','India ranking'],['DTC','Control algorithm']]
-    },
-    adcs: {
-      icon: '🛰️',
-      title: 'ADCS / Satellite Systems',
-      sub: 'Attitude Determination & Control',
-      color: '#22d3ee',
-      grad: 'linear-gradient(90deg,#22d3ee,#34d399)',
-      body: 'Core member of the PDEU–ISRO Bharat-G satellite mission ADCS team. Developing attitude estimation and control algorithms for precise satellite orientation in LEO, including Kalman Filter fusion and TRIAD algorithm implementation.',
-      chips: ['Kalman Filter','TRIAD Method','Attitude Estimation','Control Loops','MATLAB','Python','LEO Dynamics','Sensor Fusion'],
-      hls: [['ISRO','Mission collaboration'],['TRIAD','Estimation algorithm'],['Bharat-G','Satellite mission'],['LEO','Orbit regime']]
-    },
-    asic: {
-      icon: '⚡',
-      title: 'ASIC & VLSI',
-      sub: 'RTL to GDSII · Synopsys EDA',
-      color: '#c084fc',
-      grad: 'linear-gradient(90deg,#c084fc,#7c5cfc)',
-      body: 'Completed a full RTL-to-GDSII ASIC design flow using Synopsys tools. Experienced in semiconductor device simulation with Sentaurus TCAD, static timing analysis with PrimeTime, design debugging with Verdi, and physical design with IC Compiler II.',
-      chips: ['RTL Design','Synopsys Sentaurus','PrimeTime STA','IC Compiler II','Verdi Debug','Verilog/HDL','RISC-V','GDSII Flow'],
-      hls: [['8-bit','Ripple carry adder'],['STA','Timing analysis'],['P&R','Place & route'],['10-Day','ASIC workshop']]
-    },
-    embedded: {
-      icon: '💾',
-      title: 'Embedded Systems',
-      sub: 'Firmware · Real-Time · Hardware',
-      color: '#fb7185',
-      grad: 'linear-gradient(90deg,#fb7185,#fbbf24)',
-      body: 'Hands-on firmware development for real-time control applications. From DTC motor control firmware to IoT sensor nodes, with proficiency in Arduino, ESP32, and RISC-V architectures — focused on low-latency, power-efficient implementations.',
-      chips: ['Arduino','ESP32','RISC-V','Real-Time OS','Sensor Fusion','SPI/I2C/UART','Interrupt Handling','Firmware OTA'],
-      hls: [['ESP32','Primary MCU'],['RISC-V','Architecture'],['Real-Time','Control systems'],['IoT','Minor specialisation']]
-    },
-    iot: {
-      icon: '📡',
-      title: 'Internet of Things',
-      sub: 'Connected Systems · Edge Computing',
-      color: '#34d399',
-      grad: 'linear-gradient(90deg,#34d399,#22d3ee)',
-      body: 'Pursuing a minor specialisation in IoT. Developed a Smart Safety Helmet for mine workers monitoring hazardous gases and biometrics in real time, and a Reflexive Sensor-Based Game using proximity sensing — bridging hardware intelligence with connected systems.',
-      chips: ['MQTT','REST APIs','Edge Computing','Wireless Sensors','CPS','Gas Sensors','Node-RED','Cloud Integration'],
-      hls: [['2+','Active IoT projects'],['MQTT','IoT protocol'],['Real-Time','Sensor streaming'],['Safety','Mine worker helmet']]
-    }
-  };
-
-  function openSpec(key) {
-    var d = specInfo[key];
-    if (!d) return;
-    document.getElementById('specIco').textContent = d.icon;
-    document.getElementById('specTtl').textContent = d.title;
-    document.getElementById('specSub').textContent = d.sub;
-    document.getElementById('specBody').textContent = d.body;
-    document.getElementById('specBody').style.borderColor = d.color;
-    document.getElementById('specBody').style.background = 'rgba(0,0,0,0.15)';
-    document.getElementById('specBoxTop').style.background = d.grad;
-
-    var chips = document.getElementById('specChips');
-    chips.innerHTML = d.chips.map(function(c){ return '<span class="spec-chip">'+c+'</span>'; }).join('');
-
-    var hls = document.getElementById('specHls');
-    hls.innerHTML = d.hls.map(function(h){
-      return '<div class="spec-hl-item"><div class="spec-hl-v" style="color:'+d.color+'">'+h[0]+'</div><div class="spec-hl-l">'+h[1]+'</div></div>';
-    }).join('');
-
-    document.getElementById('specOverlay').classList.add('open');
-  }
-
-  function closeSpec() {
-    document.getElementById('specOverlay').classList.remove('open');
-  }
-
-  document.querySelectorAll('.spec-pill').forEach(function(pill) {
-    pill.addEventListener('click', function(e) {
-      e.stopPropagation();
-      openSpec(this.getAttribute('data-spec'));
-    });
-  });
-
-  document.getElementById('specCloseBtn').addEventListener('click', closeSpec);
-  document.getElementById('specOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeSpec();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeSpec();
-  });
-
-
-  document.body.classList.add('js-ready');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), 80);
-    });
-  }, { threshold: 0.07 });
-
-  // Mark already-visible elements immediately
-  document.querySelectorAll('.fade-in').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight) {
-      el.classList.add('visible');
-    }
-    observer.observe(el);
-  });
-
-  document.querySelectorAll('a<script>
 /* ══════════════════════════════════════════════════
-   CLEAN ANIMATION SYSTEM v3
+   PORTFOLIO JS — SINGLE CLEAN BLOCK
+   github.com/AayushModi01
 ══════════════════════════════════════════════════ */
 document.body.classList.add('js-ready');
 
-/* ── SCROLL PROGRESS ── */
+/* ── CACHED DOM REFS ── */
 var prog = document.getElementById('scrollProgress');
-window.addEventListener('scroll', function() {
-  if (!prog) return;
-  var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-  prog.style.width = Math.min(pct,100) + '%';
-}, { passive:true });
+var NAV  = document.querySelector('nav');
+var HC   = document.querySelector('.hero-content');
+var O1   = document.querySelector('.hero-glow1');
+var O2   = document.querySelector('.hero-glow2');
+var HP   = document.querySelector('.hero-photo-wrap');
+var HG   = document.querySelector('.hero-grid');
 
-/* ── NAV SHRINK ── */
-var nav = document.querySelector('nav');
-window.addEventListener('scroll', function() {
-  if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive:true });
-
-/* ── HERO PARALLAX ── */
+/* ── UNIFIED SCROLL HANDLER ── */
+var sNav; // defined later, referenced here
 window.addEventListener('scroll', function() {
   var sy = window.scrollY, vh = window.innerHeight;
-  var hc = document.querySelector('.hero-content');
-  var o1 = document.querySelector('.hero-glow1');
-  var o2 = document.querySelector('.hero-glow2');
-  var hp = document.querySelector('.hero-photo-wrap');
-  var hg = document.querySelector('.hero-grid');
-  if (hc && sy < vh) {
-    hc.style.opacity   = Math.max(0, 1 - sy/(vh*0.75)).toFixed(3);
-    hc.style.transform = 'translateY(' + (sy*0.2) + 'px)';
-  }
-  if (o1) o1.style.transform = 'translateY(' + (sy*0.15) + 'px)';
-  if (o2) o2.style.transform = 'translateY(' + (-sy*0.1) + 'px)';
-  if (hp && sy < vh) {
-    hp.style.transform = 'translateY(calc(-50% + ' + (sy*0.07) + 'px))';
-    hp.style.opacity   = Math.max(0, 1 - sy/(vh*0.85)).toFixed(3);
-  }
-  if (hg) hg.style.transform = 'translateY(' + (sy*0.04) + 'px)';
-  if (sy < 5) {
-    if (hc) { hc.style.opacity=''; hc.style.transform=''; }
-    if (hp) { hp.style.transform=''; hp.style.opacity=''; }
-  }
-}, { passive:true });
 
-/* ── INTERSECTION OBSERVER ── */
+  /* Progress bar */
+  if (prog)
+    prog.style.width = Math.min(sy / (document.documentElement.scrollHeight - vh) * 100, 100) + '%';
+
+  /* Nav shrink */
+  if (NAV) NAV.classList.toggle('scrolled', sy > 60);
+
+  /* Hero parallax */
+  if (sy < vh) {
+    if (HC) {
+      HC.style.opacity   = Math.max(0, 1 - sy / (vh * 0.75)).toFixed(3);
+      HC.style.transform = 'translateY(' + (sy * 0.2) + 'px)';
+    }
+    if (HP) {
+      HP.style.transform = 'translateY(calc(-50% + ' + (sy * 0.07) + 'px))';
+      HP.style.opacity   = Math.max(0, 1 - sy / (vh * 0.85)).toFixed(3);
+    }
+  }
+  if (O1) O1.style.transform = 'translateY(' + (sy * 0.15) + 'px)';
+  if (O2) O2.style.transform = 'translateY(' + (-sy * 0.1) + 'px)';
+  if (HG) HG.style.transform = 'translateY(' + (sy * 0.04) + 'px)';
+  if (sy < 5) {
+    if (HC) { HC.style.opacity = ''; HC.style.transform = ''; }
+    if (HP) { HP.style.transform = ''; HP.style.opacity = ''; }
+  }
+
+  /* Side dot nav */
+  if (sNav) {
+    sNav.classList.toggle('show', sy > vh * 0.5);
+    var cur = '';
+    var secDefs = sNav._secs || [];
+    secDefs.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      if (r.top <= vh * 0.55 && r.bottom > 0) cur = s.id;
+    });
+    sNav.querySelectorAll('.s-dot').forEach(function(d) {
+      d.classList.toggle('active', d.dataset.id === cur);
+    });
+  }
+
+  /* Scroll tilt on cards (subtle perspective) */
+  var cy = vh / 2;
+  document.querySelectorAll('.project-card:not(:hover), .skill-group:not(:hover)').forEach(function(card) {
+    var r = card.getBoundingClientRect();
+    var dist = ((r.top + r.height / 2) - cy) / vh;
+    card.style.transform = 'perspective(1000px) rotateX(' + (dist * 1.5) + 'deg)';
+  });
+
+}, { passive: true });
+
+/* ── INTERSECTION OBSERVER — scroll reveals ── */
 var io = new IntersectionObserver(function(entries) {
   entries.forEach(function(entry) {
     if (!entry.isIntersecting) return;
-    var delay = parseInt(entry.target.dataset.delay||0);
+    var delay = parseInt(entry.target.dataset.delay || 0);
     setTimeout(function() { entry.target.classList.add('visible'); }, delay);
     io.unobserve(entry.target);
   });
-}, { threshold:0.08, rootMargin:'0px 0px -30px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
 /* Assign stagger delays */
 [
@@ -2408,7 +1757,7 @@ var io = new IntersectionObserver(function(entries) {
   ['.timeline-item', 100],
   ['.acad-card', 120]
 ].forEach(function(p) {
-  document.querySelectorAll(p[0]).forEach(function(el,i) {
+  document.querySelectorAll(p[0]).forEach(function(el, i) {
     el.dataset.delay = i * p[1];
   });
 });
@@ -2424,20 +1773,20 @@ var counted = {};
 var cIO = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) {
     if (!e.isIntersecting || counted[e.target.id]) return;
-    var el = e.target, target = parseFloat(el.dataset.count), suf = el.dataset.suffix||'';
+    var el = e.target, target = parseFloat(el.dataset.count), suf = el.dataset.suffix || '';
     if (isNaN(target)) return;
     counted[el.id] = true;
     var t0 = performance.now(), dur = 1800;
     (function step(now) {
-      var p = Math.min((now-t0)/dur,1), ease = 1-Math.pow(1-p,3);
-      el.textContent = Math.round(ease*target)+suf;
-      if (p<1) requestAnimationFrame(step);
+      var p = Math.min((now - t0) / dur, 1), ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(ease * target) + suf;
+      if (p < 1) requestAnimationFrame(step);
     })(t0);
     cIO.unobserve(el);
   });
-}, { threshold:0.7 });
-document.querySelectorAll('[data-count]').forEach(function(el,i) {
-  el.id = el.id||'sc'+i; cIO.observe(el);
+}, { threshold: 0.7 });
+document.querySelectorAll('[data-count]').forEach(function(el, i) {
+  el.id = el.id || 'sc' + i; cIO.observe(el);
 });
 
 /* ── ACADEMIC BAR FILL ── */
@@ -2445,8 +1794,8 @@ var barIO = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) {
     if (!e.isIntersecting) return;
     e.target.querySelectorAll('.acad-bar-fill').forEach(function(b) {
-      var pct = b.getAttribute('style').match(/--pct:\s*([^;]+)/);
-      if (pct) b.style.width = pct[1].trim();
+      var m = b.getAttribute('style').match(/--pct:\s*([^;]+)/);
+      if (m) b.style.width = m[1].trim();
     });
     barIO.unobserve(e.target);
   });
@@ -2456,30 +1805,36 @@ document.querySelectorAll('.acad-card').forEach(function(c) { barIO.observe(c); 
 /* ── TIMELINE DRAW ── */
 var tl = document.querySelector('.timeline');
 if (tl) {
-  var tlIO = new IntersectionObserver(function(e) {
-    if (e[0].isIntersecting) { tl.classList.add('drawn'); tlIO.disconnect(); }
-  }, { threshold:0.1 });
-  tlIO.observe(tl);
+  new IntersectionObserver(function(e) {
+    if (e[0].isIntersecting) { tl.classList.add('drawn'); }
+  }, { threshold: 0.1 }).observe(tl);
 }
 
-/* ── ACTIVE NAV ── */
+/* ── ACTIVE NAV HIGHLIGHT ── */
 var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-var navIO = new IntersectionObserver(function(entries) {
+new IntersectionObserver(function(entries) {
   entries.forEach(function(e) {
     if (!e.isIntersecting) return;
     navLinks.forEach(function(a) {
-      a.classList.toggle('nav-active', a.getAttribute('href')==='#'+e.target.id);
+      a.classList.toggle('nav-active', a.getAttribute('href') === '#' + e.target.id);
     });
   });
-}, { threshold:0.4 });
-document.querySelectorAll('section[id]').forEach(function(s) { navIO.observe(s); });
+}, { threshold: 0.4 }).observe(document.querySelector('section') || document.body);
+document.querySelectorAll('section[id]').forEach(function(s) {
+  new IntersectionObserver(function(entries) {
+    if (!entries[0].isIntersecting) return;
+    navLinks.forEach(function(a) {
+      a.classList.toggle('nav-active', a.getAttribute('href') === '#' + s.id);
+    });
+  }, { threshold: 0.4 }).observe(s);
+});
 
 /* ── SMOOTH SCROLL ── */
 navLinks.forEach(function(a) {
   a.addEventListener('click', function(e) {
     e.preventDefault();
     var t = document.querySelector(a.getAttribute('href'));
-    if (t) t.scrollIntoView({ behavior:'smooth' });
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
   });
 });
 
@@ -2488,9 +1843,9 @@ function addTilt(sel, intensity) {
   document.querySelectorAll(sel).forEach(function(c) {
     c.addEventListener('mousemove', function(e) {
       var r = c.getBoundingClientRect();
-      var x = ((e.clientX-r.left)/r.width -0.5)*intensity;
-      var y = ((e.clientY-r.top) /r.height-0.5)*intensity;
-      c.style.transform = 'perspective(700px) rotateY('+x+'deg) rotateX('+(-y)+'deg) translateY(-4px)';
+      var x = ((e.clientX - r.left) / r.width  - 0.5) * intensity;
+      var y = ((e.clientY - r.top)  / r.height - 0.5) * intensity;
+      c.style.transform = 'perspective(700px) rotateY(' + x + 'deg) rotateX(' + (-y) + 'deg) translateY(-4px)';
       c.style.transition = 'transform 0.05s linear';
     });
     c.addEventListener('mouseleave', function() {
@@ -2508,39 +1863,39 @@ addTilt('.acad-card', 4);
 document.querySelectorAll('.btn').forEach(function(btn) {
   btn.addEventListener('click', function(e) {
     var r = btn.getBoundingClientRect();
-    var size = Math.max(r.width,r.height)*2;
+    var size = Math.max(r.width, r.height) * 2;
     var s = document.createElement('span');
-    s.style.cssText = 'position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,0.18);transform:scale(0);animation:rippleAnim 0.5s ease-out forwards;width:'+size+'px;height:'+size+'px;left:'+(e.clientX-r.left-size/2)+'px;top:'+(e.clientY-r.top-size/2)+'px;';
+    s.style.cssText = 'position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,0.18);transform:scale(0);animation:rippleAnim 0.5s ease-out forwards;width:' + size + 'px;height:' + size + 'px;left:' + (e.clientX - r.left - size / 2) + 'px;top:' + (e.clientY - r.top - size / 2) + 'px;';
     btn.appendChild(s);
-    setTimeout(function(){s.remove();},550);
+    setTimeout(function() { s.remove(); }, 550);
   });
 });
 
-/* ── CHIP MAGNETIC + PARTICLE ── */
+/* ── CHIP: MAGNETIC + PARTICLE BURST ── */
 document.querySelectorAll('.chip').forEach(function(chip) {
   chip.addEventListener('mousemove', function(e) {
     var r = chip.getBoundingClientRect();
-    var dx = (e.clientX-(r.left+r.width/2))*0.15;
-    var dy = (e.clientY-(r.top+r.height/2))*0.15;
-    chip.style.transform = 'translate('+dx+'px,'+dy+'px) translateY(-3px) scale(1.06)';
+    var dx = (e.clientX - (r.left + r.width  / 2)) * 0.15;
+    var dy = (e.clientY - (r.top  + r.height / 2)) * 0.15;
+    chip.style.transform = 'translate(' + dx + 'px,' + dy + 'px) translateY(-3px) scale(1.06)';
   });
-  chip.addEventListener('mouseleave', function() { chip.style.transform=''; });
+  chip.addEventListener('mouseleave', function() { chip.style.transform = ''; });
   chip.addEventListener('click', function(e) {
-    var colors = ['#9b7ffe','#22d3ee','#fbbf24','#fb7185','#34d399'];
-    for (var i=0;i<7;i++) {
-      var p = document.createElement('div');
-      var angle = (i/7)*360;
-      var dist  = 28+Math.random()*18;
-      var size  = 3+Math.random()*3;
-      p.style.cssText = 'position:fixed;width:'+size+'px;height:'+size+'px;border-radius:50%;background:'+colors[i%colors.length]+';pointer-events:none;z-index:9999;left:'+e.clientX+'px;top:'+e.clientY+'px;transform:translate(-50%,-50%);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);opacity:1;';
-      document.body.appendChild(p);
-      (function(el,a,d){
-        requestAnimationFrame(function(){
-          el.style.transform='translate(calc(-50% + '+Math.cos(a*Math.PI/180)*d+'px),calc(-50% + '+Math.sin(a*Math.PI/180)*d+'px))';
-          el.style.opacity='0';
-          setTimeout(function(){el.remove();},520);
+    var colors = ['#9b7ffe', '#22d3ee', '#fbbf24', '#fb7185', '#34d399'];
+    for (var i = 0; i < 7; i++) {
+      (function(i) {
+        var p = document.createElement('div');
+        var angle = (i / 7) * 360;
+        var dist  = 28 + Math.random() * 18;
+        var size  = 3  + Math.random() * 3;
+        p.style.cssText = 'position:fixed;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + colors[i % colors.length] + ';pointer-events:none;z-index:9999;left:' + e.clientX + 'px;top:' + e.clientY + 'px;transform:translate(-50%,-50%);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);opacity:1;';
+        document.body.appendChild(p);
+        requestAnimationFrame(function() {
+          p.style.transform = 'translate(calc(-50% + ' + Math.cos(angle * Math.PI / 180) * dist + 'px),calc(-50% + ' + Math.sin(angle * Math.PI / 180) * dist + 'px))';
+          p.style.opacity = '0';
+          setTimeout(function() { p.remove(); }, 520);
         });
-      })(p,angle,dist);
+      })(i);
     }
   });
 });
@@ -2548,128 +1903,164 @@ document.querySelectorAll('.chip').forEach(function(chip) {
 /* ── MOUSE-FOLLOW GLOW on project cards ── */
 document.querySelectorAll('.project-card').forEach(function(card) {
   var gEl = document.createElement('div');
-  gEl.style.cssText = 'position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 0.3s ease;background:radial-gradient(circle at 50% 50%,rgba(124,92,252,0.07),transparent 60%);';
+  gEl.style.cssText = 'position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 0.3s ease;';
   card.appendChild(gEl);
   card.addEventListener('mousemove', function(e) {
     var r = card.getBoundingClientRect();
-    var x = ((e.clientX-r.left)/r.width*100).toFixed(1);
-    var y = ((e.clientY-r.top)/r.height*100).toFixed(1);
-    gEl.style.background = 'radial-gradient(circle at '+x+'% '+y+'%,rgba(124,92,252,0.08),transparent 55%)';
+    var x = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
+    var y = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
+    gEl.style.background = 'radial-gradient(circle at ' + x + '% ' + y + '%,rgba(124,92,252,0.09),transparent 55%)';
     gEl.style.opacity = '1';
   });
-  card.addEventListener('mouseleave', function() { gEl.style.opacity='0'; });
+  card.addEventListener('mouseleave', function() { gEl.style.opacity = '0'; });
 });
 
 /* ── CURSOR RING ── */
 var ring = document.createElement('div');
 ring.id = 'cursor-ring';
 document.body.appendChild(ring);
-var rx=window.innerWidth/2, ry=window.innerHeight/2;
-var mx=rx, my=ry;
-document.addEventListener('mousemove', function(e){ mx=e.clientX; my=e.clientY; });
-(function animRing(){
-  rx += (mx-rx)*0.1; ry += (my-ry)*0.1;
-  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+var rx = window.innerWidth / 2, ry = window.innerHeight / 2;
+var mx = rx, my = ry;
+document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+(function animRing() {
+  rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
   requestAnimationFrame(animRing);
 })();
 
-document.querySelectorAll('a,button,.btn,.project-card,.skill-group,.stat-card,.acad-card,.about-bio-block,.about-comp-item,.spec-pill,.contact-link').forEach(function(el){
-  el.addEventListener('mouseenter',function(){ document.body.classList.add('cur-hover'); });
-  el.addEventListener('mouseleave',function(){ document.body.classList.remove('cur-hover'); });
+document.querySelectorAll('a,button,.btn,.project-card,.skill-group,.stat-card,.acad-card,.about-bio-block,.about-comp-item,.spec-pill,.contact-link').forEach(function(el) {
+  el.addEventListener('mouseenter', function() { document.body.classList.add('cur-hover'); });
+  el.addEventListener('mouseleave', function() { document.body.classList.remove('cur-hover'); });
 });
-document.querySelectorAll('.chip,.skill-list li').forEach(function(el){
-  el.addEventListener('mouseenter',function(){ document.body.classList.add('cur-chip'); document.body.classList.remove('cur-hover'); });
-  el.addEventListener('mouseleave',function(){ document.body.classList.remove('cur-chip'); });
+document.querySelectorAll('.chip,.skill-list li').forEach(function(el) {
+  el.addEventListener('mouseenter', function() { document.body.classList.add('cur-chip'); document.body.classList.remove('cur-hover'); });
+  el.addEventListener('mouseleave', function() { document.body.classList.remove('cur-chip'); });
 });
-document.addEventListener('mousedown',function(){ document.body.classList.add('cur-click'); });
-document.addEventListener('mouseup',  function(){ document.body.classList.remove('cur-click'); });
+document.addEventListener('mousedown', function() { document.body.classList.add('cur-click'); });
+document.addEventListener('mouseup',   function() { document.body.classList.remove('cur-click'); });
 
 /* ── SIDE DOT NAV ── */
-var sNav = document.createElement('div');
+sNav = document.createElement('div');
 sNav.className = 'scroll-side-nav';
-var secs = [
-  {id:'hero',label:'Home'},{id:'about',label:'About'},{id:'academics',label:'Academics'},
-  {id:'projects',label:'Projects'},{id:'skills',label:'Skills'},
-  {id:'journey',label:'Journey'},{id:'contact',label:'Contact'}
+var secsList = [
+  { id: 'hero',      label: 'Home'      },
+  { id: 'about',     label: 'About'     },
+  { id: 'academics', label: 'Academics' },
+  { id: 'projects',  label: 'Projects'  },
+  { id: 'skills',    label: 'Skills'    },
+  { id: 'journey',   label: 'Journey'   },
+  { id: 'contact',   label: 'Contact'   }
 ];
-secs.forEach(function(s){
+sNav._secs = secsList;
+secsList.forEach(function(s) {
   var d = document.createElement('div');
-  d.className='s-dot'; d.dataset.label=s.label; d.dataset.id=s.id;
-  d.addEventListener('click',function(){
-    var t=document.getElementById(s.id);
-    if(t) t.scrollIntoView({behavior:'smooth'});
+  d.className = 's-dot'; d.dataset.label = s.label; d.dataset.id = s.id;
+  d.addEventListener('click', function() {
+    var t = document.getElementById(s.id);
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
   });
   sNav.appendChild(d);
 });
 document.body.appendChild(sNav);
 
-window.addEventListener('scroll',function(){
-  var past = window.scrollY > window.innerHeight*0.5;
-  sNav.classList.toggle('show', past);
-  var cur='';
-  secs.forEach(function(s){
-    var el=document.getElementById(s.id);
-    if(!el) return;
-    var r=el.getBoundingClientRect();
-    if(r.top<=window.innerHeight*0.55 && r.bottom>0) cur=s.id;
-  });
-  sNav.querySelectorAll('.s-dot').forEach(function(d){
-    d.classList.toggle('active', d.dataset.id===cur);
-  });
-},{ passive:true });
-
 /* ── MARQUEE STRIP ── */
-var items = ['Motor Controller Design','ADCS · EKF · TRIAD','ASIC Design Flow','STM32F4 Firmware','Shell Eco-Marathon','PDEU–ISRO Bharat-G','IoT Systems','RTL to GDSII','PCB Design','Synopsys EDA','ESP32 · ESP-Now','Power Electronics','Sensor Fusion','LLM–IoT Integration'];
-var divs = document.querySelectorAll('.section-divider');
-if (divs.length > 1) {
+var mItems = ['Motor Controller Design','ADCS · EKF · TRIAD','ASIC Design Flow','STM32F4 Firmware','Shell Eco-Marathon','PDEU–ISRO Bharat-G','IoT Systems','RTL to GDSII','4-Layer PCB Design','Synopsys EDA','ESP32 · ESP-Now','Power Electronics','Sensor Fusion','LLM–IoT Integration'];
+var dividers = document.querySelectorAll('.section-divider');
+if (dividers.length > 1) {
   var strip = document.createElement('div');
   strip.className = 'marquee-strip';
-  var doubled = items.concat(items);
-  strip.innerHTML = '<div class="marquee-inner">' + doubled.map(function(t){ return '<div class="marquee-item">'+t+'</div>'; }).join('') + '</div>';
-  divs[1].after(strip);
+  var doubled = mItems.concat(mItems);
+  strip.innerHTML = '<div class="marquee-inner">' + doubled.map(function(t) { return '<div class="marquee-item">' + t + '</div>'; }).join('') + '</div>';
+  dividers[1].after(strip);
 }
 
 /* ── SECTION NUMBERS ── */
-var nums=['01','02','03','04','05','06','07'];
-document.querySelectorAll('section[id]').forEach(function(s,i){
-  s.style.position='relative';
-  var n=document.createElement('div');
-  n.className='sec-num'; n.textContent=nums[i]||'';
+document.querySelectorAll('section[id]').forEach(function(s, i) {
+  s.style.position = 'relative';
+  var n = document.createElement('div');
+  n.className = 'sec-num';
+  n.textContent = ('0' + (i + 1)).slice(-2);
   s.appendChild(n);
 });
 
-/* ── SPEC PILLS ── */
+/* ── SKILL LIST MAGNETIC ── */
+document.querySelectorAll('.skill-list li').forEach(function(li) {
+  li.addEventListener('mousemove', function(e) {
+    var r = li.getBoundingClientRect();
+    var dy = (e.clientY - (r.top + r.height / 2)) * 0.1;
+    li.style.transform = 'translateX(6px) translateY(' + dy + 'px)';
+  });
+  li.addEventListener('mouseleave', function() { li.style.transform = ''; });
+});
+
+/* ── SPEC PILLS MODAL ── */
 var specInfo = {
-  motor:{ icon:'⚙️', title:'Motor Controller Design', sub:'Power Electronics · Embedded Control', color:'#9b7ffe', grad:'linear-gradient(90deg,#7c5cfc,#22d3ee)', body:'Specialised in DTC, FOC, and PID motor controller design. Designed a 4-layer PCB for Team Kaizen BEV achieving 227 km/kWh — 1st India, 5th Asia at Shell Eco-Marathon 2025. Algorithms implemented on STM32F4.', chips:['DTC','FOC / PID','STM32F4','Gate Drivers','4-Layer PCB','Thermal Design','EMI Mitigation','BLDC Motor'], hls:[['227','km/kWh efficiency'],['4-Layer','PCB stack'],['1st','India ranking'],['STM32F4','MCU platform']] },
-  adcs: { icon:'🛰️', title:'ADCS / Satellite Systems', sub:'Attitude Determination & Control', color:'#22d3ee', grad:'linear-gradient(90deg,#22d3ee,#34d399)', body:'ADCS Member on PDEU–ISRO Bharat-G mission with SAC (ISRO). Working on TRIAD, EKF, B-Dot, and PID algorithms, sensor fusion, and integration with magnetorquers and reaction wheels.', chips:['TRIAD','EKF','B-Dot','Sensor Fusion','Magnetorquers','Reaction Wheels','MATLAB','Python'], hls:[['ISRO','SAC collaboration'],['EKF','Primary estimator'],['Bharat-G','Satellite mission'],['LEO','Orbit regime']] },
-  asic: { icon:'⚡', title:'ASIC & VLSI', sub:'RTL to GDSII · Synopsys EDA', color:'#c084fc', grad:'linear-gradient(90deg,#c084fc,#7c5cfc)', body:'Completed full RTL-to-GDSII ASIC flow for an 8-bit ripple carry adder — floorplanning, power planning, CTS, and routing using Design Compiler, ICC2, PrimeTime, and Verdi.', chips:['Design Compiler','ICC2','PrimeTime','Verdi','Synopsys Sentaurus','Cadence','Verilog','GDSII'], hls:[['8-bit','Ripple carry adder'],['STA','Timing analysis'],['P&R','Place & route'],['RTL→GDS','Full flow']] },
-  embedded:{ icon:'💾', title:'Embedded Systems', sub:'Firmware · Real-Time · MCU', color:'#fb7185', grad:'linear-gradient(90deg,#fb7185,#fbbf24)', body:'Firmware on STM32F4, ESP32, and Arduino for real-time motor control and IoT nodes. Proficient in STM32CubeMX, STM32IDE, ESP-Now, and RISC-V architecture.', chips:['STM32F4','STM32CubeMX','ESP32','Arduino','ESP-Now','RISC-V','Embedded C','SPI/I2C/UART'], hls:[['STM32F4','Motor control MCU'],['ESP32','IoT platform'],['ESP-Now','Mesh protocol'],['RISC-V','Architecture']] },
-  iot:{ icon:'📡', title:'Internet of Things', sub:'Connected Systems · Edge · AI-IoT', color:'#34d399', grad:'linear-gradient(90deg,#34d399,#22d3ee)', body:'IoT minor at PDEU. Projects: Smart Safety Helmet (DHT22, MQ135, MPU6050, ESP-Now, MQTTx), Multi-Source Power Management System, and LLM-IoT Control via Model Context Protocol.', chips:['MQTT / ESP-Now','MQTTx','LLM + MCP','Multi-source Power','DHT22 / MQ135','MPU6050','Node-RED','Cloud IoT'], hls:[['3+','Active IoT projects'],['LLM+MCP','AI-IoT integration'],['ESP-Now','Mesh network'],['IoT Minor','PDEU specialisation']] }
+  motor: {
+    icon: '⚙️', title: 'Motor Controller Design', sub: 'Power Electronics · Embedded Control',
+    color: '#9b7ffe', grad: 'linear-gradient(90deg,#7c5cfc,#22d3ee)',
+    body: 'Specialised in DTC, FOC, and PID motor controller design. Designed a 4-layer PCB for Team Kaizen BEV achieving 227 km/kWh — 1st India, 5th Asia at Shell Eco-Marathon 2025. Implemented on STM32F4.',
+    chips: ['DTC', 'FOC / PID', 'STM32F4', 'Gate Drivers', '4-Layer PCB', 'Thermal Design', 'EMI Mitigation', 'BLDC Motor'],
+    hls:  [['227', 'km/kWh efficiency'], ['4-Layer', 'PCB stack'], ['1st', 'India ranking'], ['STM32F4', 'MCU platform']]
+  },
+  adcs: {
+    icon: '🛰️', title: 'ADCS / Satellite Systems', sub: 'Attitude Determination & Control',
+    color: '#22d3ee', grad: 'linear-gradient(90deg,#22d3ee,#34d399)',
+    body: 'ADCS Member on PDEU–ISRO Bharat-G mission with SAC (ISRO). Working on TRIAD, EKF, B-Dot, and PID algorithms, sensor fusion, and integration with magnetorquers and reaction wheels.',
+    chips: ['TRIAD', 'EKF', 'B-Dot', 'Sensor Fusion', 'Magnetorquers', 'Reaction Wheels', 'MATLAB', 'Python'],
+    hls:  [['ISRO', 'SAC collaboration'], ['EKF', 'Primary estimator'], ['Bharat-G', 'Satellite mission'], ['LEO', 'Orbit regime']]
+  },
+  asic: {
+    icon: '⚡', title: 'ASIC & VLSI', sub: 'RTL to GDSII · Synopsys EDA',
+    color: '#c084fc', grad: 'linear-gradient(90deg,#c084fc,#7c5cfc)',
+    body: 'Completed full RTL-to-GDSII ASIC flow for an 8-bit ripple carry adder — floorplanning, power planning, CTS, and routing using Design Compiler, ICC2, PrimeTime, and Verdi.',
+    chips: ['Design Compiler', 'ICC2', 'PrimeTime', 'Verdi', 'Synopsys Sentaurus', 'Cadence', 'Verilog', 'GDSII'],
+    hls:  [['8-bit', 'Ripple carry adder'], ['STA', 'Timing analysis'], ['P&R', 'Place & route'], ['RTL→GDS', 'Full flow']]
+  },
+  embedded: {
+    icon: '💾', title: 'Embedded Systems', sub: 'Firmware · Real-Time · MCU',
+    color: '#fb7185', grad: 'linear-gradient(90deg,#fb7185,#fbbf24)',
+    body: 'Firmware on STM32F4, ESP32, and Arduino for real-time motor control and IoT nodes. Proficient in STM32CubeMX, STM32IDE, ESP-Now, and RISC-V architecture.',
+    chips: ['STM32F4', 'STM32CubeMX', 'ESP32', 'Arduino', 'ESP-Now', 'RISC-V', 'Embedded C', 'SPI/I2C/UART'],
+    hls:  [['STM32F4', 'Motor control MCU'], ['ESP32', 'IoT platform'], ['ESP-Now', 'Mesh protocol'], ['RISC-V', 'Architecture']]
+  },
+  iot: {
+    icon: '📡', title: 'Internet of Things', sub: 'Connected Systems · Edge · AI-IoT',
+    color: '#34d399', grad: 'linear-gradient(90deg,#34d399,#22d3ee)',
+    body: 'IoT minor at PDEU. Projects: Smart Safety Helmet (DHT22, MQ135, MPU6050, ESP-Now, MQTTx), Multi-Source Power Management, and LLM-IoT Control via Model Context Protocol.',
+    chips: ['MQTT / ESP-Now', 'MQTTx', 'LLM + MCP', 'Multi-source Power', 'DHT22 / MQ135', 'MPU6050', 'Node-RED', 'Cloud IoT'],
+    hls:  [['3+', 'Active IoT projects'], ['LLM+MCP', 'AI-IoT integration'], ['ESP-Now', 'Mesh network'], ['IoT Minor', 'PDEU specialisation']]
+  }
 };
+
 function openSpec(key) {
-  var d=specInfo[key]; if(!d) return;
-  document.getElementById('specIco').textContent=d.icon;
-  document.getElementById('specTtl').textContent=d.title;
-  document.getElementById('specSub').textContent=d.sub;
-  document.getElementById('specBody').textContent=d.body;
-  document.getElementById('specBody').style.borderColor=d.color;
-  document.getElementById('specBoxTop').style.background=d.grad;
-  document.getElementById('specChips').innerHTML=d.chips.map(function(c){return'<span class="spec-chip">'+c+'</span>';}).join('');
-  document.getElementById('specHls').innerHTML=d.hls.map(function(h){return'<div class="spec-hl-item"><div class="spec-hl-v" style="color:'+d.color+'">'+h[0]+'</div><div class="spec-hl-l">'+h[1]+'</div></div>';}).join('');
+  var d = specInfo[key]; if (!d) return;
+  document.getElementById('specIco').textContent = d.icon;
+  document.getElementById('specTtl').textContent = d.title;
+  document.getElementById('specSub').textContent = d.sub;
+  document.getElementById('specBody').textContent = d.body;
+  document.getElementById('specBody').style.borderColor = d.color;
+  document.getElementById('specBoxTop').style.background = d.grad;
+  document.getElementById('specChips').innerHTML = d.chips.map(function(c) { return '<span class="spec-chip">' + c + '</span>'; }).join('');
+  document.getElementById('specHls').innerHTML   = d.hls.map(function(h) { return '<div class="spec-hl-item"><div class="spec-hl-v" style="color:' + d.color + '">' + h[0] + '</div><div class="spec-hl-l">' + h[1] + '</div></div>'; }).join('');
   document.getElementById('specOverlay').classList.add('open');
 }
-function closeSpec(){ document.getElementById('specOverlay').classList.remove('open'); }
-document.querySelectorAll('.spec-pill').forEach(function(p){
-  p.addEventListener('click',function(e){ e.stopPropagation(); openSpec(this.dataset.spec); });
-});
-var ov=document.getElementById('specOverlay');
-if(ov){
-  document.getElementById('specCloseBtn').addEventListener('click',closeSpec);
-  ov.addEventListener('click',function(e){ if(e.target===this) closeSpec(); });
-}
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSpec(); });
+function closeSpec() { document.getElementById('specOverlay').classList.remove('open'); }
 
-/* ── EMAIL ── */
-(function(){ var el=document.getElementById('emailLink'); if(el) el.href='mailto:aayushmodi2005@gmail.com'; })();
+document.querySelectorAll('.spec-pill').forEach(function(p) {
+  p.addEventListener('click', function(e) { e.stopPropagation(); openSpec(this.dataset.spec); });
+});
+var ov = document.getElementById('specOverlay');
+if (ov) {
+  document.getElementById('specCloseBtn').addEventListener('click', closeSpec);
+  ov.addEventListener('click', function(e) { if (e.target === this) closeSpec(); });
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSpec(); });
+
+/* ── EMAIL (Cloudflare-safe) ── */
+(function() {
+  var el = document.getElementById('emailLink');
+  if (el) el.href = 'mailto:aayushmodi2005@gmail.com';
+})();
 
 </script>
+</html>
