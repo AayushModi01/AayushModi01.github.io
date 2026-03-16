@@ -1160,6 +1160,66 @@ nav.scrolled {
   .about-comp-grid { grid-template-columns: 1fr; }
 }
 
+
+/* ===== UI UPGRADE PACK ===== */
+
+/* Hide default cursor */
+body { cursor: none; }
+
+/* Custom cursor dot */
+#cursor {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: #22d3ee;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
+}
+
+/* Cursor ring */
+#cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(34,211,238,0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Glass card effect */
+.glass-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Magnetic buttons */
+button, .btn {
+  transition: transform 0.2s ease;
+}
+
+button:hover, .btn:hover {
+  transform: scale(1.05);
+}
+
 </style>
 
 </head>
@@ -2672,4 +2732,38 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSpec(
 /* ── EMAIL ── */
 (function(){ var el=document.getElementById('emailLink'); if(el) el.href='mailto:aayushmodi2005@gmail.com'; })();
 
+</script>
+<script>
+/* ===== UI UPGRADE SCRIPTS ===== */
+
+const cursor = document.createElement("div");
+cursor.id = "cursor";
+
+const ring = document.createElement("div");
+ring.id = "cursor-ring";
+
+document.body.appendChild(cursor);
+document.body.appendChild(ring);
+
+document.addEventListener("mousemove", (e) => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+
+  ring.style.left = e.clientX + "px";
+  ring.style.top = e.clientY + "px";
+});
+
+/* Magnetic button effect */
+document.querySelectorAll("button, .btn").forEach(btn => {
+  btn.addEventListener("mousemove", e => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width/2;
+    const y = e.clientY - rect.top - rect.height/2;
+    btn.style.transform = `translate(${x*0.2}px, ${y*0.2}px) scale(1.05)`;
+  });
+
+  btn.addEventListener("mouseleave", () => {
+    btn.style.transform = "";
+  });
+});
 </script>
