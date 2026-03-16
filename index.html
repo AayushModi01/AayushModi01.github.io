@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aayush Modi — Portfolio</title>
+<meta name="description" content="Aayush Modi — B.Tech ECE student at PDEU. Building motor controllers, ADCS algorithms for an ISRO CubeSat mission, and IoT systems. 226.76 km/kWh · 1st India · 5th Asia at Shell Eco-Marathon.">
+<meta name="keywords" content="Aayush Modi, PDEU, motor controller, ADCS, ISRO, embedded systems, IoT, VLSI, PCB design, Shell Eco-Marathon">
+<meta name="author" content="Aayush Modi">
+<meta property="og:title" content="Aayush Modi — Engineering Portfolio">
+<meta property="og:description" content="Pre-final year ECE student at PDEU — designing motor controllers, writing ADCS algorithms for an ISRO CubeSat, and building IoT systems.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aayushmodi01.github.io">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aayush Modi — Engineering Portfolio">
+<meta name="twitter:description" content="Motor controllers · ISRO CubeSat ADCS · Shell Eco-Marathon 1st India">
+<title>Aayush Modi — Engineering Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -537,44 +547,6 @@ footer span { font-family: var(--mono); }
   background: linear-gradient(90deg, #7c5cfc, #22d3ee, #fbbf24);
   z-index: 1000; box-shadow: 0 0 6px rgba(34,211,238,0.5);
   transition: width 0.1s linear;
-}
-
-/* ── 4. CURSOR RING ── */
-#cursor-ring {
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 1.5px solid rgba(34,211,238,0.45);
-  background: rgba(34,211,238,0.03);
-  transform: translate(-50%,-50%);
-  transition: width 0.3s cubic-bezier(0.16,1,0.3,1),
-              height 0.3s cubic-bezier(0.16,1,0.3,1),
-              border-color 0.25s ease,
-              background 0.25s ease;
-}
-body.cur-hover #cursor-ring {
-  width: 46px; height: 46px;
-  border-color: rgba(155,127,254,0.75);
-  background: rgba(124,92,252,0.06);
-}
-body.cur-chip #cursor-ring {
-  width: 54px; height: 54px;
-  border-color: rgba(34,211,238,0.9);
-  background: rgba(34,211,238,0.06);
-  border-width: 2px;
-}
-body.cur-click #cursor-ring {
-  width: 24px; height: 24px;
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.5);
-}
-
-/* ── 5. CURSOR TRAIL DOT ── */
-.cursor-trail {
-  position: fixed; pointer-events: none; z-index: 9997;
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--cyan); opacity: 0;
-  transform: translate(-50%,-50%);
-  transition: opacity 0.3s ease;
 }
 
 /* ── 6. NAV ── */
@@ -1404,6 +1376,221 @@ body { color: var(--text); }
   transition: height 0.3s ease;
 }
 
+
+/* ══════════════════════════════════════════
+   CURSOR — MAGNETIC SPOTLIGHT EFFECT
+══════════════════════════════════════════ */
+
+/* Tiny precise dot that follows cursor exactly */
+#cursor-dot {
+  position: fixed;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--cyan);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: screen;
+}
+
+/* Spotlight glow that follows with lag */
+#cursor-glow {
+  position: fixed;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(124,92,252,0.055) 0%, transparent 70%);
+  transition: background 0.4s ease;
+  will-change: transform;
+}
+
+/* Thin trailing line — crosshair style on links */
+body.cur-hover #cursor-dot {
+  width: 6px; height: 6px;
+  background: var(--violet2);
+  box-shadow: 0 0 8px var(--violet2);
+}
+body.cur-hover #cursor-glow {
+  background: radial-gradient(circle, rgba(155,127,254,0.07) 0%, transparent 65%);
+}
+
+/* On chips/interactive small items */
+body.cur-chip #cursor-dot {
+  width: 5px; height: 5px;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+body.cur-chip #cursor-glow {
+  background: radial-gradient(circle, rgba(34,211,238,0.07) 0%, transparent 65%);
+}
+
+/* On click */
+body.cur-click #cursor-dot {
+  width: 3px; height: 3px;
+  background: #fff;
+  box-shadow: 0 0 6px #fff;
+}
+
+/* Cursor trails */
+.c-trail {
+  position: fixed;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  background: var(--violet2);
+  opacity: 0;
+  animation: trailFade 0.5s ease-out forwards;
+}
+@keyframes trailFade {
+  0%   { opacity: 0.35; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0;    transform: translate(-50%,-50%) scale(0); }
+}
+
+/* Surface magnetism — cards subtly shift toward cursor */
+.project-card, .skill-group, .acad-card, .stat-card {
+  will-change: transform;
+}
+
+
+
+
+/* ══════════════════════════════════════════
+   CERTIFICATIONS SECTION
+══════════════════════════════════════════ */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+/* Last card full-width if odd count */
+.cert-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  max-width: 560px;
+}
+
+.cert-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cert-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--ca);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3),
+              0 0 0 0.5px var(--ca),
+              0 0 32px var(--cg, rgba(124,92,252,0.1));
+}
+
+/* Left colour stripe */
+.cert-stripe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--ca);
+  opacity: 0.7;
+  transition: opacity 0.3s, width 0.3s;
+}
+.cert-card:hover .cert-stripe { opacity: 1; width: 4px; }
+
+.cert-body {
+  padding: 1.5rem 1.5rem 1.5rem 1.8rem;
+  display: flex; flex-direction: column; gap: 0.8rem;
+  flex: 1;
+}
+
+/* Header row */
+.cert-head-row {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+}
+
+.cert-icon-box {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: var(--ci-bg, rgba(124,92,252,0.1));
+  border: 0.5px solid var(--ci-bd, rgba(124,92,252,0.25));
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+}
+.cert-card:hover .cert-icon-box {
+  transform: scale(1.12) rotate(6deg);
+  box-shadow: 0 0 14px var(--cg, rgba(124,92,252,0.2));
+}
+
+.cert-meta { flex: 1; }
+.cert-issuer {
+  font-family: var(--mono); font-size: 0.6rem;
+  color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase;
+  line-height: 1.4;
+}
+.cert-date-row {
+  font-family: var(--mono); font-size: 0.58rem;
+  color: var(--ca); letter-spacing: 0.08em;
+  margin-top: 0.2rem;
+}
+
+.cert-type-badge {
+  font-family: var(--mono); font-size: 0.56rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.22rem 0.55rem; border-radius: 4px;
+  border: 0.5px solid; white-space: nowrap;
+  flex-shrink: 0; align-self: flex-start;
+  transition: letter-spacing 0.3s ease;
+}
+.cert-card:hover .cert-type-badge { letter-spacing: 0.1em; }
+
+/* Title */
+.cert-title {
+  font-family: var(--sans); font-size: 0.95rem; font-weight: 700;
+  color: #dce2f0; line-height: 1.35;
+}
+
+/* Description */
+.cert-desc {
+  font-size: 0.81rem; color: #8a95b8; line-height: 1.75;
+}
+.cert-desc strong { color: #dce2f0; font-weight: 500; }
+
+/* Footer row */
+.cert-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.8rem; flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 0.5px solid var(--border);
+}
+.cert-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.cert-tag {
+  font-family: var(--mono); font-size: 0.6rem;
+  color: var(--text3); background: var(--surface2);
+  border: 0.5px solid var(--border);
+  padding: 0.18rem 0.55rem; border-radius: 4px;
+  letter-spacing: 0.04em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.cert-card:hover .cert-tag {
+  color: var(--text2); border-color: var(--border2);
+}
+.cert-stat {
+  font-family: var(--sans); font-size: 0.78rem; font-weight: 700;
+  letter-spacing: -0.01em; white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .cert-grid { grid-template-columns: 1fr; }
+  .cert-card:last-child:nth-child(odd) { max-width: 100%; }
+}
+
 </style>
 
 </head>
@@ -1413,20 +1600,21 @@ body { color: var(--text); }
 <div class="mesh-bg"></div>
 
 <nav>
-  <div class="nav-logo">Aayush<span class="dot">.</span>Modi</div>
+  <a href="#hero" class="nav-logo" style="text-decoration:none;">Aayush<span class="dot">.</span>Modi</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#academics">Academics</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#journey">Journey</a></li>
+    <li><a href="#certifications">Certs</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://drive.google.com/file/d/YOUR_RESUME_ID/view" target="_blank" style="color:var(--green);">Resume ↗</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" id="hero">
   <div class="hero-grid"></div>
   
   <div class="particle" style="left:15%;width:3px;height:3px;background:rgba(124,92,252,0.6);animation-duration:12s;animation-delay:0s;"></div>
@@ -1451,7 +1639,7 @@ body { color: var(--text); }
       <span class="first">Aayush</span>
       <span class="last">Modi</span>
     </h1>
-    <p class="hero-desc">Motor Controller Engineer &amp; Embedded Systems Designer — crafting precision hardware at the intersection of power electronics, satellite systems, and IoT.</p>
+    <p class="hero-desc">Pre-final year ECE student at PDEU — designing motor controllers, writing ADCS algorithms for an ISRO satellite mission, and building IoT systems that actually work.</p>
     <div class="hero-pills">
       <span class="pill v spec-pill" data-spec="motor">Motor Controller Design</span>
       <span class="pill c spec-pill" data-spec="adcs">ADCS / Satellite Systems</span>
@@ -1511,7 +1699,7 @@ body { color: var(--text); }
 
         <div class="about-bio-block">
           <div class="about-bio-tag">Team Kaizen</div>
-          <p>As <strong>Electronics &amp; Electrical Head</strong>, designed a 4-layer DTC-based motor controller PCB and implemented DTC, FOC, and PID on <strong>STM32F4</strong> — achieving <strong>227 km/kWh</strong>, ranking <strong>1st in India</strong> and <strong>5th in Asia</strong> at Shell Eco-Marathon 2025.</p>
+          <p>As <strong>Electronics &amp; Electrical Head</strong>, designed a 4-layer DTC-based motor controller PCB and implemented DTC, FOC, and PID on <strong>STM32F4</strong> — achieving <strong>226.76 km/kWh</strong>, ranking <strong>1st in India</strong> and <strong>5th in Asia</strong> at Shell Eco-Marathon 2025.</p>
         </div>
 
         <div class="about-bio-block">
@@ -1533,7 +1721,7 @@ body { color: var(--text); }
           <div class="stat-card">
             <div class="stat-top"></div>
             <div class="stat-icon">⚡</div>
-            <div class="stat-num" data-count="227" data-suffix="">227</div>
+            <div class="stat-num">226.76</div>
             <div class="stat-unit">km/kWh</div>
             <div class="stat-label">BEV efficiency achieved</div>
           </div>
@@ -1681,7 +1869,7 @@ body { color: var(--text); }
         <div>
           <span class="project-tag amber">Shell Eco-Marathon · 2024–Present</span>
           <h3 class="project-title">Team Kaizen — Hyper-Efficient Battery Electric Vehicle</h3>
-          <p class="project-desc">Led motor controller development for a competition BEV targeting maximum energy efficiency. Competed at Lusail International Circuit, Doha, achieving India's best performance and 5th in Asia with 227 km/kWh — two years running.</p>
+          <p class="project-desc">Led motor controller development for a competition BEV targeting maximum energy efficiency. Competed at Lusail International Circuit, Doha, achieving India's best performance and 5th in Asia with 226.76 km/kWh at Asia-Pacific & Middle East 2025, Doha.</p>
           <div style="margin-bottom:1.4rem;">
             <span class="badge badge-amber">🏆 1st in India (2025 &amp; 2026)</span>
             <span class="badge badge-cyan">5th in Asia</span>
@@ -1696,7 +1884,7 @@ body { color: var(--text); }
             <div class="tech-panel-label">Technical Highlights</div>
             <div class="tech-row"><span>PCB layers</span><span>4-layer stack</span></div>
             <div class="tech-row"><span>Control strategy</span><span>DTC</span></div>
-            <div class="tech-row"><span>Efficiency</span><span class="hl">227 km/kWh</span></div>
+            <div class="tech-row"><span>Efficiency</span><span class="hl">226.76 km/kWh</span></div>
             <div class="tech-row"><span>Venue</span><span>Lusail, Doha</span></div>
             <div class="tech-row"><span>Ranking</span><span class="hl">1st India · 5th Asia</span></div>
           </div>
@@ -1704,17 +1892,10 @@ body { color: var(--text); }
       </div>
 
       <div class="project-card fade-in">
-        <span class="project-tag purple">PDEU – ISRO · Satellite Mission</span>
-        <h3 class="project-title">Bharat-G Satellite — ADCS Development</h3>
-        <p class="project-desc">Core member of the ADCS team for the PDEU–ISRO Bharat-G satellite mission. Developing attitude estimation algorithms including Kalman Filter and TRIAD for precise satellite orientation.</p>
-        <div class="project-chips"><span class="chip">Kalman Filter</span><span class="chip">TRIAD Algorithm</span><span class="chip">ADCS</span><span class="chip">MATLAB / Python</span></div>
-      </div>
-
-      <div class="project-card fade-in">
-        <span class="project-tag cyan">CubeSat · Payload Design</span>
-        <h3 class="project-title">CubeSat Night-Time Light Imaging Payload</h3>
-        <p class="project-desc">Designed a LEO CubeSat payload for capturing night-time light emissions — enabling urban growth monitoring, disaster response, and energy usage analytics from space.</p>
-        <div class="project-chips"><span class="chip">Payload Design</span><span class="chip">Imaging Systems</span><span class="chip">Low Earth Orbit</span></div>
+        <span class="project-tag cyan">PDEU – ISRO · CubeSat Mission</span>
+        <h3 class="project-title">CubeSat ADCS — Attitude Determination &amp; Control</h3>
+        <p class="project-desc">Working on the ADCS subsystem of a LEO CubeSat mission under PDEU–ISRO collaboration, implementing attitude estimation and control algorithms — TRIAD, Extended Kalman Filter (EKF), B-Dot, and PID — with sensor fusion across magnetometers, gyroscopes, and sun sensors, integrated with magnetorquers and reaction wheels. The payload is designed for night-time light imaging, enabling urban growth monitoring and disaster response analytics from orbit.</p>
+        <div class="project-chips"><span class="chip">TRIAD / EKF</span><span class="chip">B-Dot Control</span><span class="chip">Sensor Fusion</span><span class="chip">Magnetorquers</span><span class="chip">CubeSat Payload</span><span class="chip">MATLAB / Python</span></div>
       </div>
 
       <div class="project-card fade-in">
@@ -1832,8 +2013,8 @@ body { color: var(--text); }
       <div class="timeline-item slide-left fade-in">
         <div class="timeline-dot" style="--dot-color:#c084fc;"></div>
         <div class="timeline-date" style="--dot-color:#c084fc;">May 2025</div>
-        <div class="timeline-title">RTL-to-GDSII ASIC Design Workshop — 10 Days</div>
-        <div class="timeline-sub">Completed full RTL-to-GDSII ASIC design flow for an 8-bit ripple carry adder — including floorplanning, power planning, placement, clock tree synthesis, and routing using Design Compiler, ICC2, PrimeTime, and Verdi.</div>
+        <div class="timeline-title">RTL-to-GDSII ASIC Design Workshop — 5 Days</div>
+        <div class="timeline-sub">Completed full RTL-to-GDSII ASIC design flow for an 8-bit ripple carry adder — floorplanning, power planning, placement, clock tree synthesis, and routing using Synopsys Design Compiler, ICC2, PrimeTime, and Verdi.</div>
       </div>
 
       <div class="timeline-item slide-left fade-in">
@@ -1847,7 +2028,166 @@ body { color: var(--text); }
         <div class="timeline-dot" style="--dot-color:var(--violet2);"></div>
         <div class="timeline-date" style="--dot-color:var(--violet2);">January 2026</div>
         <div class="timeline-title">Shell Eco-Marathon — Lusail International Circuit</div>
-        <div class="timeline-sub">Team Kaizen achieved 1st in India and 5th in Asia at the Shell Eco-Marathon, competing at Lusail International Circuit, Doha with 227 km/kWh energy efficiency.</div>
+        <div class="timeline-sub">Team Kaizen achieved 1st in India and 5th in Asia at the Shell Eco-Marathon, competing at Lusail International Circuit, Doha with 226.76 km/kWh energy efficiency.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="fade-in">
+    <div class="section-sub clip-reveal fade-in">Verified Credentials</div>
+    <h2 class="big-title"><span class="fill">Certifications </span><span class="gold">&amp; Awards.</span></h2>
+
+    <div class="cert-grid stagger fade-in">
+
+      <!-- 1. Shell Eco-Marathon -->
+      <div class="cert-card fade-in" style="--ca:#f97316;--cg:rgba(249,115,22,0.12);">
+        <div class="cert-stripe"></div>
+        <div class="cert-body">
+          <div class="cert-head-row">
+            <div class="cert-icon-box" style="--ci-bg:rgba(249,115,22,0.1);--ci-bd:rgba(249,115,22,0.25);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+            </div>
+            <div class="cert-meta">
+              <div class="cert-issuer">Shell Eco-marathon</div>
+              <div class="cert-date-row">February 12, 2025</div>
+            </div>
+            <div class="cert-type-badge" style="color:#f97316;background:rgba(249,115,22,0.1);border-color:rgba(249,115,22,0.3);">Certificate of Results</div>
+          </div>
+
+          <div class="cert-title">Asia-Pacific &amp; Middle East 2025 — 5th Place</div>
+          <div class="cert-desc">Recognised for exceptional work in vehicle design, fabrication, testing and achievement of <strong>226.76 km/kWh</strong> energy efficiency — <strong>5th place</strong> in the Prototype Battery-Electric category.</div>
+
+          <div class="cert-foot">
+            <div class="cert-tags">
+              <span class="cert-tag">Team Kaizen India</span>
+              <span class="cert-tag">PDEU</span>
+              <span class="cert-tag">Battery-Electric</span>
+            </div>
+            <div class="cert-stat" style="color:#f97316;">226.76 km/kWh</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Synopsys RTL to GDSII -->
+      <div class="cert-card fade-in" style="--ca:#8b5cf6;--cg:rgba(139,92,246,0.12);">
+        <div class="cert-stripe"></div>
+        <div class="cert-body">
+          <div class="cert-head-row">
+            <div class="cert-icon-box" style="--ci-bg:rgba(139,92,246,0.1);--ci-bd:rgba(139,92,246,0.25);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="cert-meta">
+              <div class="cert-issuer">Synopsys · PDEU · VLSI Expert</div>
+              <div class="cert-date-row">26–30 May 2025</div>
+            </div>
+            <div class="cert-type-badge" style="color:#8b5cf6;background:rgba(139,92,246,0.1);border-color:rgba(139,92,246,0.3);">Certificate of Completion</div>
+          </div>
+
+          <div class="cert-title">RTL to GDSII using Synopsys EDA Tools</div>
+          <div class="cert-desc">Successfully completed the <strong>5-Day workshop</strong> on full ASIC design flow — from RTL synthesis through floorplanning, placement, clock tree synthesis, and routing to final GDSII using Synopsys tools.</div>
+
+          <div class="cert-foot">
+            <div class="cert-tags">
+              <span class="cert-tag">Synopsys</span>
+              <span class="cert-tag">RTL to GDSII</span>
+              <span class="cert-tag">ASIC Design</span>
+            </div>
+            <div class="cert-stat" style="color:#8b5cf6;">5-Day Workshop</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. ICC Indian Embassy Qatar -->
+      <div class="cert-card fade-in" style="--ca:#f59e0b;--cg:rgba(245,158,11,0.12);">
+        <div class="cert-stripe"></div>
+        <div class="cert-body">
+          <div class="cert-head-row">
+            <div class="cert-icon-box" style="--ci-bg:rgba(245,158,11,0.1);--ci-bd:rgba(245,158,11,0.25);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+            </div>
+            <div class="cert-meta">
+              <div class="cert-issuer">Indian Cultural Centre · Indian Embassy, Qatar</div>
+              <div class="cert-date-row">February 2025</div>
+            </div>
+            <div class="cert-type-badge" style="color:#f59e0b;background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);">Honour of Recognition</div>
+          </div>
+
+          <div class="cert-title">Honoured for Representing India at Shell Eco-Marathon</div>
+          <div class="cert-desc">Honoured by the <strong>Indian Cultural Centre (ICC)</strong> under the aegis of the <strong>Indian Embassy, Qatar</strong> for representing Team Kaizen India at the international stage — upholding India's spirit of innovation in Doha.</div>
+
+          <div class="cert-foot">
+            <div class="cert-tags">
+              <span class="cert-tag">🇮🇳 India</span>
+              <span class="cert-tag">Doha, Qatar</span>
+              <span class="cert-tag">Team Kaizen</span>
+            </div>
+            <div class="cert-stat" style="color:#f59e0b;">Embassy Honour</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Advanced Semiconductor Design -->
+      <div class="cert-card fade-in" style="--ca:#0ea5e9;--cg:rgba(14,165,233,0.12);">
+        <div class="cert-stripe"></div>
+        <div class="cert-body">
+          <div class="cert-head-row">
+            <div class="cert-icon-box" style="--ci-bg:rgba(14,165,233,0.1);--ci-bd:rgba(14,165,233,0.25);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="cert-meta">
+              <div class="cert-issuer">ChipIN · MeitY · SoT PDEU</div>
+              <div class="cert-date-row">March 21–22 &amp; 28, 2025</div>
+            </div>
+            <div class="cert-type-badge" style="color:#0ea5e9;background:rgba(14,165,233,0.1);border-color:rgba(14,165,233,0.3);">Certificate of Participation</div>
+          </div>
+
+          <div class="cert-title">Advanced Semiconductor Device Design, Simulation &amp; Circuit Implementation</div>
+          <div class="cert-desc">Participated in the <strong>3-day Skill Development Program</strong> organised by Dept. of ICT/ECE, School of Technology, PDEU — supported by Government of India (MeitY) — covering advanced semiconductor device design and simulation.</div>
+
+          <div class="cert-foot">
+            <div class="cert-tags">
+              <span class="cert-tag">MeitY · Govt. of India</span>
+              <span class="cert-tag">VLSI</span>
+              <span class="cert-tag">Semiconductor</span>
+            </div>
+            <div class="cert-stat" style="color:#0ea5e9;">3-Day Program</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. VLSI CONNECT -->
+      <div class="cert-card fade-in" style="--ca:#10b981;--cg:rgba(16,185,129,0.12);">
+        <div class="cert-stripe"></div>
+        <div class="cert-body">
+          <div class="cert-head-row">
+            <div class="cert-icon-box" style="--ci-bg:rgba(16,185,129,0.1);--ci-bd:rgba(16,185,129,0.25);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div class="cert-meta">
+              <div class="cert-issuer">SoT, PDEU — Dept. ICT &amp; ECE</div>
+              <div class="cert-date-row">October 11, 2024</div>
+            </div>
+            <div class="cert-type-badge" style="color:#10b981;background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);">Certificate of Participation</div>
+          </div>
+
+          <div class="cert-title">VLSI CONNECT — Bridging the Gap Between Academia and Industry</div>
+          <div class="cert-desc">Participated in the one-day industry connect event at PDEU, Gandhinagar — focused on bridging the gap between academic VLSI education and real-world industry practices.</div>
+
+          <div class="cert-foot">
+            <div class="cert-tags">
+              <span class="cert-tag">VLSI</span>
+              <span class="cert-tag">Industry Connect</span>
+              <span class="cert-tag">PDEU</span>
+            </div>
+            <div class="cert-stat" style="color:#10b981;">VLSI Industry</div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -2174,20 +2514,48 @@ document.querySelectorAll('.project-card').forEach(function(card) {
   card.addEventListener('mouseleave', function() { gEl.style.opacity = '0'; });
 });
 
-/* ── CURSOR RING ── */
-var ring = document.createElement('div');
-ring.id = 'cursor-ring';
-document.body.appendChild(ring);
-var rx = window.innerWidth / 2, ry = window.innerHeight / 2;
-var mx = rx, my = ry;
-document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
-(function animRing() {
-  rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(animRing);
+/* ── CURSOR: DOT + SPOTLIGHT + TRAILS ── */
+var dot  = document.createElement('div');
+dot.id   = 'cursor-dot';
+var glow = document.createElement('div');
+glow.id  = 'cursor-glow';
+document.body.appendChild(glow);
+document.body.appendChild(dot);
+
+var dmx = window.innerWidth/2,  dmy = window.innerHeight/2;
+var glx = dmx, gly = dmy;
+var trailTimer = 0;
+
+document.addEventListener('mousemove', function(e) {
+  dmx = e.clientX; dmy = e.clientY;
+  /* Dot follows exactly */
+  dot.style.left = dmx + 'px'; dot.style.top = dmy + 'px';
+
+  /* Spawn subtle trail dot every 40ms */
+  var now = performance.now();
+  if (now - trailTimer > 40) {
+    trailTimer = now;
+    var t = document.createElement('div');
+    t.className = 'c-trail';
+    t.style.left = dmx + 'px'; t.style.top = dmy + 'px';
+    t.style.width  = (1.5 + Math.random() * 1.5) + 'px';
+    t.style.height = t.style.width;
+    t.style.background = ['#9b7ffe','#22d3ee','#c084fc'][Math.floor(Math.random()*3)];
+    document.body.appendChild(t);
+    setTimeout(function() { t.remove(); }, 500);
+  }
+});
+
+/* Glow follows with smooth lag */
+(function animGlow() {
+  glx += (dmx - glx) * 0.06;
+  gly += (dmy - gly) * 0.06;
+  glow.style.left = glx + 'px'; glow.style.top = gly + 'px';
+  requestAnimationFrame(animGlow);
 })();
 
-document.querySelectorAll('a,button,.btn,.project-card,.skill-group,.stat-card,.acad-card,.about-bio-block,.about-comp-item,.spec-pill,.contact-link').forEach(function(el) {
+/* Cursor state classes */
+document.querySelectorAll('a,button,.btn,.project-card,.skill-group,.stat-card,.acad-card,.about-bio-block,.about-comp-item,.spec-pill,.contact-link,.timeline-item').forEach(function(el) {
   el.addEventListener('mouseenter', function() { document.body.classList.add('cur-hover'); });
   el.addEventListener('mouseleave', function() { document.body.classList.remove('cur-hover'); });
 });
@@ -2208,6 +2576,7 @@ var secsList = [
   { id: 'projects',  label: 'Projects'  },
   { id: 'skills',    label: 'Skills'    },
   { id: 'journey',   label: 'Journey'   },
+  { id: 'certifications', label: 'Certs'  },
   { id: 'contact',   label: 'Contact'   }
 ];
 sNav._secs = secsList;
@@ -2223,7 +2592,7 @@ secsList.forEach(function(s) {
 document.body.appendChild(sNav);
 
 /* ── MARQUEE STRIP ── */
-var mItems = ['Motor Controller Design','ADCS · EKF · TRIAD','ASIC Design Flow','STM32F4 Firmware','Shell Eco-Marathon','PDEU–ISRO Bharat-G','IoT Systems','RTL to GDSII','4-Layer PCB Design','Synopsys EDA','ESP32 · ESP-Now','Power Electronics','Sensor Fusion','LLM–IoT Integration'];
+var mItems = ['Motor Controller Design','ADCS · EKF · TRIAD','ASIC Design Flow','STM32F4 Firmware','Shell Eco-Marathon 226.76','PDEU–ISRO Bharat-G','IoT Systems','RTL to GDSII','4-Layer PCB Design','Synopsys EDA','ESP32 · ESP-Now','Power Electronics','Sensor Fusion','LLM–IoT Integration'];
 var dividers = document.querySelectorAll('.section-divider');
 if (dividers.length > 1) {
   var strip = document.createElement('div');
@@ -2257,7 +2626,7 @@ var specInfo = {
   motor: {
     icon: '⚙️', title: 'Motor Controller Design', sub: 'Power Electronics · Embedded Control',
     color: '#9b7ffe', grad: 'linear-gradient(90deg,#7c5cfc,#22d3ee)',
-    body: 'Specialised in DTC, FOC, and PID motor controller design. Designed a 4-layer PCB for Team Kaizen BEV achieving 227 km/kWh — 1st India, 5th Asia at Shell Eco-Marathon 2025. Implemented on STM32F4.',
+    body: 'Specialised in DTC, FOC, and PID motor controller design. Designed a 4-layer PCB for Team Kaizen BEV achieving 226.76 km/kWh — 1st India, 5th Asia at Shell Eco-Marathon 2025. Implemented on STM32F4.',
     chips: ['DTC', 'FOC / PID', 'STM32F4', 'Gate Drivers', '4-Layer PCB', 'Thermal Design', 'EMI Mitigation', 'BLDC Motor'],
     hls:  [['227', 'km/kWh efficiency'], ['4-Layer', 'PCB stack'], ['1st', 'India ranking'], ['STM32F4', 'MCU platform']]
   },
